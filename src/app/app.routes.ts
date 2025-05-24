@@ -4,6 +4,10 @@ import { roleGuard } from './core/guards/role.guard';
 
 export const appRoutes: Routes = [
   {
+    path: '',
+    loadComponent: () => import('./features/locations/locations-list/locations-list.component').then((m) => m.LocationsListComponent)
+  },
+  {
     path: 'search',
     loadComponent: () => import('./features/search/search-page.component').then((m) => m.SearchPageComponent)
   },

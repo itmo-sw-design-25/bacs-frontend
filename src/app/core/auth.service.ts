@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import Keycloak, { KeycloakError, KeycloakInstance, KeycloakPromise } from 'keycloak-js';
 import { environment } from '../../environments/environment';
+import { UserInfo } from './models/user-info';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -28,6 +29,20 @@ export class AuthService {
   /** Текущий JWT */
   get token() {
     return this.keycloak.token ?? '';
+  }
+
+  /** Текущий Пользователь */
+  get user() {
+    const userInfo = this.keycloak.tokenParsed as UserInfo;
+
+    if (!userInfo) return undefined;
+
+    return {
+      username: userInfo['preferred_username'],
+      name: userInfo['name'],
+      email: userInfo['email'],
+      picture: userInfo['picture']
+    };
   }
 
   /** Роли */

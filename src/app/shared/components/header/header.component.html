@@ -1,0 +1,43 @@
+<header class="app-header">
+  <div class="container">
+    <a routerLink="/" class="logo">
+      <img
+        ngSrc="https://bacs.space/s3/static/nginx/bacs_logo_large.svg"
+        width="100"
+        height="35"
+        alt="BaCS Logo"
+        class="logo-img"
+      />
+    </a>
+
+    <nav class="nav">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Локации</a>
+      <a routerLink="/reservations" routerLinkActive="active">Резервации</a>
+      <a routerLink="/admin" routerLinkActive="active">Админка</a>
+    </nav>
+
+    <div class="profile" *ngIf="user">
+      <button mat-button [matMenuTriggerFor]="menu" class="profile-button">
+        <img class="avatar" [ngSrc]="user.picture ?? ''" width="32" height="32" alt="avatar" />
+      </button>
+
+      <mat-menu #menu="matMenu" class="custom-profile-menu">
+        <div class="menu-container">
+          <div class="user-block">
+            <img class="avatar-large" [ngSrc]="user.picture ?? ''" width="64" height="64" alt="avatar" />
+            <div class="info">
+              <div class="name">{{ user.name }}</div>
+              <div class="username">&#64;{{ user.username }}</div>
+              <div class="email">{{ user.email }}</div>
+            </div>
+          </div>
+          <mat-divider></mat-divider>
+          <button mat-menu-item (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            <span>Выйти</span>
+          </button>
+        </div>
+      </mat-menu>
+    </div>
+  </div>
+</header>
