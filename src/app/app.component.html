@@ -1,14 +1,43 @@
 <div class="page">
-  <h1>Hello, {{ title }}</h1>
+  <h1 class="page-title">Доступные локации</h1>
 
-  <div class="token-box" (click)="copyToken()">
-    <pre>{{ token || '— токен ещё не получен —' }}</pre>
-    <span class="hint">Нажмите ⌘ / Ctrl+C или кликните, чтобы скопировать</span>
-  </div>
+  <div class="locations-list">
+    <div class="location-card" *ngFor="let location of locations">
+      <img
+        [ngSrc]="location.imageUrl ?? placeholder"
+        width="240"
+        height="160"
+        alt="{{ location.name }}"
+        class="location-image"
+      />
+      <div class="location-info">
+        <h2 class="location-title">{{ location.name }}</h2>
 
-  <div *ngFor="let location of locations">
-    <span>{{ location.name }}</span>
-    <span>{{ location.address }}</span>
-    <img [src]="location.imageUrl" />
+        <p class="location-address">
+          <mat-icon class="icon" fontIcon="location_on"></mat-icon>
+          <a [href]="location.address | address">
+            {{ location.address }}
+          </a>
+        </p>
+
+        <div class="location-description-section">
+          <mat-icon class="icon" fontIcon="info"></mat-icon>
+          {{ location.description || 'Описание отсутствует.' }}
+        </div>
+
+        <p class="location-schedule">
+          <mat-icon class="icon" fontIcon="schedule"></mat-icon>
+          Время работы:
+          {{ location.calendarSettings?.availableFrom | timeTrim }}
+          -
+          {{ location.calendarSettings?.availableTo | timeTrim }}
+        </p>
+
+        <p class="location-days">
+          <mat-icon class="icon" fontIcon="calendar_today"></mat-icon>
+          Дни работы: {{ location.calendarSettings?.availableDaysOfWeek?.join(', ') || 'не указано' }}
+        </p>
+      </div>
+    </div>
   </div>
 </div>

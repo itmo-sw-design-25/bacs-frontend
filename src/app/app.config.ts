@@ -17,7 +17,7 @@ export const appConfig: ApplicationConfig = {
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     AuthService,
     { provide: APP_INITIALIZER, useFactory: initKeycloak, deps: [AuthService], multi: true },
-    importProvidersFrom(ApiModule.forRoot(() => new Configuration({ basePath: environment.apiBaseUrl })))
+    importProvidersFrom(ApiModule.forRoot(() => new Configuration({ basePath: environment.apiBaseUrl, withCredentials: false })))
   ]
 };
 
