@@ -1,1 +1,33 @@
-/* You can add global styles to this file, and also import other style files */
+// Angular Material theming
+@use '@angular/material' as mat;
+@use 'sass:map';
+@use './assets/styles/_theme' as theme; // переменные из Figma
+
+@include mat.core();
+
+// ── Палитры ──
+$bacs-primary: mat.define-palette(mat.$green-palette, 700, 300, 900);
+$bacs-accent: mat.define-palette(mat.$pink-palette, 400);
+
+// ── Тема ──
+$bacs-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $bacs-primary,
+      accent: $bacs-accent,
+    ),
+  )
+);
+
+@include mat.all-component-themes($bacs-theme);
+
+// ── Глобальные стили ──
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Nunito', 'Roboto', Helvetica, Arial, sans-serif;
+}

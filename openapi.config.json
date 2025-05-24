@@ -1,0 +1,8 @@
+{
+  "apiPackage": "services",
+  "modelPackage": "models",
+  "apiNameSuffix": "Service",
+  "operationIdNaming": "camelCase",
+  "supportsES6": true,
+  "withSeparateModelsAndApi": true
+}
