@@ -1,0 +1,38 @@
+@use '../../../assets/styles/_theme.scss' as *;
+
+.results-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.slots {
+  justify-content: space-between;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+  margin-left: 8px;
+}
+
+.slot {
+  padding: 4px 10px;
+  border-radius: 6px;
+  background-color: $green-light;
+  font-size: 0.85rem;
+  color: $green-main;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: $green-secondary;
+    color: $white;
+  }
+}
+
+.no-slots {
+  margin-top: 8px;
+  margin-left: 8px;
+  color: $text-disabled;
+  font-size: 0.95rem;
+}

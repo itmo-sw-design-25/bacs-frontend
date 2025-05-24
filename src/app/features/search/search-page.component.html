@@ -1,1 +1,45 @@
-<p>search-page works!</p>
+<div class="page" *ngIf="location">
+  <div class="search-page">
+    <h1 class="title">Поиск</h1>
+
+    <div class="field office-label">
+      <label>Офис</label>
+      <div class="value">{{ location.name || '—' }}</div>
+    </div>
+
+    <mat-form-field appearance="fill" class="field">
+      <mat-label>Дата</mat-label>
+      <input matInput [matDatepicker]="picker" [formControl]="dateControl" />
+      <mat-datepicker-toggle matSuffix [for]="picker" />
+      <mat-datepicker #picker />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="field">
+      <mat-label>Тип места</mat-label>
+      <mat-select [formControl]="resourceTypeControl">
+        <mat-option *ngFor="let type of resourceTypes" [value]="type">
+          {{ type | resourceType }}
+        </mat-option>
+      </mat-select>
+
+      <button
+        *ngIf="resourceTypeControl.value"
+        mat-icon-button
+        matSuffix
+        aria-label="Очистить фильтр"
+        (click)="resourceTypeControl.setValue(null)"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <button mat-flat-button color="primary" class="search-button" (click)="search()">
+      Найти
+    </button>
+  </div>
+
+  <app-search-results
+    *ngIf="resources != undefined"
+    [resourceSlots]="availableSlotsByResource"
+  ></app-search-results>
+</div>

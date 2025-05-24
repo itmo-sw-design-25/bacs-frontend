@@ -1,0 +1,23 @@
+<div class="page">
+  <h1 class="page-title">Результаты поиска</h1>
+
+  <div class="results-list" *ngIf="resourceSlots.length; else noResources">
+    <div *ngFor="let resourceSlot of resourceSlots">
+      <app-resource-card [resource]="resourceSlot.resource"></app-resource-card>
+
+      <div class="slots" *ngIf="resourceSlot.slots.length; else noSlots">
+        <span class="slot" *ngFor="let slot of resourceSlot.slots">
+          {{ slot.from | reservationSlot }} - {{ slot.to | reservationSlot }}
+        </span>
+      </div>
+
+      <ng-template #noSlots>
+        <p class="no-slots">Нет свободных слотов</p>
+      </ng-template>
+    </div>
+  </div>
+
+  <ng-template #noResources>
+    <p class="no-slots">Нет свободных ресурсов</p>
+  </ng-template>
+</div>

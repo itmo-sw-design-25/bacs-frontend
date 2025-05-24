@@ -14,43 +14,10 @@
   </div>
 
   <div class="locations-list">
-    <div class="location-card" *ngFor="let location of locations">
-      <img
-        [ngSrc]="location.imageUrl ?? placeholder"
-        width="240"
-        height="160"
-        alt="{{ location.name }}"
-        class="location-image"
-      />
-      <div class="location-info">
-        <h2 class="location-title">{{ location.name }}</h2>
-
-        <p class="location-address">
-          <mat-icon class="icon">location_on</mat-icon>
-          <a [href]="location.address | address" target="_blank" rel="noopener">
-            {{ location.address }}
-          </a>
-        </p>
-
-        <div class="location-description-section">
-          <mat-icon class="icon">info</mat-icon>
-          {{ location.description || 'Описание отсутствует.' }}
-        </div>
-
-        <p class="location-schedule">
-          <mat-icon class="icon">schedule</mat-icon>
-          Время работы:
-          {{ location.calendarSettings?.availableFrom | timeTrim }} -
-          {{ location.calendarSettings?.availableTo | timeTrim }}
-        </p>
-
-        <p class="location-days">
-          <mat-icon class="icon">calendar_today</mat-icon>
-          Дни работы:
-          {{ location.calendarSettings?.availableDaysOfWeek?.join(', ') || 'не указано' }}
-        </p>
-      </div>
-    </div>
+    <app-location-card *ngFor="let location of locations"
+                       [location]="location"
+                       (click)="openSearchPage(location.id!)">
+    </app-location-card>
   </div>
 
   <div class="pagination-footer" *ngIf="hasMore">

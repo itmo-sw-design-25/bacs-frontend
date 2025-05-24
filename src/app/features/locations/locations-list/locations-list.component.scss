@@ -1,17 +1,5 @@
 @use '../../../../assets/styles/_theme.scss' as *;
 
-.page {
-  max-width: 960px;
-  margin: 32px auto;
-  padding: 0 16px;
-}
-
-.page-title {
-  font-size: 1.75rem;
-  margin-bottom: 24px;
-  color: $text-main;
-}
-
 .pagination-controls {
   display: flex;
   align-items: center;
@@ -27,69 +15,6 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-}
-
-.location-card {
-  display: flex;
-  gap: 16px;
-  border: 1px solid $green-light;
-  border-radius: 12px;
-  background-color: $white;
-  padding: 16px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-  }
-}
-
-.location-image {
-  border-radius: 8px;
-  object-fit: cover;
-  background-color: $bg-disabled;
-}
-
-.location-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  flex: 1;
-}
-
-.location-title {
-  font-size: 1.25rem;
-  margin: 0;
-  color: $green-main;
-}
-
-.location-address,
-.location-schedule,
-.location-days {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.95rem;
-  color: $text-extra;
-  margin: 4px 0;
-}
-
-.location-description-section {
-  background: $green-light;
-  padding: 8px 12px;
-  border-radius: 8px;
-  color: $text-main;
-  margin: 8px 0;
-  font-size: 0.95rem;
-  display: flex;
-  align-items: flex-start;
-  gap: 6px;
-}
-
-.icon {
-  font-size: 20px;
-  color: $green-secondary;
 }
 
 .filters-bar {

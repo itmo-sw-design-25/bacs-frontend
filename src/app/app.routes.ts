@@ -1,15 +1,15 @@
 import { Routes } from '@angular/router';
-import { authGuard } from './core/guards/auth.guard';
-import { roleGuard } from './core/guards/role.guard';
+import { authGuard } from '@core/guards/auth.guard';
+import { roleGuard } from '@core/guards/role.guard';
 
 export const appRoutes: Routes = [
   {
-    path: '',
+    path: 'locations',
     loadComponent: () => import('./features/locations/locations-list/locations-list.component').then((m) => m.LocationsListComponent)
   },
   {
-    path: 'search',
-    loadComponent: () => import('./features/search/search-page.component').then((m) => m.SearchPageComponent)
+    path: 'search/:locationId',
+    loadComponent: () => import('./features/search/search-page.component').then(m => m.SearchPageComponent)
   },
   {
     path: 'reservations',
@@ -21,5 +21,7 @@ export const appRoutes: Routes = [
     path: 'admin',
     loadComponent: () => import('./features/admin/admin-dashboard.component').then((m) => m.AdminDashboardComponent),
     canActivate: [roleGuard]
-  }
+  },
+  { path: '', redirectTo: 'locations', pathMatch: 'full' },
+  { path: '**', redirectTo: 'locations' }
 ];

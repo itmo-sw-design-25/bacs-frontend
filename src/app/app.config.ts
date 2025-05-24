@@ -4,11 +4,12 @@ import { provideRouter } from '@angular/router';
 
 import { appRoutes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { AuthService } from './core/auth.service';
+import { AuthService } from '@core/auth.service';
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { AuthInterceptor } from './core/interceptors/auth.interceptor';
-import { ApiModule, Configuration } from './core/api';
+import { AuthInterceptor } from '@core/interceptors/auth.interceptor';
+import { ApiModule, Configuration } from '@core/api';
 import { environment } from '../environments/environment';
+import { provideNativeDateAdapter } from '@angular/material/core';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -22,7 +23,8 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(ApiModule.forRoot(() => new Configuration({
       basePath: environment.apiBaseUrl,
       withCredentials: false
-    })))
+    }))),
+    provideNativeDateAdapter()
   ]
 };
 
