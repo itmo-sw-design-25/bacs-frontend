@@ -15,8 +15,6 @@ import { MatIcon } from '@angular/material/icon';
 import { AddressPipe } from '@shared/pipes/address.pipe';
 import { ResourceTypePipe } from '@shared/pipes/resource-type.pipe';
 import { MatTooltip } from '@angular/material/tooltip';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { SuccessSnackbarComponent } from '@shared/components/snackbar/success-snackbar/success-snackbar.component';
 
 @Component({
   selector: 'app-reservation-card',
@@ -46,7 +44,7 @@ export class ReservationCardComponent {
   @Output() onCreated = new EventEmitter<ReservationDto>();
   @Output() onUpdated = new EventEmitter<ReservationDto>();
 
-  constructor(private dialog: MatDialog, private snackBar: MatSnackBar) {
+  constructor(private dialog: MatDialog) {
   }
 
   get isUpcoming(): boolean {
@@ -65,12 +63,7 @@ export class ReservationCardComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (!result.isSuccess) return;
-
       this.onCancelled.emit(this.reservation.id!);
-
-      this.snackBar.openFromComponent(SuccessSnackbarComponent, {
-        data: { message: 'Резервация успешно отменена!' }
-      });
     });
   }
 
@@ -88,12 +81,7 @@ export class ReservationCardComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (!result.isSuccess) return;
-
       this.onCreated.emit(result.reservation);
-
-      this.snackBar.openFromComponent(SuccessSnackbarComponent, {
-        data: { message: 'Резервация успешно создана!' }
-      });
     });
   }
 
@@ -112,12 +100,7 @@ export class ReservationCardComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (!result.isSuccess) return;
-
       this.onUpdated.emit(result.reservation);
-
-      this.snackBar.openFromComponent(SuccessSnackbarComponent, {
-        data: { message: 'Резервация успешно обновлена!' }
-      });
     });
   }
 

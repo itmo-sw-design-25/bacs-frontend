@@ -20,6 +20,8 @@ import { ReservationsService } from '@api/services/reservations.service';
 import { CreateReservationRequest } from '@api/models/createReservationRequest';
 import { UpdateReservationRequest } from '@api/models/updateReservationRequest';
 import { formatTime } from '@shared/utils/date.utils';
+import { SuccessSnackbarComponent } from '@shared/components/snackbar/success-snackbar/success-snackbar.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-reservation-create-dialog',
@@ -53,6 +55,7 @@ export class ReservationCreateDialogComponent {
 
   constructor(
     private reservationsService: ReservationsService,
+    private snackBar: MatSnackBar,
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<ReservationCreateDialogComponent>,
     @Inject(MAT_DIALOG_DATA)
@@ -94,6 +97,11 @@ export class ReservationCreateDialogComponent {
     from.setHours(fromHours, fromMinutes, 0);
     to.setHours(toHours, toMinutes, 0);
 
+    // если конец бронирования - 00:00, то обновляем дату окончания бронирования
+    if (to.getHours() == 0 && to.getMinutes() == 0) {
+      to.setDate(to.getDate() + 1);
+    }
+
     switch (this.data.mode) {
       case 'create':
       case 'repeat':
@@ -106,7 +114,13 @@ export class ReservationCreateDialogComponent {
 
         this.reservationsService.reservationsPost(createRequest)
           .subscribe({
-            next: (reservation) => this.dialogRef.close({ isSuccess: true, reservation: reservation }),
+            next: (reservation) => {
+              this.snackBar.openFromComponent(SuccessSnackbarComponent, {
+                data: { message: 'Резервация успешно создана!' }
+              });
+
+              this.dialogRef.close({ isSuccess: true, reservation: reservation });
+            },
             error: () => this.dialogRef.close({ isSuccess: false })
           });
 
@@ -119,7 +133,12 @@ export class ReservationCreateDialogComponent {
 
         this.reservationsService.reservationsReservationIdPut(this.data.reservation?.id!, updateRequest)
           .subscribe({
-            next: (reservation) => this.dialogRef.close({ isSuccess: true, reservation: reservation }),
+            next: (reservation) => {
+              this.snackBar.openFromComponent(SuccessSnackbarComponent, {
+                data: { message: 'Резервация успешно обновлена!' }
+              });
+              this.dialogRef.close({ isSuccess: true, reservation: reservation });
+            },
             error: () => this.dialogRef.close({ isSuccess: false })
           });
 
@@ -132,20 +151,28 @@ export class ReservationCreateDialogComponent {
   }
 
   private calculateSlots(location: LocationDto | undefined) {
-    const calendarSettings = location?.calendarSettings!;
+    if (!location?.calendarSettings) return;
 
-    const [fromHours, fromMinutes] = calendarSettings.availableFrom!.split(':');
-    const [toHours, toMinutes] = calendarSettings.availableTo!.split(':');
+    const calendarSettings = location.calendarSettings;
 
-    const start = Number(fromHours) * 60 + Number(fromMinutes);
-    const end = Number(toHours) * 60 + Number(toMinutes);
+    const [fromHours, fromMinutes] = calendarSettings.availableFrom!.split(':').map(Number);
+    const [toHours, toMinutes] = calendarSettings.availableTo!.split(':').map(Number);
+
+    const date = new Date(); // сегодняшняя дата
+
+    // Время начала и конца в UTC
+    const startUtc = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), fromHours, fromMinutes));
+    const endUtc = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), toHours, toMinutes));
+
     const step = this.minReservationTime;
+    const slots: Date[] = [];
 
-    for (let mins = start; mins <= end; mins += step) {
-      const hours = Math.floor(mins / 60);
-      const minutes = mins % 60;
-      const formatted = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
-      this.timeSlots.push(formatted);
+    let current = new Date(startUtc);
+    while (current <= endUtc) {
+      slots.push(new Date(current));
+      current = new Date(current.getTime() + step * 60 * 1000); // шаг в минутах
     }
+
+    this.timeSlots = slots.map(date => formatTime(date));
   }
 }

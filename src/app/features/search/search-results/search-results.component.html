@@ -6,8 +6,14 @@
       <app-resource-card [resource]="resourceSlot.resource"></app-resource-card>
 
       <div class="slots" *ngIf="resourceSlot.slots.length; else noSlots">
-        <span class="slot" *ngFor="let slot of resourceSlot.slots">
-          {{ slot.from | reservationSlot }} - {{ slot.to | reservationSlot }}
+        <span
+          class="slot"
+          *ngFor="let slot of resourceSlot.slots"
+          [class.selected]="isSlotSelected(slot, resourceSlot.resource.id!)"
+          (click)="onSlotClick(slot, resourceSlot)"
+          (mouseenter)="onSlotHover(slot, resourceSlot.resource.id!)"
+        >
+          {{ slot.from | date: 'HH:mm' }} - {{ slot.to | date: 'HH:mm' }}
         </span>
       </div>
 

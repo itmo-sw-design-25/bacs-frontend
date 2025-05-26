@@ -15,8 +15,6 @@ export class ErrorInterceptor implements HttpInterceptor {
         if (error.error && typeof error.error === 'object') {
           const problemDetails = error.error;
 
-          debugger
-
           this.snackBar.openFromComponent(ErrorSnackbarComponent, {
             data: {
               title: problemDetails.title,

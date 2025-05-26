@@ -28,6 +28,11 @@
     background-color: $green-secondary;
     color: $white;
   }
+
+  &.selected {
+    background-color: $green-main;
+    color: $white;
+  }
 }
 
 .no-slots {

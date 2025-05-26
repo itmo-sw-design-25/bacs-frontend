@@ -87,24 +87,8 @@ export class SearchPageComponent implements OnInit {
         switchMap(resources => {
           return this.getReservations(from, to, resources.map(x => x.id!));
         }),
-        tap(reservations => this.availableSlotsByResource = this.findSlots(from, to, reservations))
+        tap(reservations => this.availableSlotsByResource = this.findSlots(from, reservations))
       ).subscribe();
-
-    // // есть щас
-    // this.reservationsService.reservationsGet(
-    //   [],
-    //   [],
-    //   [this.locationId],
-    //   [],
-    //   [ReservationStatus.Created],
-    //   from,
-    //   to,
-    //   0,
-    //   100
-    // ).subscribe(res => {
-    //   const reservations = res.collection ?? [];
-    //   this.availableSlotsByResource = this.findSlots(from, to, reservations);
-    // });
   }
 
   private getResources() {
@@ -116,15 +100,15 @@ export class SearchPageComponent implements OnInit {
       );
   }
 
-  private getReservations(from: string, to: string, resourceIds: string[] | undefined) {
+  private getReservations(from: Date, to: Date, resourceIds: string[] | undefined) {
     return this.reservationsService.reservationsGet(
       [],
       [],
       [this.locationId],
       resourceIds ?? [],
       [ReservationStatus.Created],
-      from,
-      to,
+      from.toISOString(),
+      to.toISOString(),
       0,
       100
     ).pipe(
@@ -132,8 +116,7 @@ export class SearchPageComponent implements OnInit {
     );
   }
 
-  private findSlots(from: string, to: string, reservations: ReservationDto[]) {
-    // группировка резерваций по resourceId
+  private findSlots(date: Date, reservations: ReservationDto[]) {
     const busyByResource = new Map<string, Array<{ from: Date; to: Date }>>();
     reservations.forEach(r => {
       const resourceId = r.resourceId!;
@@ -142,34 +125,44 @@ export class SearchPageComponent implements OnInit {
     });
 
     const slotSizeMinutes = this.minReservationTime;
+    const calendarSettings = this.location.calendarSettings!;
+    const availableFrom = calendarSettings.availableFrom!;
+    const availableTo = calendarSettings.availableTo!;
+
     const slotsPerResource: ResourceSlots[] = [];
 
     this.resources?.forEach(resource => {
       const resourceId = resource.id!;
-      const availableFrom = new Date(from);
-      const availableTo = new Date(to);
+      const dayStart = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
+
+      const [startHour, startMin] = availableFrom.split(':').map(Number);
+      const [endHour, endMin] = availableTo.split(':').map(Number);
+
+      const availableFromUTC = new Date(dayStart);
+      availableFromUTC.setUTCHours(startHour, startMin);
+
+      const availableToUTC = new Date(dayStart);
+      availableToUTC.setUTCHours(endHour, endMin);
 
       const busy = busyByResource.get(resourceId) || [];
 
       const slots: Slot[] = [];
+      let current = new Date(availableFromUTC);
 
-      let current = new Date(availableFrom);
-      while (current < availableTo) {
+      while (current < availableToUTC) {
         const end = new Date(current.getTime() + slotSizeMinutes * 60000);
 
-        const isFree = !busy.some(b =>
-          (current < b.to && end > b.from) // пересечение интервалов
-        );
+        if (end > availableToUTC) break;
 
-        if (isFree) {
-          slots.push({ from: new Date(current).toISOString(), to: new Date(end).toISOString() });
-        }
+        const isFree = !busy.some(b => current < b.to && end > b.from);
+
+        if (isFree) slots.push({ from: current, to: end });
 
         current = end;
       }
 
       if (slots.length > 0) {
-        slotsPerResource.push({ resource, slots });
+        slotsPerResource.push({ resource, location: this.location, slots });
       }
     });
 
