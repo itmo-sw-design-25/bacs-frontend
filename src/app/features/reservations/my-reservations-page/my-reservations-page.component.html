@@ -1,0 +1,46 @@
+<div class="reservations-page">
+  <h1 class="page-title">Мои резервации</h1>
+
+  <mat-tab-group [selectedIndex]="currentTab === 'upcoming' ? 0 : 1"
+                 (selectedIndexChange)="switchTab($event === 0 ? 'upcoming' : 'past')">
+  >
+    <mat-tab label="Предстоящие"></mat-tab>
+    <mat-tab label="Прошедшие"></mat-tab>
+  </mat-tab-group>
+
+  <div class="filters-bar">
+    <mat-form-field appearance="fill">
+      <mat-label>Показывать по</mat-label>
+      <mat-select [formControl]="limitControl" (valueChange)="changeLimit($event)">
+        <mat-option *ngFor="let opt of limitOptions" [value]="opt">
+          {{ opt }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="reservations-list">
+    <app-reservation-card
+      *ngFor="let reservationFull of displayedReservations"
+      [reservation]="reservationFull.reservation"
+      [location]="reservationFull.location"
+      [resource]="reservationFull.resource"
+      (onCreated)="onReservationCreated($event)"
+      (onUpdated)="onReservationUpdated($event)"
+      (onCancelled)="onReservationCancelled($event)"
+    >
+    </app-reservation-card>
+  </div>
+
+  <div class="pagination-footer" *ngIf="hasMore">
+    <button
+      mat-flat-button
+      color="primary"
+      class="load-button"
+      (click)="loadMore()"
+      [disabled]="isLoading"
+    >
+      {{ isLoading ? 'Загрузка...' : 'Показать ещё' }}
+    </button>
+  </div>
+</div>

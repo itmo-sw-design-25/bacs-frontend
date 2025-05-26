@@ -1,0 +1,48 @@
+<h2 mat-dialog-title>
+  {{ isEditMode ? 'Редактирование резервации' : 'Создание резервации' }}
+</h2>
+
+<mat-dialog-content [formGroup]="form" class="dialog-content">
+  <mat-form-field appearance="fill">
+    <mat-label>Локация</mat-label>
+    <input matInput formControlName="location" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Ресурс</mat-label>
+    <input matInput formControlName="resource" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="field">
+    <mat-label>Дата</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="date" />
+    <mat-datepicker-toggle matSuffix [for]="picker" />
+    <mat-datepicker #picker />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Начало</mat-label>
+    <mat-select formControlName="fromTime">
+      <mat-option *ngFor="let time of timeSlots" [value]="time">
+        {{ time }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Окончание</mat-label>
+    <mat-select formControlName="toTime">
+      <mat-option *ngFor="let time of timeSlots" [value]="time">
+        {{ time }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Отмена</button>
+  <button mat-flat-button color="primary" (click)="confirm()">
+    {{ isEditMode ? 'Сохранить' : 'Забронировать' }}
+  </button>
+</mat-dialog-actions>

@@ -14,14 +14,13 @@ import { DayOfWeekPipe } from '@shared/pipes/day-of-week.pipe';
     MatIcon,
     NgOptimizedImage,
     TimeTrimPipe,
-    DayOfWeekPipe,
     NgIf
   ],
   templateUrl: './location-card.component.html',
   styleUrl: './location-card.component.scss'
 })
 export class LocationCardComponent {
-  readonly noImage = 'https://placehold.co/240x160?text=No+Image';
+  readonly noImage = 'https://bacs.space/s3/static/front/no-image-placeholder.svg';
 
   @Input() location!: LocationDto;
 

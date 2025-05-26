@@ -1,0 +1,63 @@
+<div class="reservation-card">
+  <div class="image-wrapper">
+    <img
+      [ngSrc]="resource.imageUrl || noImage"
+      width="160"
+      height="120"
+      alt="{{ resource.name }}"
+      class="reservation-image"
+    />
+  </div>
+
+  <div class="reservation-content">
+    <div class="location-block">
+      <div class="location-name">{{ location.name + ", " + resource.floor + " этаж" }}</div>
+      <div class="location-address">
+        <mat-icon class="icon">location_on</mat-icon>
+        <a [href]="location.address | address" target="_blank" rel="noopener" (click)="$event.stopPropagation()">
+          {{ location.address }}
+        </a>
+      </div>
+    </div>
+
+    <div class="details-two-column">
+      <div class="column">
+        <div class="detail">
+          <mat-icon class="icon">calendar_today</mat-icon>
+          {{ reservation.from | date: 'd MMM y' }}
+        </div>
+        <div class="detail">
+          <mat-icon class="icon">schedule</mat-icon>
+          {{ reservation.from | date: 'HH:mm' }} – {{ reservation.to | date: 'HH:mm' }}
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="detail">
+          <mat-icon class="icon">meeting_room</mat-icon>
+          {{ resource.name }}
+        </div>
+        <div class="detail">
+          <mat-icon class="icon">category</mat-icon>
+          {{ resource.type | resourceType }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="reservation-actions">
+    <span class="reservation-status" [ngClass]="reservation.status === 'Cancelled' ? 'cancelled' : 'created'">
+      {{ reservation.status === 'Cancelled' ? 'Отменена' : 'Активна' }}
+    </span>
+
+    <button mat-icon-button *ngIf="isUpcoming" (click)="openCancelDialog()" matTooltip="Отменить">
+      <mat-icon color="warn">cancel</mat-icon>
+    </button>
+    <button mat-icon-button *ngIf="isUpcoming" (click)="openEditDialog()" matTooltip="Редактировать">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button *ngIf="canRepeat" (click)="openRepeatDialog()" matTooltip="Повторить">
+      <mat-icon>repeat</mat-icon>
+    </button>
+  </div>
+</div>

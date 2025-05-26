@@ -6,7 +6,7 @@ import { MatButton } from '@angular/material/button';
 import { LocationDto } from '@api/models/locationDto';
 import { LocationsService } from '@api/services/locations.service';
 import { Router } from '@angular/router';
-import { LocationCardComponent } from '@shared/components/location-card/location-card.component';
+import { LocationCardComponent } from '@shared/components/location/location-card/location-card.component';
 
 @Component({
   selector: 'app-locations-list',

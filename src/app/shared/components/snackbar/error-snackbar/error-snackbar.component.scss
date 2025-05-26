@@ -1,0 +1,37 @@
+@use '../../../../../assets/styles/theme' as *;
+
+.error-snackbar {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background-color: $pink-light;
+  color: $text-main;
+  padding: 16px 20px;
+  border-left: 4px solid $pink-main;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 420px;
+
+  .icon {
+    color: $pink-main;
+    font-size: 24px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .text-content {
+    flex: 1;
+
+    .title {
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: $green-main;
+    }
+
+    .message {
+      font-size: 0.95rem;
+      color: $text-main;
+      white-space: pre-line;
+    }
+  }
+}

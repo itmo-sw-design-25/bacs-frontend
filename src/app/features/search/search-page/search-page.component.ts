@@ -15,7 +15,7 @@ import { ResourcesService } from '@api/services/resources.service';
 import { map, switchMap, tap } from 'rxjs';
 import { ResourceDto } from '@api/models/resourceDto';
 import { ResourceSlots, Slot } from '@core/models/resource-slots';
-import { SearchResultsComponent } from '@features/search-results/search-results.component';
+import { SearchResultsComponent } from '@features/search/search-results/search-results.component';
 import { LocationDto } from '@api/models/locationDto';
 import { LocationsService } from '@api/services/locations.service';
 import { ResourceType } from '@api/models/resourceType';
@@ -43,7 +43,7 @@ import { ReservationDto } from '@api/models/reservationDto';
   styleUrls: ['./search-page.component.scss']
 })
 export class SearchPageComponent implements OnInit {
-  readonly minimumReservationTime = 30;
+  readonly minReservationTime = 30;
 
   dateControl = new FormControl(new Date());
   resourceTypeControl = new FormControl();
@@ -141,7 +141,7 @@ export class SearchPageComponent implements OnInit {
       busyByResource.get(resourceId)!.push({ from: new Date(r.from!), to: new Date(r.to!) });
     });
 
-    const slotSizeMinutes = this.minimumReservationTime;
+    const slotSizeMinutes = this.minReservationTime;
     const slotsPerResource: ResourceSlots[] = [];
 
     this.resources?.forEach(resource => {

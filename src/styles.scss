@@ -11,12 +11,12 @@ $bacs-accent: mat.define-palette(mat.$pink-palette, 400);
 
 // ── Тема ──
 $bacs-theme: mat.define-light-theme(
-  (
-    color: (
-      primary: $bacs-primary,
-      accent: $bacs-accent,
-    ),
-  )
+    (
+      color: (
+        primary: $bacs-primary,
+        accent: $bacs-accent,
+      ),
+    )
 );
 
 @include mat.all-component-themes($bacs-theme);
@@ -32,6 +32,7 @@ body {
   font-family: 'Nunito', 'Roboto', Helvetica, Arial, sans-serif;
 }
 
+// ── Лейаут страницы ──
 .page {
   max-width: 960px;
   margin: 32px auto;
@@ -42,4 +43,15 @@ body {
   font-size: 1.75rem;
   margin-bottom: 24px;
   color: theme.$text-main;
+}
+
+// ── Meterial табы ──
+.mat-tab-label {
+  color: theme.$text-extra;
+  font-weight: 500;
+
+  &.mat-tab-label-active {
+    color: theme.$green-main;
+    border-bottom: 2px solid theme.$green-main;
+  }
 }

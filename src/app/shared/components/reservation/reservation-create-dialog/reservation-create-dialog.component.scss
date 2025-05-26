@@ -1,0 +1,19 @@
+@use '../../../../../assets/styles/_theme.scss' as *;
+
+.dialog-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 8px;
+
+  mat-form-field {
+    width: 100%;
+  }
+}
+
+::ng-deep .mat-dialog-container {
+  border-radius: 16px;
+  padding: 32px;
+  max-width: 500px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}

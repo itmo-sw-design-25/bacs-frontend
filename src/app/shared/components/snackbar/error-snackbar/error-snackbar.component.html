@@ -1,0 +1,14 @@
+<div class="error-snackbar">
+  <mat-icon class="icon">error_outline</mat-icon>
+  <div class="text-content">
+    <div class="title">{{ data.title }}</div>
+    <div class="message">{{ data.message }}</div>
+    <div *ngIf="data.errors" class="error-messages">
+      <div *ngFor="let entry of validationErrors">
+        <span *ngFor="let message of entry.messages">
+          {{ message }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ResourceDto } from '@core/api/models/resourceDto';
+import { ResourceDto } from '@api/models/resourceDto';
 import { NgIf, NgOptimizedImage } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { ResourceTypePipe } from '@shared/pipes/resource-type.pipe';
@@ -17,7 +17,7 @@ import { ResourceTypePipe } from '@shared/pipes/resource-type.pipe';
   styleUrls: ['./resource-card.component.scss']
 })
 export class ResourceCardComponent {
-  readonly noImage = 'https://placehold.co/240x160?text=No+Image';
+  readonly noImage = 'https://bacs.space/s3/static/front/no-image-placeholder.svg';
 
   @Input() resource!: ResourceDto;
 }

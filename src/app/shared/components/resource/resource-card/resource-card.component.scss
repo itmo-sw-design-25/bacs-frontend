@@ -1,6 +1,6 @@
-@use '../../../../assets/styles/_theme.scss' as *;
+@use '../../../../../assets/styles/theme' as *;
 
-.location-card {
+.resource-card {
   display: flex;
   gap: 16px;
   border: 1px solid $green-light;
@@ -9,7 +9,6 @@
   padding: 16px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  cursor: pointer;
 
   &:hover {
     transform: translateY(-2px);
@@ -17,51 +16,40 @@
   }
 }
 
-.location-image {
+.resource-image {
   border-radius: 8px;
   object-fit: cover;
   background-color: $bg-disabled;
 }
 
-.location-info {
+.resource-info {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   flex: 1;
+  justify-content: center;
 }
 
-.location-title {
+.resource-title {
   font-size: 1.25rem;
-  margin: 0;
+  margin: 0 0 8px;
   color: $green-main;
 }
 
-.location-address,
-.location-schedule,
-.location-days {
+.resource-detail {
   display: flex;
   align-items: center;
   gap: 6px;
   font-size: 0.95rem;
-  color: $text-extra;
-  margin: 4px 0;
-}
-
-.location-description-section {
-  background: $green-light;
-  padding: 8px 12px;
-  border-radius: 8px;
   color: $text-main;
-  margin: 8px 0;
-  font-size: 0.95rem;
-  display: flex;
-  align-items: flex-start;
-  gap: 6px;
+  margin: 4px 0;
+  background-color: $green-light;
+  padding: 6px 10px;
+  border-radius: 6px;
 }
 
 .icon {
   display: flex;
   align-items: center;
-  font-size: 20px;
+  font-size: 18px;
   color: $green-secondary;
 }

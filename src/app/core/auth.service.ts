@@ -22,8 +22,9 @@ export class AuthService {
     return this.keycloak.init({
       onLoad: 'login-required',
       flow: 'standard',
-      checkLoginIframe: false
-    });
+      checkLoginIframe: false,
+      scope: environment.keycloakClientId
+    } as Keycloak.KeycloakInitOptions);
   }
 
   /** Текущий JWT */
@@ -38,6 +39,7 @@ export class AuthService {
     if (!userInfo) return undefined;
 
     return {
+      user_id: userInfo['sub'],
       username: userInfo['preferred_username'],
       name: userInfo['name'],
       email: userInfo['email'],
