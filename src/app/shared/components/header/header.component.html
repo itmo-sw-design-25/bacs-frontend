@@ -16,7 +16,7 @@
       <a routerLink="/admin" routerLinkActive="active">Админка</a>
     </nav>
 
-    <div class="profile" *ngIf="user">
+    <div class="profile" *ngIf="user" (click)="getUserInfo()">
       <button mat-button [matMenuTriggerFor]="menu" class="profile-button">
         <img class="avatar" [ngSrc]="user.picture ?? ''" width="32" height="32" alt="avatar" />
       </button>
@@ -28,10 +28,35 @@
             <div class="info">
               <div class="name">{{ user.name }}</div>
               <div class="username">&#64;{{ user.username }}</div>
-              <div class="email">{{ user.email }}</div>
             </div>
           </div>
+
           <mat-divider></mat-divider>
+
+          <div class="email-section">
+            <div class="email" (click)="$event.stopPropagation()">
+              <label class="email-label" for="emailInput">Email-адрес</label>
+              <input
+                [(ngModel)]="email" class="email-input"
+                (ngModelChange)="onEmailChange($event)"
+                id="emailInput"
+                placeholder="Email"
+                type="email"
+              />
+            </div>
+
+            <mat-checkbox
+              [(ngModel)]="enableEmailNotifications"
+              (ngModelChange)="onEmailNotificationsChange($event)"
+              (click)="$event.stopPropagation()"
+              class="email-checkbox"
+            >
+              Присылать уведомления
+            </mat-checkbox>
+          </div>
+
+          <mat-divider></mat-divider>
+
           <button mat-menu-item (click)="logout()">
             <mat-icon>logout</mat-icon>
             <span>Выйти</span>

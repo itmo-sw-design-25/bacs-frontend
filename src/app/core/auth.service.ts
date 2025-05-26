@@ -42,7 +42,6 @@ export class AuthService {
       user_id: userInfo['sub'],
       username: userInfo['preferred_username'],
       name: userInfo['name'],
-      email: userInfo['email'],
       picture: userInfo['picture']
     };
   }
