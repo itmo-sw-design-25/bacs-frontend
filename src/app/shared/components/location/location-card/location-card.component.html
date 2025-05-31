@@ -1,4 +1,14 @@
 <div class="location-card" *ngIf="location">
+  <button
+    mat-icon-button
+    class="edit-button"
+    matTooltip="Редактировать локацию"
+    [routerLink]="['/admin/locations', location.id]"
+    (click)="$event.stopPropagation()"
+  >
+    <mat-icon>edit</mat-icon>
+  </button>
+
   <img
     [ngSrc]="location.imageUrl ?? noImage"
     width="240"

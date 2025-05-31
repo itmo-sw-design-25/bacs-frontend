@@ -1,0 +1,6 @@
+<div class="location-edit-page" *ngIf="location">
+  <h1 class="title">Редактирование локации</h1>
+
+  <app-location-edit-form [location]="location" />
+  <app-resource-list [locationId]="location.id!" />
+</div>

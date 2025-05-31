@@ -5,6 +5,9 @@ import { NgIf, NgOptimizedImage } from '@angular/common';
 import { TimeTrimPipe } from '@shared/pipes/trim-time.pipe';
 import { LocationDto } from '@api/models/locationDto';
 import { DayOfWeekPipe } from '@shared/pipes/day-of-week.pipe';
+import { RouterLink } from '@angular/router';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-location-card',
@@ -14,7 +17,10 @@ import { DayOfWeekPipe } from '@shared/pipes/day-of-week.pipe';
     MatIcon,
     NgOptimizedImage,
     TimeTrimPipe,
-    NgIf
+    NgIf,
+    RouterLink,
+    MatIconButton,
+    MatTooltip
   ],
   templateUrl: './location-card.component.html',
   styleUrl: './location-card.component.scss'

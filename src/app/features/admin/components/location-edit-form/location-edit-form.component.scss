@@ -1,0 +1,52 @@
+@use '../../../../../assets/styles/theme' as *;
+
+.location-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 2rem;
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  .time-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+
+    mat-form-field {
+      flex: 1;
+    }
+  }
+
+  .upload-row {
+    display: flex;
+    align-items: center;
+
+    input[type="file"] {
+      font-size: 0.95rem;
+    }
+  }
+}
+
+.image-preview-wrapper {
+  margin: 16px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+
+  .location-image {
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid $green-light;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  .upload-row input[type='file'] {
+    padding: 6px 0;
+    font-size: 0.9rem;
+  }
+}
+

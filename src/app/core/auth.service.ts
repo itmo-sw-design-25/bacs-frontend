@@ -52,7 +52,7 @@ export class AuthService {
   }
 
   get isSuperAdmin() {
-    return (this.keycloak.tokenParsed as any)?.superadmin === true;
+    return this.keycloak.hasRealmRole('bacs-super-admin');
   }
 
   /** Логаут */

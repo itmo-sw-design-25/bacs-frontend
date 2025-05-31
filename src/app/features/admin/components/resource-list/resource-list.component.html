@@ -1,0 +1,29 @@
+<div class="resource-list">
+  <div class="resource-list-header">
+    <h2>Ресурсы локации</h2>
+    <button mat-flat-button color="primary" (click)="createResource()">
+      <mat-icon>add</mat-icon>
+      Добавить ресурс
+    </button>
+  </div>
+
+  <div class="resource-list-content">
+    <ng-container *ngFor="let resource of resources">
+      <app-resource-card
+        [resource]="resource"
+        (click)="editResource(resource)"
+        class="resource-card-clickable"
+      ></app-resource-card>
+
+      <button
+        mat-icon-button
+        color="warn"
+        (click)="deleteResource(resource)"
+        class="delete-button"
+        matTooltip="Удалить ресурс"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </ng-container>
+  </div>
+</div>

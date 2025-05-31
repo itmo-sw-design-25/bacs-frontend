@@ -1,0 +1,14 @@
+@use '../../../../../assets/styles/theme' as *;
+
+.location-edit-page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px;
+
+  .title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: $green-main;
+    margin-bottom: 24px;
+  }
+}

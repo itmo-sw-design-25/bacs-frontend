@@ -20,7 +20,13 @@ export const appRoutes: Routes = [
   {
     path: 'admin',
     loadComponent: () => import('@features/admin/admin-dashboard.component').then((m) => m.AdminDashboardComponent),
-    canActivate: [roleGuard]
+    canActivate: [roleGuard],
+    data: { roles: ['admin', 'bacs-super-admin'] }
+  },
+  {
+    path: 'admin/locations/:id',
+    loadComponent: () => import('@features/admin/pages/location-edit-page/location-edit-page.component')
+      .then(m => m.LocationEditPageComponent)
   },
   { path: '', redirectTo: 'locations', pathMatch: 'full' },
   { path: '**', redirectTo: 'locations' }

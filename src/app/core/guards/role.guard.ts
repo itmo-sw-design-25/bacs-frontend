@@ -13,5 +13,6 @@ export const roleGuard: CanActivateFn = (route: ActivatedRouteSnapshot) => {
   if (allowed.includes('admin') && auth.isAdmin) return true;
 
   router.navigate(['/']);
+
   return false;
 };

@@ -1,0 +1,47 @@
+<h2 mat-dialog-title>
+  {{ data.mode === 'edit' ? 'Редактировать ресурс' : 'Создать ресурс' }}
+</h2>
+
+<mat-dialog-content [formGroup]="form" class="form-content">
+  <mat-form-field>
+    <mat-label>Название</mat-label>
+    <input matInput formControlName="name" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Описание</mat-label>
+    <textarea matInput formControlName="description"></textarea>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Этаж</mat-label>
+    <input matInput type="number" formControlName="floor" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Тип ресурса</mat-label>
+    <mat-select formControlName="type">
+      <mat-option *ngFor="let type of resourceTypes" [value]="type">
+        {{ type | resourceType }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Оборудование</mat-label>
+    <textarea
+      matInput
+      [value]="equipment.join('\n')"
+      (input)="onEquipmentInput($event)"
+      rows="4"
+    ></textarea>
+  </mat-form-field>
+
+
+  <input type="file" (change)="onFileSelected($event)" />
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Отмена</button>
+  <button mat-flat-button color="primary" (click)="save()">Сохранить</button>
+</mat-dialog-actions>

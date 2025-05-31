@@ -1,0 +1,36 @@
+@use '../../../../../assets/styles/theme' as *;
+
+.resource-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  .resource-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h2 {
+      margin: 0;
+      font-size: 1.25rem;
+      color: $green-main;
+    }
+  }
+
+  .resource-list-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .resource-card-clickable {
+      cursor: pointer;
+      position: relative;
+    }
+
+    .delete-button {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+    }
+  }
+}

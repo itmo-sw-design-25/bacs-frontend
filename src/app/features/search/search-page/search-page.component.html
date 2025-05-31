@@ -2,10 +2,10 @@
   <div class="search-page">
     <h1 class="title">Поиск</h1>
 
-    <div class="field office-label">
-      <label>Офис</label>
-      <div class="value">{{ location.name || '—' }}</div>
-    </div>
+    <mat-form-field appearance="fill" class="field">
+      <mat-label>Офис</mat-label>
+      <input matInput [value]="location.name" [disabled]="true"/>
+    </mat-form-field>
 
     <mat-form-field appearance="fill" class="field">
       <mat-label>Дата</mat-label>

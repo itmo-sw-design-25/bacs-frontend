@@ -1,0 +1,61 @@
+<form [formGroup]="form" class="location-form" (ngSubmit)="save()">
+  <div class="image-preview-wrapper">
+    <img
+      [ngSrc]="location.imageUrl ?? noImage"
+      width="800"
+      height="600"
+      alt="Фото локации"
+      class="location-image"
+    />
+
+    <div class="upload-row">
+      <input type="file" (change)="onFileSelected($event)" />
+    </div>
+  </div>
+
+  <mat-form-field>
+    <mat-label>Название</mat-label>
+    <input matInput formControlName="name" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Описание</mat-label>
+    <textarea matInput formControlName="description" rows="3"></textarea>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Адрес</mat-label>
+    <input matInput formControlName="address" />
+  </mat-form-field>
+
+  <div class="time-row">
+    <mat-form-field appearance="fill">
+      <mat-label>Начало работы</mat-label>
+      <mat-select formControlName="availableFrom">
+        <mat-option *ngFor="let time of timeSlots" [value]="time">
+          {{ time }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Конец работы</mat-label>
+      <mat-select formControlName="availableTo">
+        <mat-option *ngFor="let time of timeSlots" [value]="time">
+          {{ time }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Рабочие дни недели</mat-label>
+    <mat-select formControlName="daysOfWeek" multiple>
+      <mat-option *ngFor="let day of daysOfWeek" [value]="day">
+        {{ day | dayOfWeek }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-flat-button color="primary" type="submit">Сохранить</button>
+</form>

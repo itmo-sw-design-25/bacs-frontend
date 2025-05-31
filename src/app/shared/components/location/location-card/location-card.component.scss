@@ -11,6 +11,17 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   cursor: pointer;
 
+  .edit-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    color: $text-extra;
+
+    &:hover {
+      color: $green-main;
+    }
+  }
+
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);

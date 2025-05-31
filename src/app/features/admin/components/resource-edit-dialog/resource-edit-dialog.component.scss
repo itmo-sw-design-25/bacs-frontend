@@ -1,0 +1,21 @@
+@use '../../../../../assets/styles/theme' as *;
+
+.form-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  .equipment-input {
+    mat-chip {
+      margin: 4px 4px 0 0;
+    }
+  }
+
+  input[type="file"] {
+    margin-top: 8px;
+  }
+}
