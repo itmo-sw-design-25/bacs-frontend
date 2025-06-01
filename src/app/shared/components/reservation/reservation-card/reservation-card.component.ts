@@ -15,6 +15,7 @@ import { MatIcon } from '@angular/material/icon';
 import { AddressPipe } from '@shared/pipes/address.pipe';
 import { ResourceTypePipe } from '@shared/pipes/resource-type.pipe';
 import { MatTooltip } from '@angular/material/tooltip';
+import { startOfDay } from '@shared/utils/date.utils';
 
 @Component({
   selector: 'bacs-reservation-card',
@@ -48,7 +49,7 @@ export class ReservationCardComponent {
   }
 
   get isUpcoming(): boolean {
-    return new Date(this.reservation.to!) > new Date() && this.reservation.status != 'Cancelled';
+    return new Date(this.reservation.to!) > startOfDay(new Date()) && this.reservation.status != 'Cancelled';
   }
 
   get canRepeat(): boolean {

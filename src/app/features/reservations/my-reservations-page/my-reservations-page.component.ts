@@ -15,6 +15,7 @@ import { ResourcesService } from '@api/services/resources.service';
 import { ReservationFull } from '@core/models/reservation-full';
 import { LocationDto } from '@api/models/locationDto';
 import { ResourceDto } from '@api/models/resourceDto';
+import { startOfDay } from '@shared/utils/date.utils';
 
 @Component({
   selector: 'bacs-my-reservations-page',
@@ -84,8 +85,8 @@ export class MyReservationsPageComponent implements OnInit {
 
     this.isLoading = true;
     const now = new Date();
-    const afterDate = this.currentTab === 'upcoming' ? now.toISOString() : undefined;
-    const beforeDate = this.currentTab === 'past' ? now.toISOString() : undefined;
+    const afterDate = this.currentTab === 'upcoming' ? startOfDay(now).toISOString() : undefined;
+    const beforeDate = this.currentTab === 'past' ? startOfDay(now).toISOString() : undefined;
 
     this.reservationsService.reservationsGet(
       [],
