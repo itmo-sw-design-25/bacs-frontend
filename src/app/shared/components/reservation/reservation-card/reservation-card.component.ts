@@ -17,7 +17,7 @@ import { ResourceTypePipe } from '@shared/pipes/resource-type.pipe';
 import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
-  selector: 'app-reservation-card',
+  selector: 'bacs-reservation-card',
   standalone: true,
   templateUrl: './reservation-card.component.html',
   styleUrls: ['./reservation-card.component.scss'],

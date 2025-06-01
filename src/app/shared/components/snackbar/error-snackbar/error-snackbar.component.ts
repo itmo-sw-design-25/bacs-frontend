@@ -4,7 +4,7 @@ import { MatIcon } from '@angular/material/icon';
 import { NgForOf, NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-error-snackbar',
+  selector: 'bacs-error-snackbar',
   templateUrl: './error-snackbar.component.html',
   styleUrls: ['./error-snackbar.component.scss'],
   imports: [

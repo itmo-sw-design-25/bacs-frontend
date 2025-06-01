@@ -5,7 +5,7 @@ import { MatIcon } from '@angular/material/icon';
 import { ResourceTypePipe } from '@shared/pipes/resource-type.pipe';
 
 @Component({
-  selector: 'app-resource-card',
+  selector: 'bacs-resource-card',
   standalone: true,
   imports: [
     NgOptimizedImage,

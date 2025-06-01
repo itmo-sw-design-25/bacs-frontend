@@ -20,7 +20,7 @@
   </div>
 
   <div class="reservations-list">
-    <app-reservation-card
+    <bacs-reservation-card
       *ngFor="let reservationFull of displayedReservations"
       [reservation]="reservationFull.reservation"
       [location]="reservationFull.location"
@@ -29,7 +29,7 @@
       (onUpdated)="onReservationUpdated($event)"
       (onCancelled)="onReservationCancelled($event)"
     >
-    </app-reservation-card>
+    </bacs-reservation-card>
   </div>
 
   <div class="pagination-footer" *ngIf="hasMore">

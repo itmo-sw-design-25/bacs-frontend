@@ -17,7 +17,7 @@ import { LocationDto } from '@api/models/locationDto';
 import { ResourceDto } from '@api/models/resourceDto';
 
 @Component({
-  selector: 'app-my-reservations-page',
+  selector: 'bacs-my-reservations-page',
   standalone: true,
   imports: [
     MatTabGroup,

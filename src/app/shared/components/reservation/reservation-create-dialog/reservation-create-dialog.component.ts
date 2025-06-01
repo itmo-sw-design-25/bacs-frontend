@@ -24,7 +24,7 @@ import { SuccessSnackbarComponent } from '@shared/components/snackbar/success-sn
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-reservation-create-dialog',
+  selector: 'bacs-reservation-create-dialog',
   templateUrl: './reservation-create-dialog.component.html',
   styleUrls: ['./reservation-create-dialog.component.scss'],
   standalone: true,

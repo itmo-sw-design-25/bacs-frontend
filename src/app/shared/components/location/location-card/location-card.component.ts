@@ -11,7 +11,7 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { AuthService } from '@core/auth.service';
 
 @Component({
-  selector: 'app-location-card',
+  selector: 'bacs-location-card',
   standalone: true,
   imports: [
     AddressPipe,

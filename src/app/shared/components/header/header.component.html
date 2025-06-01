@@ -1,4 +1,4 @@
-<header class="app-header">
+<header class="bacs-header">
   <div class="container">
     <a routerLink="/" class="logo">
       <img
@@ -16,6 +16,6 @@
       <a *ngIf="isAdmin" routerLink="/admin" routerLinkActive="active">Админка</a>
     </nav>
 
-    <app-user-profile *ngIf="isAuthenticated"></app-user-profile>
+    <bacs-user-profile *ngIf="isAuthenticated"></bacs-user-profile>
   </div>
 </header>

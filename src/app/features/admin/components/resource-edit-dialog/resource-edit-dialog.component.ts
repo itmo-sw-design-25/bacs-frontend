@@ -21,7 +21,7 @@ import { ResourceTypePipe } from '@shared/pipes/resource-type.pipe';
 type Mode = 'create' | 'edit';
 
 @Component({
-  selector: 'app-resource-edit-dialog',
+  selector: 'bacs-resource-edit-dialog',
   standalone: true,
   imports: [
     NgForOf,

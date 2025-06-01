@@ -3,7 +3,7 @@
 
   <div class="results-list" *ngIf="resourceSlots.length; else noResources">
     <div *ngFor="let resourceSlot of resourceSlots">
-      <app-resource-card [resource]="resourceSlot.resource"></app-resource-card>
+      <bacs-resource-card [resource]="resourceSlot.resource"></bacs-resource-card>
 
       <div class="slots" *ngIf="resourceSlot.slots.length; else noSlots">
         <span

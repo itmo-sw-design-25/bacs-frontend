@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 import { LocationCardComponent } from '@shared/components/location/location-card/location-card.component';
 
 @Component({
-  selector: 'app-locations-list',
+  selector: 'bacs-locations-list',
   standalone: true,
   imports: [
     NgForOf,

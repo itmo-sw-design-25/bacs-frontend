@@ -7,7 +7,7 @@ import { LocationEditFormComponent } from '@features/admin/components/location-e
 import { ResourceListComponent } from '@features/admin/components/resource-list/resource-list.component';
 
 @Component({
-  selector: 'app-location-edit-page',
+  selector: 'bacs-location-edit-page',
   templateUrl: './location-edit-page.component.html',
   styleUrls: ['./location-edit-page.component.scss'],
   standalone: true,

@@ -23,7 +23,7 @@ import { ResourceTypePipe } from '@shared/pipes/resource-type.pipe';
 import { ReservationDto } from '@api/models/reservationDto';
 
 @Component({
-  selector: 'app-search-page',
+  selector: 'bacs-search-page',
   standalone: true,
   imports: [
     CommonModule,

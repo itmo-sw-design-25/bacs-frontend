@@ -14,7 +14,7 @@ import { RussianDayOfWeek } from '@api/models/russianDayOfWeek';
 import { DayOfWeekPipe } from '@shared/pipes/day-of-week.pipe';
 
 @Component({
-  selector: 'app-location-edit-form',
+  selector: 'bacs-location-edit-form',
   standalone: true,
   templateUrl: './location-edit-form.component.html',
   imports: [

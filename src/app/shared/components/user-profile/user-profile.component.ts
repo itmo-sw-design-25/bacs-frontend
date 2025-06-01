@@ -14,7 +14,7 @@ import { UpdateUserRequest } from '@api/models/updateUserRequest';
 import { SuccessSnackbarComponent } from '@shared/components/snackbar/success-snackbar/success-snackbar.component';
 
 @Component({
-  selector: 'app-user-profile',
+  selector: 'bacs-user-profile',
   standalone: true,
   imports: [
     MatButton,

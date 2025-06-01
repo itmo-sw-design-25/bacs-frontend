@@ -9,11 +9,11 @@
 
   <div class="resource-list-content">
     <ng-container *ngFor="let resource of resources">
-      <app-resource-card
+      <bacs-resource-card
         [resource]="resource"
         (click)="editResource(resource)"
         class="resource-card-clickable"
-      ></app-resource-card>
+      ></bacs-resource-card>
 
       <button
         mat-icon-button

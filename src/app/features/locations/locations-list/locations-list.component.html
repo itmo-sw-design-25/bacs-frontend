@@ -14,10 +14,10 @@
   </div>
 
   <div class="locations-list">
-    <app-location-card *ngFor="let location of locations"
+    <bacs-location-card *ngFor="let location of locations"
                        [location]="location"
                        (click)="openSearchPage(location.id!)">
-    </app-location-card>
+    </bacs-location-card>
   </div>
 
   <div class="pagination-footer" *ngIf="hasMore">

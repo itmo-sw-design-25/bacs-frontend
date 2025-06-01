@@ -11,7 +11,7 @@ import { UserProfileComponent } from '@shared/components/user-profile/user-profi
 import { AuthService } from '@core/auth.service';
 
 @Component({
-  selector: 'app-header',
+  selector: 'bacs-header',
   standalone: true,
   imports: [
     RouterLink,

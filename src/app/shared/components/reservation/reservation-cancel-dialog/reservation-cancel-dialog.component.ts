@@ -9,7 +9,7 @@ import { SuccessSnackbarComponent } from '@shared/components/snackbar/success-sn
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-reservation-cancel-dialog',
+  selector: 'bacs-reservation-cancel-dialog',
   templateUrl: './reservation-cancel-dialog.component.html',
   styleUrls: ['./reservation-cancel-dialog.component.scss'],
   standalone: true,

@@ -3,7 +3,7 @@ import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-success-snackbar',
+  selector: 'bacs-success-snackbar',
   templateUrl: './success-snackbar.component.html',
   styleUrls: ['./success-snackbar.component.scss'],
   imports: [

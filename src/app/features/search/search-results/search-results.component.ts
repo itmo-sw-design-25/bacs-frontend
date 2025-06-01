@@ -8,7 +8,7 @@ import {
 } from '@shared/components/reservation/reservation-create-dialog/reservation-create-dialog.component';
 
 @Component({
-  selector: 'app-search-results',
+  selector: 'bacs-search-results',
   standalone: true,
   imports: [
     NgForOf,

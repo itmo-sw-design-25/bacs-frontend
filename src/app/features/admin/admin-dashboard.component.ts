@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
-  selector: 'app-admin-dashboard',
+  selector: 'bacs-admin-dashboard',
   standalone: true,
   imports: [],
   templateUrl: './admin-dashboard.component.html',

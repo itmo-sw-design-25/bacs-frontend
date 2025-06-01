@@ -14,7 +14,7 @@ import {
 } from '@features/admin/components/resource-edit-dialog/resource-edit-dialog.component';
 
 @Component({
-  selector: 'app-resource-list',
+  selector: 'bacs-resource-list',
   standalone: true,
   imports: [
     CommonModule,
