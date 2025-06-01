@@ -43,5 +43,5 @@
 
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Отмена</button>
-  <button mat-flat-button color="primary" (click)="save()">Сохранить</button>
+  <button mat-flat-button class="submit-button" color="primary" (click)="save()" [disabled]="form.invalid">Сохранить</button>
 </mat-dialog-actions>

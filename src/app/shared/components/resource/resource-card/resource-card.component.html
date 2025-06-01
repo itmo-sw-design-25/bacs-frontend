@@ -1,14 +1,4 @@
 <div class="resource-card" *ngIf="resource">
-  <button
-    *ngIf="editEnabled && isAdmin"
-    (click)="onEditIconClick($event)"
-    class="edit-button"
-    mat-icon-button
-    matTooltip="Редактировать ресурс"
-  >
-    <mat-icon>edit</mat-icon>
-  </button>
-
   <img
     [ngSrc]="resource.imageUrl ?? noImage"
     width="240"
@@ -39,5 +29,25 @@
       <mat-icon class="icon">build</mat-icon>
       Оборудование: {{ resource.equipment?.join(', ') }}
     </div>
+  </div>
+
+  <div class="resource-actions">
+    <button
+      *ngIf="editEnabled && isAdmin"
+      (click)="deleteIconClick($event)"
+      mat-icon-button
+      matTooltip="Удалить ресурс"
+    >
+      <mat-icon color="warn">cancel</mat-icon>
+    </button>
+
+    <button
+      *ngIf="editEnabled && isAdmin"
+      (click)="editIconClick($event)"
+      mat-icon-button
+      matTooltip="Редактировать ресурс"
+    >
+      <mat-icon>edit</mat-icon>
+    </button>
   </div>
 </div>

@@ -57,5 +57,5 @@
     </mat-select>
   </mat-form-field>
 
-  <button mat-flat-button color="primary" type="submit">Сохранить</button>
+  <button mat-flat-button class="submit-button" color="primary" type="submit" [disabled]="form.invalid">Сохранить</button>
 </form>

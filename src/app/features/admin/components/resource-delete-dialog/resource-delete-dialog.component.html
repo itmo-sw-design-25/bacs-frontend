@@ -1,0 +1,11 @@
+<div class="cancel-dialog">
+  <h2 class="dialog-title">Удаление ресурса</h2>
+  <p class="dialog-message">
+    Вы уверены, что хотите удалить ресурс <b>{{ data.resource.name }}</b> ?
+  </p>
+
+  <div class="dialog-actions">
+    <button mat-button class="cancel-button" (click)="close()">Нет</button>
+    <button mat-flat-button class="confirm-button" (click)="confirm()">Удалить</button>
+  </div>
+</div>

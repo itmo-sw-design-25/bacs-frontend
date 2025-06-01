@@ -26,7 +26,8 @@ export class ResourceCardComponent {
 
   @Input() resource!: ResourceDto;
   @Input() editEnabled: boolean = false;
-  @Output() editClick = new EventEmitter<ResourceDto>();
+  @Output() editClick = new EventEmitter<void>();
+  @Output() deleteClick = new EventEmitter<void>();
 
   get isAdmin(): boolean {
     return this.authService.isAdmin || this.authService.isSuperAdmin;
@@ -35,8 +36,13 @@ export class ResourceCardComponent {
   constructor(private authService: AuthService) {
   }
 
-  onEditIconClick(event: any): void {
+  editIconClick(event: any): void {
     event.stopPropagation();
-    this.editClick.emit(this.resource);
+    this.editClick.emit();
+  }
+
+  deleteIconClick(event: any): void {
+    event.stopPropagation();
+    this.deleteClick.emit();
   }
 }

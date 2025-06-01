@@ -55,3 +55,17 @@ body {
     border-bottom: 2px solid theme.$green-main;
   }
 }
+
+.submit-button.submit-button:not(:disabled),
+.submit-button.mat-flat-button:not(:disabled),
+.submit-button.mat-mdc-button:not(:disabled) {
+  background: theme.$green-secondary;
+}
+
+.submit-button:disabled,
+.submit-button.mat-flat-button.mat-button-disabled,
+.submit-button.mat-mdc-button.mat-mdc-button-disabled {
+  background: theme.$bg-disabled;
+  color: theme.$text-disabled;
+  cursor: not-allowed;
+}

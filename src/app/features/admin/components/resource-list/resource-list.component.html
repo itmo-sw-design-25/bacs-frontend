@@ -1,7 +1,7 @@
 <div class="resource-list">
   <div class="resource-list-header">
     <h2>Ресурсы локации</h2>
-    <button mat-flat-button color="primary" (click)="createResource()">
+    <button mat-flat-button class="submit-button" color="primary" (click)="createResource()">
       <mat-icon>add</mat-icon>
       Добавить ресурс
     </button>
@@ -13,18 +13,9 @@
         [resource]="resource"
         [editEnabled]="true"
         (editClick)="editResource(resource)"
+        (deleteClick)="deleteResource(resource)"
         class="resource-card-clickable"
       ></bacs-resource-card>
-
-      <button
-        mat-icon-button
-        color="warn"
-        (click)="deleteResource(resource)"
-        class="delete-button"
-        matTooltip="Удалить ресурс"
-      >
-        <mat-icon>delete</mat-icon>
-      </button>
     </ng-container>
   </div>
 </div>

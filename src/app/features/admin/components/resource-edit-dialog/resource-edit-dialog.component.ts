@@ -17,6 +17,8 @@ import { ResourcesService } from '@api/services/resources.service';
 import { CreateResourceRequest } from '@api/models/createResourceRequest';
 import { UpdateResourceRequest } from '@api/models/updateResourceRequest';
 import { ResourceTypePipe } from '@shared/pipes/resource-type.pipe';
+import { SuccessSnackbarComponent } from '@shared/components/snackbar/success-snackbar/success-snackbar.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 type Mode = 'create' | 'edit';
 
@@ -45,13 +47,13 @@ export class ResourceEditDialogComponent {
   form: FormGroup;
   imageFile: File | null = null;
   readonly resourceTypes = Object.values(ResourceType);
-  readonly noImage = 'https://bacs.space/s3/static/front/no-image-placeholder.svg';
 
   get equipment(): string[] {
     return this.form.get('equipment')?.value ?? [];
   }
 
   constructor(
+    private snackBar: MatSnackBar,
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<ResourceEditDialogComponent>,
     private resourcesService: ResourcesService,
@@ -109,10 +111,15 @@ export class ResourceEditDialogComponent {
       };
 
       this.resourcesService.resourcesPost(request).subscribe({
-        next: (res) => {
-          this.uploadImage(res.id!);
+        next: (resource) => {
+          this.uploadImage(resource.id!);
+          this.snackBar.openFromComponent(SuccessSnackbarComponent, {
+            data: { message: 'Ресурс успешно создан' }
+          });
+
+          this.dialogRef.close({ resourceId: resource.id, isSuccess: true })
         },
-        complete: () => this.dialogRef.close({ success: true })
+        error: () => this.dialogRef.close({ isSuccess: false })
       });
     }
 
@@ -126,10 +133,15 @@ export class ResourceEditDialogComponent {
       };
 
       this.resourcesService.resourcesResourceIdPut(this.data.resource.id, request).subscribe({
-        next: () => {
+        next: (resource) => {
           this.uploadImage(this.data.resource!.id!);
+          this.snackBar.openFromComponent(SuccessSnackbarComponent, {
+            data: { message: 'Ресурс успешно обновлён' }
+          });
+
+          this.dialogRef.close({ resourceId: resource.id, isSuccess: true })
         },
-        complete: () => this.dialogRef.close({ success: true })
+        error: () => this.dialogRef.close({ isSuccess: false })
       });
     }
   }

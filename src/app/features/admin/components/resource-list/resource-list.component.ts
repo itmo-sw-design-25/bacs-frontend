@@ -4,14 +4,14 @@ import { ResourcesService } from '@api/services/resources.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { SuccessSnackbarComponent } from '@shared/components/snackbar/success-snackbar/success-snackbar.component';
 import { CommonModule } from '@angular/common';
-import { MatTooltip } from '@angular/material/tooltip';
 import { ResourceCardComponent } from '@shared/components/resource/resource-card/resource-card.component';
 import {
   ResourceEditDialogComponent
 } from '@features/admin/components/resource-edit-dialog/resource-edit-dialog.component';
+import {
+  ResourceDeleteDialogComponent
+} from '@features/admin/components/resource-delete-dialog/resource-delete-dialog.component';
 
 @Component({
   selector: 'bacs-resource-list',
@@ -20,8 +20,6 @@ import {
     CommonModule,
     MatIconModule,
     MatButtonModule,
-    ResourceCardComponent,
-    MatTooltip,
     ResourceCardComponent
   ],
   templateUrl: './resource-list.component.html',
@@ -34,8 +32,7 @@ export class ResourceListComponent implements OnInit {
 
   constructor(
     private resourcesService: ResourcesService,
-    private dialog: MatDialog,
-    private snackBar: MatSnackBar
+    private dialog: MatDialog
   ) {
   }
 
@@ -44,8 +41,14 @@ export class ResourceListComponent implements OnInit {
   }
 
   loadResources(): void {
-    this.resourcesService.resourcesGet([], [this.locationId], [], 0, 100).subscribe({
-      next: (res) => this.resources = res.collection ?? []
+    this.resourcesService.resourcesGet(
+      [],
+      [this.locationId],
+      [],
+      0,
+      100
+    ).subscribe({
+      next: (resources) => this.resources = resources.collection!
     });
   }
 
@@ -60,12 +63,12 @@ export class ResourceListComponent implements OnInit {
       });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result?.success) {
-        this.loadResources();
-        this.snackBar.openFromComponent(SuccessSnackbarComponent, {
-          data: { message: 'Ресурс успешно создан' }
+      if (!result?.isSuccess) return;
+
+      this.resourcesService.resourcesGet([result.resourceId])
+        .subscribe({
+          next: (resources) => this.resources = [...this.resources, ...resources.collection!]
         });
-      }
     });
   }
 
@@ -76,26 +79,29 @@ export class ResourceListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result?.success) {
-        this.loadResources();
-        this.snackBar.openFromComponent(SuccessSnackbarComponent, {
-          data: { message: 'Ресурс успешно обновлён' }
+      if (!result?.isSuccess) return;
+
+      this.resourcesService.resourcesGet([result.resourceId])
+        .subscribe({
+          next: (resources) => {
+            if (resources.collection?.length == 0) return;
+
+            const index = this.resources.findIndex(x => x.id === result.resourceId);
+            this.resources[index] = resources.collection![0];
+          }
         });
-      }
     });
   }
 
   deleteResource(resource: ResourceDto): void {
-    const confirmed = confirm(`Удалить ресурс "${resource.name}"?`);
-    if (!confirmed) return;
+    const dialogRef = this.dialog.open(ResourceDeleteDialogComponent, {
+      width: '500px',
+      data: { resource }
+    });
 
-    this.resourcesService.resourcesResourceIdDelete(resource.id!).subscribe({
-      next: () => {
-        this.loadResources();
-        this.snackBar.openFromComponent(SuccessSnackbarComponent, {
-          data: { message: 'Ресурс удалён' }
-        });
-      }
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result?.isSuccess) return;
+      this.resources = this.resources.filter(r => r.id !== result.resourceId);
     });
   }
 }
