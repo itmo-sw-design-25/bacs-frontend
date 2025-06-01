@@ -16,6 +16,7 @@ import { AddressPipe } from '@shared/pipes/address.pipe';
 import { ResourceTypePipe } from '@shared/pipes/resource-type.pipe';
 import { MatTooltip } from '@angular/material/tooltip';
 import { startOfDay } from '@shared/utils/date.utils';
+import { ReservationStatusPipe } from '@shared/pipes/reservation-status.pipe';
 
 @Component({
   selector: 'bacs-reservation-card',
@@ -31,7 +32,8 @@ import { startOfDay } from '@shared/utils/date.utils';
     ResourceTypePipe,
     MatIconButton,
     MatTooltip,
-    NgClass
+    NgClass,
+    ReservationStatusPipe
   ]
 })
 export class ReservationCardComponent {

@@ -42,7 +42,7 @@
 
 <mat-dialog-actions align="end">
   <button mat-button (click)="close()">Отмена</button>
-  <button mat-flat-button color="primary" (click)="confirm()">
+  <button class="submit-button" mat-flat-button color="primary" (click)="confirm()">
     {{ isEditMode ? 'Сохранить' : 'Забронировать' }}
   </button>
 </mat-dialog-actions>

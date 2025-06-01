@@ -47,7 +47,7 @@
 
   <div class="reservation-actions">
     <span class="reservation-status" [ngClass]="reservation.status === 'Cancelled' ? 'cancelled' : 'created'">
-      {{ reservation.status === 'Cancelled' ? 'Отменена' : 'Активна' }}
+      {{ reservation.status! | reservationStatus }}
     </span>
 
     <button mat-icon-button *ngIf="isUpcoming" (click)="openCancelDialog()" matTooltip="Отменить">

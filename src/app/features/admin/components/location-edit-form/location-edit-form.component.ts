@@ -34,7 +34,7 @@ import { DayOfWeekPipe } from '@shared/pipes/day-of-week.pipe';
 export class LocationEditFormComponent implements OnChanges {
   readonly noImage = 'https://bacs.space/s3/static/front/no-image-placeholder.svg';
   readonly daysOfWeek = Object.values(RussianDayOfWeek);
-  readonly timeSlots: string[] = [
+  readonly utcTimeSlots: string[] = [
     '00:00',
     '01:00',
     '02:00',

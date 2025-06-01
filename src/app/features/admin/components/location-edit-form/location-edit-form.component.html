@@ -30,18 +30,18 @@
 
   <div class="time-row">
     <mat-form-field appearance="fill">
-      <mat-label>Начало работы</mat-label>
+      <mat-label>Начало работы (UTC)</mat-label>
       <mat-select formControlName="availableFrom">
-        <mat-option *ngFor="let time of timeSlots" [value]="time">
+        <mat-option *ngFor="let time of utcTimeSlots" [value]="time">
           {{ time }}
         </mat-option>
       </mat-select>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>Конец работы</mat-label>
+      <mat-label>Конец работы (UTC)</mat-label>
       <mat-select formControlName="availableTo">
-        <mat-option *ngFor="let time of timeSlots" [value]="time">
+        <mat-option *ngFor="let time of utcTimeSlots" [value]="time">
           {{ time }}
         </mat-option>
       </mat-select>

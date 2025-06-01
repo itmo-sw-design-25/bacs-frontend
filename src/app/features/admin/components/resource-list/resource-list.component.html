@@ -11,7 +11,8 @@
     <ng-container *ngFor="let resource of resources">
       <bacs-resource-card
         [resource]="resource"
-        (click)="editResource(resource)"
+        [editEnabled]="true"
+        (editClick)="editResource(resource)"
         class="resource-card-clickable"
       ></bacs-resource-card>
 

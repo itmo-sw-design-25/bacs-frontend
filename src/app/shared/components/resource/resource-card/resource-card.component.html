@@ -1,4 +1,14 @@
 <div class="resource-card" *ngIf="resource">
+  <button
+    *ngIf="editEnabled && isAdmin"
+    (click)="onEditIconClick($event)"
+    class="edit-button"
+    mat-icon-button
+    matTooltip="Редактировать ресурс"
+  >
+    <mat-icon>edit</mat-icon>
+  </button>
+
   <img
     [ngSrc]="resource.imageUrl ?? noImage"
     width="240"

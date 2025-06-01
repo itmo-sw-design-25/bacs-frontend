@@ -45,7 +45,7 @@ export class SearchResultsComponent {
     const from = this.startSlot!.from;
     const to = slot.to;
 
-    this.dialog.open(ReservationCreateDialogComponent, {
+    const dialogRef = this.dialog.open(ReservationCreateDialogComponent, {
       width: '500px',
       data: {
         from,
@@ -56,7 +56,14 @@ export class SearchResultsComponent {
       }
     });
 
-    this.resetSelection();
+    dialogRef.afterClosed().subscribe(result => {
+      this.resetSelection();
+
+      if (!result.isSuccess) return;
+
+      // убираем забронированные слоты
+      resourceSlot.slots = resourceSlot.slots.filter(x => x.from < from || x.to > to);
+    });
   }
 
   onSlotHover(slot: Slot, resourceId: string): void {
