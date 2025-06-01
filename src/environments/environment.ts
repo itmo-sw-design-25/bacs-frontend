@@ -3,5 +3,5 @@ export const environment = {
   apiBaseUrl: 'https://bacs.space/api',
   keycloakUrl: 'https://bacs.space/keycloak',
   keycloakRealm: 'bacs',
-  keycloakClientId: 'bacs-api',
+  keycloakClientId: 'bacs-api'
 };
