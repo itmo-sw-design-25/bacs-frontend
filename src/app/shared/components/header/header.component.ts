@@ -35,6 +35,10 @@ export class HeaderComponent {
     return !!this.authService.token;
   }
 
+  get isAdmin() {
+    return this.authService.isAdmin || this.authService.isSuperAdmin;
+  }
+
   constructor(private authService: AuthService) {
   }
 }

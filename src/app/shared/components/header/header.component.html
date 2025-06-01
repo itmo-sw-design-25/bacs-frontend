@@ -2,18 +2,18 @@
   <div class="container">
     <a routerLink="/" class="logo">
       <img
-        ngSrc="https://bacs.space/s3/static/nginx/bacs_logo_large.svg"
-        width="100"
-        height="35"
         alt="BaCS Logo"
         class="logo-img"
+        ngSrc="https://bacs.space/s3/static/nginx/bacs_logo_large.svg"
+        height="35"
+        width="100"
       />
     </a>
 
     <nav class="nav">
-      <a routerLink="/locations" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Локации</a>
+      <a [routerLinkActiveOptions]="{ exact: true }" routerLink="/locations" routerLinkActive="active">Локации</a>
       <a routerLink="/reservations" routerLinkActive="active">Резервации</a>
-      <a routerLink="/admin" routerLinkActive="active">Админка</a>
+      <a *ngIf="isAdmin" routerLink="/admin" routerLinkActive="active">Админка</a>
     </nav>
 
     <app-user-profile *ngIf="isAuthenticated"></app-user-profile>

@@ -1,27 +1,28 @@
 <div class="location-card" *ngIf="location">
   <button
-    mat-icon-button
-    class="edit-button"
-    matTooltip="Редактировать локацию"
-    [routerLink]="['/admin/locations', location.id]"
     (click)="$event.stopPropagation()"
+    *ngIf="isAdmin"
+    [routerLink]="['/admin/locations', location.id]"
+    class="edit-button"
+    mat-icon-button
+    matTooltip="Редактировать локацию"
   >
     <mat-icon>edit</mat-icon>
   </button>
 
   <img
     [ngSrc]="location.imageUrl ?? noImage"
-    width="240"
-    height="160"
     alt="{{ location.name }}"
     class="location-image"
+    height="160"
+    width="240"
   />
   <div class="location-info">
     <h2 class="location-title">{{ location.name }}</h2>
 
     <p class="location-address">
       <mat-icon class="icon">location_on</mat-icon>
-      <a [href]="location.address | address" target="_blank" rel="noopener" (click)="$event.stopPropagation()">
+      <a (click)="$event.stopPropagation()" [href]="location.address | address" rel="noopener" target="_blank">
         {{ location.address }}
       </a>
     </p>

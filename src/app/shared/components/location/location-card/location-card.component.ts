@@ -8,6 +8,7 @@ import { DayOfWeekPipe } from '@shared/pipes/day-of-week.pipe';
 import { RouterLink } from '@angular/router';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
+import { AuthService } from '@core/auth.service';
 
 @Component({
   selector: 'app-location-card',
@@ -30,7 +31,11 @@ export class LocationCardComponent {
 
   @Input() location!: LocationDto;
 
-  constructor(private dayOfWeekPipe: DayOfWeekPipe) {
+  get isAdmin(): boolean {
+    return this.authService.isAdmin || this.authService.isSuperAdmin;
+  }
+
+  constructor(private dayOfWeekPipe: DayOfWeekPipe, private authService: AuthService) {
   }
 
   get displayDays(): string {
