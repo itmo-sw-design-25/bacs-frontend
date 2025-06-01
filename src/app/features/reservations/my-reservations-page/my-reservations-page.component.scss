@@ -14,11 +14,12 @@
 
 .filters-bar {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 16px 0;
 
   mat-form-field {
     min-width: 200px;
+    margin-left: 5px;
   }
 }
 

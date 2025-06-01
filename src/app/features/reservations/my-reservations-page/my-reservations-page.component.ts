@@ -16,6 +16,8 @@ import { ReservationFull } from '@core/models/reservation-full';
 import { LocationDto } from '@api/models/locationDto';
 import { ResourceDto } from '@api/models/resourceDto';
 import { startOfDay } from '@shared/utils/date.utils';
+import { ReservationStatus } from '@api/models/reservationStatus';
+import { ReservationStatusPipe } from '@shared/pipes/reservation-status.pipe';
 
 @Component({
   selector: 'bacs-my-reservations-page',
@@ -31,7 +33,8 @@ import { startOfDay } from '@shared/utils/date.utils';
     NgIf,
     ReservationCardComponent,
     NgForOf,
-    MatButton
+    MatButton,
+    ReservationStatusPipe
   ],
   templateUrl: './my-reservations-page.component.html',
   styleUrls: ['./my-reservations-page.component.scss'],
@@ -42,16 +45,20 @@ export class MyReservationsPageComponent implements OnInit {
   displayedReservations: ReservationFull[] = [];
 
   limitControl = new FormControl(5);
+  statusControl: FormControl<ReservationStatus[] | null> = new FormControl([]);
+  locationsControl: FormControl<LocationDto[] | null> = new FormControl([]);
+  resourcesControl: FormControl<ResourceDto[] | null> = new FormControl([]);
+
+  reservationStatuses = Object.values(ReservationStatus);
   limitOptions = [5, 10, 20, 50, 100];
+
   offset = 0;
-
-  userId: string | undefined;
-
+  userId!: string;
   isLoading = false;
   totalCount = 0;
 
-  private locations: LocationDto[] = [];
-  private resources: ResourceDto[] = [];
+  locations: LocationDto[] = [];
+  resources: ResourceDto[] = [];
   private reservations: ReservationFull[] = [];
 
   constructor(
@@ -71,16 +78,36 @@ export class MyReservationsPageComponent implements OnInit {
     this.currentTab = tab;
     this.offset = 0;
     this.displayedReservations = [];
-    this.loadReservations(this.limitControl.value!);
+    this.loadReservations(this.limitControl.value!, this.statusControl.value, this.locationsControl.value, this.resourcesControl.value);
   }
 
   changeLimit(newValue: number): void {
     this.offset = 0;
     this.displayedReservations = [];
-    this.loadReservations(newValue);
+    this.loadReservations(newValue, this.statusControl.value, this.locationsControl.value, this.resourcesControl.value);
   }
 
-  loadReservations(limit: number): void {
+  changeStatuses(newValue: ReservationStatus[]): void {
+    this.displayedReservations = [];
+    this.loadReservations(this.limitControl.value!, newValue, this.locationsControl.value, this.resourcesControl.value);
+  }
+
+  changeLocations(newValue: LocationDto[]): void {
+    this.displayedReservations = [];
+    this.loadReservations(this.limitControl.value!, this.statusControl.value, newValue, this.resourcesControl.value);
+  }
+
+  changeResources(newValue: ResourceDto[]): void {
+    this.displayedReservations = [];
+    this.loadReservations(this.limitControl.value!, this.statusControl.value, this.locationsControl.value, newValue);
+  }
+
+  loadReservations(
+    limit: number,
+    statuses: ReservationStatus[] | null = [],
+    locations: LocationDto[] | null = [],
+    resources: ResourceDto[] | null = []
+  ): void {
     if (!this.userId) return;
 
     this.isLoading = true;
@@ -91,9 +118,9 @@ export class MyReservationsPageComponent implements OnInit {
     this.reservationsService.reservationsGet(
       [],
       [this.userId],
-      [],
-      [],
-      [],
+      locations ? locations.map(x => x.id!) : [],
+      resources ? resources.map(x => x.id!) : [],
+      statuses ?? [],
       afterDate,
       beforeDate,
       this.offset,
@@ -111,11 +138,14 @@ export class MyReservationsPageComponent implements OnInit {
           resources: this.resourcesService.resourcesGet(resourceIds)
         }).pipe(
           map(({ locations, resources }) => {
-            this.locations = Array.from(new Set([...locations.collection!, ...this.locations]));
-            this.resources = Array.from(new Set([...resources.collection!, ...this.resources]));
+            const allLocations = Array.from(new Set([...locations.collection!, ...this.locations]));
+            const allResources = Array.from(new Set([...resources.collection!, ...this.resources]));
 
-            const locationMap = new Map(this.locations.map(location => [location.id, location]));
-            const resourceMap = new Map(this.resources.map(resource => [resource.id, resource]));
+            const locationMap = new Map(allLocations.map(location => [location.id, location]));
+            const resourceMap = new Map(allResources.map(resource => [resource.id, resource]));
+
+            this.locations = Array.from(locationMap.values());
+            this.resources = Array.from(resourceMap.values());
 
             return reservations.map(reservation => ({
               reservation: reservation,
@@ -149,7 +179,7 @@ export class MyReservationsPageComponent implements OnInit {
       if (index === -1) return;
 
       let reservation = arr[index];
-      reservation.reservation.status = 'Cancelled'
+      reservation.reservation.status = ReservationStatus.Cancelled;
 
       arr[index] = reservation;
     };
