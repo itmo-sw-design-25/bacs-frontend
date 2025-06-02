@@ -81,8 +81,8 @@ export class LocationEditFormComponent implements OnInit, OnChanges {
   removeMode = false;
 
   get usersNotAdmin(): UserDto[] {
-    const adminIds = new Set(this.admins.map(a => a.id));
-    return this.users.filter(u => !adminIds.has(u.id));
+    const adminIds = new Set(this.admins.map((a) => a.id));
+    return this.users.filter((u) => !adminIds.has(u.id));
   }
 
   constructor(
@@ -103,20 +103,22 @@ export class LocationEditFormComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.usersService.usersGet([], 0, 100)
-      .subscribe(users => this.users = users.collection || []);
+    this.usersService
+      .usersGet([], 0, 100)
+      .subscribe((users) => (this.users = users.collection || []));
 
     const adminIds = this.location.adminIds || [];
     if (adminIds.length == 0) return;
 
-    const userIds = this.users.map(x => x.id!);
-    const missingAdminIds = adminIds.filter(x => !userIds.includes(x));
+    const userIds = this.users.map((x) => x.id!);
+    const missingAdminIds = adminIds.filter((x) => !userIds.includes(x));
 
     if (missingAdminIds.length == 0) {
-      this.admins = this.users.filter(x => adminIds.includes(x.id!));
+      this.admins = this.users.filter((x) => adminIds.includes(x.id!));
     } else {
-      this.usersService.usersGet(adminIds)
-        .subscribe(users => this.admins = users.collection || []);
+      this.usersService
+        .usersGet(adminIds)
+        .subscribe((users) => (this.admins = users.collection || []));
     }
   }
 
@@ -170,26 +172,25 @@ export class LocationEditFormComponent implements OnInit, OnChanges {
     }
 
     this.addMode = false;
-    this.locationsService.locationsLocationIdAdminsUserIdPut(this.location.id!, userId)
-      .subscribe({
-        next: () => {
-          this.snackBar.openFromComponent(SuccessSnackbarComponent, {
-            data: { message: 'Администратор локации успешно добавлен!' }
-          });
-        }
-      });
+    this.locationsService.locationsLocationIdAdminsUserIdPut(this.location.id!, userId).subscribe({
+      next: () => {
+        this.snackBar.openFromComponent(SuccessSnackbarComponent, {
+          data: { message: 'Администратор локации успешно добавлен!' }
+        });
+      }
+    });
   }
 
   removeAdmin(userId: string): void {
     const adminIds = this.form.value.adminIds || [];
 
-    this.form.controls['adminIds'].patchValue(
-      adminIds.filter((id: string) => id !== userId)
-    );
+    this.form.controls['adminIds'].patchValue(adminIds.filter((id: string) => id !== userId));
 
     this.updateAdmins();
     this.removeMode = false;
-    this.locationsService.locationsLocationIdAdminsUserIdDelete(this.location.id!, userId)
+
+    this.locationsService
+      .locationsLocationIdAdminsUserIdDelete(this.location.id!, userId)
       .subscribe({
         next: () => {
           this.snackBar.openFromComponent(SuccessSnackbarComponent, {
@@ -201,7 +202,7 @@ export class LocationEditFormComponent implements OnInit, OnChanges {
 
   private updateAdmins(): void {
     const adminIds = this.form.value.adminIds;
-    this.admins = this.users.filter(u => adminIds.includes(u.id));
+    this.admins = this.users.filter((u) => adminIds.includes(u.id));
   }
 
   save(): void {
@@ -218,14 +219,13 @@ export class LocationEditFormComponent implements OnInit, OnChanges {
       }
     } as UpdateLocationRequest;
 
-    this.locationsService.locationsLocationIdPut(this.location.id!, request)
-      .subscribe({
-        next: () => {
-          this.snackBar.openFromComponent(SuccessSnackbarComponent, {
-            data: { message: 'Настройки локации успешно обновлены!' }
-          });
-        }
-      });
+    this.locationsService.locationsLocationIdPut(this.location.id!, request).subscribe({
+      next: () => {
+        this.snackBar.openFromComponent(SuccessSnackbarComponent, {
+          data: { message: 'Настройки локации успешно обновлены!' }
+        });
+      }
+    });
 
     this.uploadImage();
   }

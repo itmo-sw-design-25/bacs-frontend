@@ -6,7 +6,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatDatepicker, MatDatepickerInput, MatDatepickerToggle } from '@angular/material/datepicker';
+import {
+  MatDatepicker,
+  MatDatepickerInput,
+  MatDatepickerToggle
+} from '@angular/material/datepicker';
 import { ActivatedRoute } from '@angular/router';
 import { ReservationsService } from '@api/services/reservations.service';
 import { startOfDay, startOfNextDay } from '@shared/utils/date.utils';
@@ -84,16 +88,16 @@ export class SearchPageComponent implements OnInit {
     private reservationsService: ReservationsService,
     private resourcesService: ResourcesService,
     private locationsService: LocationsService
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.locationId = this.route.snapshot.paramMap.get('locationId')!;
 
-    this.locationsService.locationsLocationIdGet(this.locationId)
+    this.locationsService
+      .locationsLocationIdGet(this.locationId)
       .pipe(
-        tap(location => this.location = location),
-        tap(location => this.setAvailableDates(location.calendarSettings))
+        tap((location) => (this.location = location)),
+        tap((location) => this.setAvailableDates(location.calendarSettings))
       )
       .subscribe();
   }
@@ -108,42 +112,46 @@ export class SearchPageComponent implements OnInit {
 
     this.getResources()
       .pipe(
-        tap(resources => this.resources = resources),
-        switchMap(resources => {
-          return this.getReservations(from, to, resources.map(x => x.id!));
+        tap((resources) => (this.resources = resources)),
+        switchMap((resources) => {
+          return this.getReservations(
+            from,
+            to,
+            resources.map((x) => x.id!)
+          );
         }),
-        tap(reservations => this.availableSlotsByResource = this.findSlots(from, reservations))
-      ).subscribe();
+        tap((reservations) => (this.availableSlotsByResource = this.findSlots(from, reservations)))
+      )
+      .subscribe();
   }
 
   private getResources() {
     const resourceTypes = this.resourceTypeControl.value ? [this.resourceTypeControl.value] : [];
 
-    return this.resourcesService.resourcesGet([], [this.locationId], resourceTypes, 0, 100)
-      .pipe(
-        map(x => x.collection ?? [])
-      );
+    return this.resourcesService
+      .resourcesGet([], [this.locationId], resourceTypes, 0, 100)
+      .pipe(map((x) => x.collection ?? []));
   }
 
   private getReservations(from: Date, to: Date, resourceIds: string[] | undefined) {
-    return this.reservationsService.reservationsGet(
-      [],
-      [],
-      [this.locationId],
-      resourceIds ?? [],
-      [ReservationStatus.Created],
-      from.toISOString(),
-      to.toISOString(),
-      0,
-      100
-    ).pipe(
-      map(x => x.collection ?? [])
-    );
+    return this.reservationsService
+      .reservationsGet(
+        [],
+        [],
+        [this.locationId],
+        resourceIds ?? [],
+        [ReservationStatus.Created],
+        from.toISOString(),
+        to.toISOString(),
+        0,
+        100
+      )
+      .pipe(map((x) => x.collection ?? []));
   }
 
   private findSlots(date: Date, reservations: ReservationDto[]) {
     const busyByResource = new Map<string, Array<{ from: Date; to: Date }>>();
-    reservations.forEach(r => {
+    reservations.forEach((r) => {
       const resourceId = r.resourceId!;
       if (!busyByResource.has(resourceId)) busyByResource.set(resourceId, []);
       busyByResource.get(resourceId)!.push({ from: new Date(r.from!), to: new Date(r.to!) });
@@ -156,9 +164,11 @@ export class SearchPageComponent implements OnInit {
 
     const slotsPerResource: ResourceSlots[] = [];
 
-    this.resources?.forEach(resource => {
+    this.resources?.forEach((resource) => {
       const resourceId = resource.id!;
-      const dayStart = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
+      const dayStart = new Date(
+        Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate())
+      );
 
       const [startHour, startMin] = availableFrom.split(':').map(Number);
       const [endHour, endMin] = availableTo.split(':').map(Number);
@@ -179,7 +189,7 @@ export class SearchPageComponent implements OnInit {
 
         if (end > availableToUTC) break;
 
-        const isFree = !busy.some(b => current < b.to && end > b.from);
+        const isFree = !busy.some((b) => current < b.to && end > b.from);
 
         if (isFree) slots.push({ from: current, to: end });
 
@@ -196,6 +206,6 @@ export class SearchPageComponent implements OnInit {
 
   private setAvailableDates(calendarSettings: CalendarSettingsDto | undefined) {
     const days = calendarSettings?.availableDaysOfWeek ?? [];
-    this.allowedDays = new Set(days.map(day => WEEK_DAYS_MAP[day]));
+    this.allowedDays = new Set(days.map((day) => WEEK_DAYS_MAP[day]));
   }
 }

@@ -8,16 +8,10 @@ import { NgOptimizedImage } from '@angular/common';
   selector: 'bacs-image-uploader',
   standalone: true,
   templateUrl: './image-uploader.component.html',
-  imports: [
-    MatFabButton,
-    MatTooltip,
-    MatIcon,
-    NgOptimizedImage
-  ],
+  imports: [MatFabButton, MatTooltip, MatIcon, NgOptimizedImage],
   styleUrls: ['./image-uploader.component.scss']
 })
 export class ImageUploaderComponent {
-
   @Input() src!: string;
   @Output() fileSelected = new EventEmitter<File>();
 

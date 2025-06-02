@@ -11,9 +11,7 @@ import { LocationsService } from '@api/services/locations.service';
   templateUrl: './location-delete-dialog.component.html',
   styleUrls: ['./location-delete-dialog.component.scss'],
   standalone: true,
-  imports: [
-    MatButton
-  ]
+  imports: [MatButton]
 })
 export class LocationDeleteDialogComponent {
   constructor(
@@ -21,24 +19,22 @@ export class LocationDeleteDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: { location: LocationDto },
     private dialogRef: MatDialogRef<LocationDeleteDialogComponent>,
     private locationsService: LocationsService
-  ) {
-  }
+  ) {}
 
   confirm(): void {
     const locationId = this.data.location.id;
 
     if (!locationId) return;
 
-    this.locationsService.locationsLocationIdDelete(locationId)
-      .subscribe({
-        next: () => {
-          this.snackBar.openFromComponent(SuccessSnackbarComponent, {
-            data: { message: 'Локация успешно удалена!' }
-          });
-          this.dialogRef.close({ isSuccess: true, locationId: locationId });
-        },
-        error: () => this.dialogRef.close({ isSuccess: false })
-      });
+    this.locationsService.locationsLocationIdDelete(locationId).subscribe({
+      next: () => {
+        this.snackBar.openFromComponent(SuccessSnackbarComponent, {
+          data: { message: 'Локация успешно удалена!' }
+        });
+        this.dialogRef.close({ isSuccess: true, locationId: locationId });
+      },
+      error: () => this.dialogRef.close({ isSuccess: false })
+    });
   }
 
   close(): void {

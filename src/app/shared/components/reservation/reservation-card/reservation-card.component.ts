@@ -2,13 +2,9 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ReservationDto } from '@api/models/reservationDto';
 import { DatePipe, NgClass, NgIf, NgOptimizedImage } from '@angular/common';
-import {
-  ReservationCancelDialogComponent
-} from '@shared/components/reservation/reservation-cancel-dialog/reservation-cancel-dialog.component';
+import { ReservationCancelDialogComponent } from '@shared/components/reservation/reservation-cancel-dialog/reservation-cancel-dialog.component';
 import { MatIconButton } from '@angular/material/button';
-import {
-  ReservationCreateDialogComponent
-} from '@shared/components/reservation/reservation-create-dialog/reservation-create-dialog.component';
+import { ReservationCreateDialogComponent } from '@shared/components/reservation/reservation-create-dialog/reservation-create-dialog.component';
 import { LocationDto } from '@api/models/locationDto';
 import { ResourceDto } from '@api/models/resourceDto';
 import { MatIcon } from '@angular/material/icon';
@@ -42,15 +38,17 @@ export class ReservationCardComponent {
   @Input() resource!: ResourceDto;
   @Input() location!: LocationDto;
 
-  @Output() onCancelled = new EventEmitter<string>();
-  @Output() onCreated = new EventEmitter<ReservationDto>();
-  @Output() onUpdated = new EventEmitter<ReservationDto>();
+  @Output() cancelled = new EventEmitter<string>();
+  @Output() created = new EventEmitter<ReservationDto>();
+  @Output() updated = new EventEmitter<ReservationDto>();
 
-  constructor(private dialog: MatDialog) {
-  }
+  constructor(private dialog: MatDialog) {}
 
   get isUpcoming(): boolean {
-    return new Date(this.reservation.to!) > startOfDay(new Date()) && this.reservation.status != 'Cancelled';
+    return (
+      new Date(this.reservation.to!) > startOfDay(new Date()) &&
+      this.reservation.status != 'Cancelled'
+    );
   }
 
   get canRepeat(): boolean {
@@ -63,9 +61,9 @@ export class ReservationCardComponent {
       data: { reservation: this.reservation }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (!result.isSuccess) return;
-      this.onCancelled.emit(this.reservation.id!);
+      this.cancelled.emit(this.reservation.id!);
     });
   }
 
@@ -81,9 +79,9 @@ export class ReservationCardComponent {
       }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (!result.isSuccess) return;
-      this.onCreated.emit(result.reservation);
+      this.created.emit(result.reservation);
     });
   }
 
@@ -100,9 +98,9 @@ export class ReservationCardComponent {
       }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (!result.isSuccess) return;
-      this.onUpdated.emit(result.reservation);
+      this.updated.emit(result.reservation);
     });
   }
 

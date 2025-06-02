@@ -3,19 +3,12 @@ import { DatePipe, NgForOf, NgIf } from '@angular/common';
 import { ResourceSlots, Slot } from '@core/models/resource-slots';
 import { ResourceCardComponent } from '@shared/components/resource/resource-card/resource-card.component';
 import { MatDialog } from '@angular/material/dialog';
-import {
-  ReservationCreateDialogComponent
-} from '@shared/components/reservation/reservation-create-dialog/reservation-create-dialog.component';
+import { ReservationCreateDialogComponent } from '@shared/components/reservation/reservation-create-dialog/reservation-create-dialog.component';
 
 @Component({
   selector: 'bacs-search-results',
   standalone: true,
-  imports: [
-    NgForOf,
-    NgIf,
-    ResourceCardComponent,
-    DatePipe
-  ],
+  imports: [NgForOf, NgIf, ResourceCardComponent, DatePipe],
   templateUrl: './search-results.component.html',
   styleUrls: ['./search-results.component.scss']
 })
@@ -27,8 +20,7 @@ export class SearchResultsComponent {
   hoveredSlot: Slot | null = null;
   selectedResourceId: string | undefined = undefined;
 
-  constructor(private dialog: MatDialog) {
-  }
+  constructor(private dialog: MatDialog) {}
 
   onSlotClick(slot: Slot, resourceSlot: ResourceSlots): void {
     const resourceId = resourceSlot.resource.id;
@@ -56,13 +48,13 @@ export class SearchResultsComponent {
       }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       this.resetSelection();
 
       if (!result.isSuccess) return;
 
       // убираем забронированные слоты
-      resourceSlot.slots = resourceSlot.slots.filter(x => x.from < from || x.to > to);
+      resourceSlot.slots = resourceSlot.slots.filter((x) => x.from < from || x.to > to);
     });
   }
 
@@ -73,7 +65,12 @@ export class SearchResultsComponent {
   }
 
   isSlotSelected(slot: Slot, resourceId: string): boolean {
-    if (!this.selecting || this.selectedResourceId !== resourceId || !this.startSlot || !this.hoveredSlot) {
+    if (
+      !this.selecting ||
+      this.selectedResourceId !== resourceId ||
+      !this.startSlot ||
+      !this.hoveredSlot
+    ) {
       return false;
     }
 

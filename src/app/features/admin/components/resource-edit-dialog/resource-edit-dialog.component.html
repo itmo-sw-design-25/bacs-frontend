@@ -5,7 +5,8 @@
 <mat-dialog-content [formGroup]="form" class="form-content">
   <bacs-image-uploader
     [src]="data.resource?.imageUrl ?? NoImage"
-    (fileSelected)="onFileSelected($event)">
+    (fileSelected)="onFileSelected($event)"
+  >
   </bacs-image-uploader>
 
   <mat-form-field>
@@ -54,7 +55,8 @@
         [matChipInputFor]="chipGrid"
         [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
         [matChipInputAddOnBlur]="true"
-        (matChipInputTokenEnd)="addEquipment($event)" />
+        (matChipInputTokenEnd)="addEquipment($event)"
+      />
     </mat-chip-grid>
   </mat-form-field>
 </mat-dialog-content>

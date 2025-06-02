@@ -13,10 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './reservation-cancel-dialog.component.html',
   styleUrls: ['./reservation-cancel-dialog.component.scss'],
   standalone: true,
-  imports: [
-    DatePipe,
-    MatButton
-  ]
+  imports: [DatePipe, MatButton]
 })
 export class ReservationCancelDialogComponent {
   constructor(
@@ -24,8 +21,7 @@ export class ReservationCancelDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: { reservation: ReservationDto },
     private dialogRef: MatDialogRef<ReservationCancelDialogComponent>,
     private reservationsService: ReservationsService
-  ) {
-  }
+  ) {}
 
   confirm(): void {
     const reservation = this.data.reservation;
@@ -33,16 +29,15 @@ export class ReservationCancelDialogComponent {
     if (!reservation) return;
     if (reservation.status == ReservationStatus.Cancelled) return;
 
-    this.reservationsService.reservationsReservationIdCancelPut(reservation.id!)
-      .subscribe({
-        next: () => {
-          this.snackBar.openFromComponent(SuccessSnackbarComponent, {
-            data: { message: 'Резервация успешно отменена!' }
-          });
-          this.dialogRef.close({ isSuccess: true, reservationId: reservation.id });
-        },
-        error: () => this.dialogRef.close({ isSuccess: false })
-      });
+    this.reservationsService.reservationsReservationIdCancelPut(reservation.id!).subscribe({
+      next: () => {
+        this.snackBar.openFromComponent(SuccessSnackbarComponent, {
+          data: { message: 'Резервация успешно отменена!' }
+        });
+        this.dialogRef.close({ isSuccess: true, reservationId: reservation.id });
+      },
+      error: () => this.dialogRef.close({ isSuccess: false })
+    });
   }
 
   close(): void {

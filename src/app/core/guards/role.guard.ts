@@ -3,7 +3,7 @@ import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
 import { CurrentUserService } from '@shared/services/current-user.service';
 
-export const roleGuard: CanActivateFn = (route, state) => {
+export const roleGuard: CanActivateFn = (route) => {
   const currentUser = inject(CurrentUserService);
   const router = inject(Router);
 
@@ -20,7 +20,7 @@ export const roleGuard: CanActivateFn = (route, state) => {
   if (allowed.includes('admin')) {
     return currentUser.user$.pipe(
       first(),
-      map(user => user.adminIn && user.adminIn?.length > 0 ? true : router.createUrlTree(['/']))
+      map((user) => (user.adminIn && user.adminIn?.length > 0 ? true : router.createUrlTree(['/'])))
     );
   }
 

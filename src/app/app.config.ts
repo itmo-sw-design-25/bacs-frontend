@@ -15,29 +15,26 @@ import { ErrorInterceptor } from '@core/interceptors/error.interceptor';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { CustomDateAdapter } from '@shared/components/date/custom-date-adapter.component';
 
-const provideCore = () =>
-  [
-    provideRouter(appRoutes),
-    provideHttpClient(withInterceptorsFromDi()),
-    provideAnimations(),
-    provideAnimationsAsync(),
-    provideNativeDateAdapter()
-  ];
+const provideCore = () => [
+  provideRouter(appRoutes),
+  provideHttpClient(withInterceptorsFromDi()),
+  provideAnimations(),
+  provideAnimationsAsync(),
+  provideNativeDateAdapter()
+];
 
-const provideLocalization = () =>
-  [
-    { provide: LOCALE_ID, useValue: 'ru' },
-    { provide: DateAdapter, useClass: CustomDateAdapter }
-  ];
+const provideLocalization = () => [
+  { provide: LOCALE_ID, useValue: 'ru' },
+  { provide: DateAdapter, useClass: CustomDateAdapter }
+];
 
-const provideApiModule = () =>
-  [
-    importProvidersFrom(
-      ApiModule.forRoot(() => new Configuration({
-        basePath: environment.apiBaseUrl,
-        withCredentials: false
-      })))
-  ];
+const provideApiModule = () => [
+  importProvidersFrom(
+    ApiModule.forRoot(
+      () => new Configuration({ basePath: environment.apiBaseUrl, withCredentials: false })
+    )
+  )
+];
 
 const provideAppServices = () => [
   AuthService,

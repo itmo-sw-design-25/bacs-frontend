@@ -11,9 +11,7 @@ import { ResourcesService } from '@api/services/resources.service';
   templateUrl: './resource-delete-dialog.component.html',
   styleUrls: ['./resource-delete-dialog.component.scss'],
   standalone: true,
-  imports: [
-    MatButton
-  ]
+  imports: [MatButton]
 })
 export class ResourceDeleteDialogComponent {
   constructor(
@@ -21,24 +19,22 @@ export class ResourceDeleteDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: { resource: ResourceDto },
     private dialogRef: MatDialogRef<ResourceDeleteDialogComponent>,
     private resourcesService: ResourcesService
-  ) {
-  }
+  ) {}
 
   confirm(): void {
     const resourceId = this.data.resource.id;
 
     if (!resourceId) return;
 
-    this.resourcesService.resourcesResourceIdDelete(resourceId)
-      .subscribe({
-        next: () => {
-          this.snackBar.openFromComponent(SuccessSnackbarComponent, {
-            data: { message: 'Ресурс успешно удалён!' }
-          });
-          this.dialogRef.close({ isSuccess: true, resourceId: resourceId });
-        },
-        error: () => this.dialogRef.close({ isSuccess: false })
-      });
+    this.resourcesService.resourcesResourceIdDelete(resourceId).subscribe({
+      next: () => {
+        this.snackBar.openFromComponent(SuccessSnackbarComponent, {
+          data: { message: 'Ресурс успешно удалён!' }
+        });
+        this.dialogRef.close({ isSuccess: true, resourceId: resourceId });
+      },
+      error: () => this.dialogRef.close({ isSuccess: false })
+    });
   }
 
   close(): void {

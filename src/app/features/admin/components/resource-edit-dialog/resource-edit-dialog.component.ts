@@ -69,7 +69,8 @@ export class ResourceEditDialogComponent {
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<ResourceEditDialogComponent>,
     private resourcesService: ResourcesService,
-    @Inject(MAT_DIALOG_DATA) public data: { mode: Mode; locationId?: string; resource?: ResourceDto }
+    @Inject(MAT_DIALOG_DATA)
+    public data: { mode: Mode; locationId?: string; resource?: ResourceDto }
   ) {
     this.form = this.fb.group({
       name: ['', Validators.required],
@@ -125,7 +126,9 @@ export class ResourceEditDialogComponent {
       this.resourcesService.resourcesPost(request).subscribe({
         next: (resource) => {
           this.uploadImage(resource.id!);
-          this.snackBar.openFromComponent(SuccessSnackbarComponent, { data: { message: 'Ресурс успешно создан' } });
+          this.snackBar.openFromComponent(SuccessSnackbarComponent, {
+            data: { message: 'Ресурс успешно создан' }
+          });
           this.dialogRef.close({ resourceId: resource.id, isSuccess: true });
         },
         error: () => this.dialogRef.close({ isSuccess: false })
@@ -137,7 +140,9 @@ export class ResourceEditDialogComponent {
       this.resourcesService.resourcesResourceIdPut(this.data.resource.id, request).subscribe({
         next: (resource) => {
           this.uploadImage(this.data.resource!.id!);
-          this.snackBar.openFromComponent(SuccessSnackbarComponent, { data: { message: 'Ресурс успешно обновлён' } });
+          this.snackBar.openFromComponent(SuccessSnackbarComponent, {
+            data: { message: 'Ресурс успешно обновлён' }
+          });
           this.dialogRef.close({ resourceId: resource.id, isSuccess: true });
         },
         error: () => this.dialogRef.close({ isSuccess: false })

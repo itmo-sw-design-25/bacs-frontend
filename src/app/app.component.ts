@@ -9,5 +9,4 @@ import { HeaderComponent } from '@shared/components/header/header.component';
   imports: [RouterOutlet, HeaderComponent, FooterComponent],
   templateUrl: './app.component.html'
 })
-export class AppComponent {
-}
+export class AppComponent {}

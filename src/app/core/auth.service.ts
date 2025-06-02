@@ -15,7 +15,7 @@ export class AuthService {
   }
 
   constructor() {
-    this.keycloak = new (Keycloak as unknown as { new(cfg: any): KeycloakInstance })({
+    this.keycloak = new (Keycloak as unknown as { new (cfg: any): KeycloakInstance })({
       url: environment.keycloakUrl,
       realm: environment.keycloakRealm,
       clientId: environment.keycloakClientId

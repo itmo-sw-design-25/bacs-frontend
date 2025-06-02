@@ -6,23 +6,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { ResourceCardComponent } from '@shared/components/resource/resource-card/resource-card.component';
-import {
-  ResourceEditDialogComponent
-} from '@features/admin/components/resource-edit-dialog/resource-edit-dialog.component';
-import {
-  ResourceDeleteDialogComponent
-} from '@features/admin/components/resource-delete-dialog/resource-delete-dialog.component';
+import { ResourceEditDialogComponent } from '@features/admin/components/resource-edit-dialog/resource-edit-dialog.component';
+import { ResourceDeleteDialogComponent } from '@features/admin/components/resource-delete-dialog/resource-delete-dialog.component';
 import { tap } from 'rxjs';
 
 @Component({
   selector: 'bacs-resource-list',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatIconModule,
-    MatButtonModule,
-    ResourceCardComponent
-  ],
+  imports: [CommonModule, MatIconModule, MatButtonModule, ResourceCardComponent],
   templateUrl: './resource-list.component.html',
   styleUrls: ['./resource-list.component.scss']
 })
@@ -35,45 +26,39 @@ export class ResourceListComponent implements OnInit {
   constructor(
     private resourcesService: ResourcesService,
     private dialog: MatDialog
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.loadResources();
   }
 
   loadResources(): void {
-    this.resourcesService.resourcesGet(
-      [],
-      [this.locationId],
-      [],
-      0,
-      100
-    ).pipe(
-      tap(resources => {
-        this.resources = resources.collection!;
-        this.totalCount = resources.totalCount!;
-      })
-    ).subscribe();
+    this.resourcesService
+      .resourcesGet([], [this.locationId], [], 0, 100)
+      .pipe(
+        tap((resources) => {
+          this.resources = resources.collection!;
+          this.totalCount = resources.totalCount!;
+        })
+      )
+      .subscribe();
   }
 
   createResource(): void {
-    const dialogRef = this.dialog.open(ResourceEditDialogComponent,
-      {
-        width: '600px',
-        data: {
-          mode: 'create',
-          locationId: this.locationId
-        }
-      });
+    const dialogRef = this.dialog.open(ResourceEditDialogComponent, {
+      width: '600px',
+      data: {
+        mode: 'create',
+        locationId: this.locationId
+      }
+    });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (!result?.isSuccess) return;
 
-      this.resourcesService.resourcesGet([result.resourceId])
-        .subscribe({
-          next: (resources) => this.resources = [...this.resources, ...resources.collection!]
-        });
+      this.resourcesService.resourcesGet([result.resourceId]).subscribe({
+        next: (resources) => (this.resources = [...this.resources, ...resources.collection!])
+      });
     });
   }
 
@@ -83,18 +68,17 @@ export class ResourceListComponent implements OnInit {
       data: { mode: 'edit', resource }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (!result?.isSuccess) return;
 
-      this.resourcesService.resourcesGet([result.resourceId])
-        .subscribe({
-          next: (resources) => {
-            if (resources.collection?.length == 0) return;
+      this.resourcesService.resourcesGet([result.resourceId]).subscribe({
+        next: (resources) => {
+          if (resources.collection?.length == 0) return;
 
-            const index = this.resources.findIndex(x => x.id === result.resourceId);
-            this.resources[index] = resources.collection![0];
-          }
-        });
+          const index = this.resources.findIndex((x) => x.id === result.resourceId);
+          this.resources[index] = resources.collection![0];
+        }
+      });
     });
   }
 
@@ -104,9 +88,9 @@ export class ResourceListComponent implements OnInit {
       data: { resource }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (!result?.isSuccess) return;
-      this.resources = this.resources.filter(r => r.id !== result.resourceId);
+      this.resources = this.resources.filter((r) => r.id !== result.resourceId);
       this.totalCount -= 1;
     });
   }

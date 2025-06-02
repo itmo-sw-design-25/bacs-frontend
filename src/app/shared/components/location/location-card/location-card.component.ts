@@ -40,12 +40,11 @@ export class LocationCardComponent {
   constructor(
     private dayOfWeekPipe: DayOfWeekPipe,
     private currentUser: CurrentUserService
-  ) {
-  }
+  ) {}
 
   get displayDays(): string {
     const days = this.location?.calendarSettings?.availableDaysOfWeek;
-    return days?.map(day => this.dayOfWeekPipe.transform(day)).join(', ') || 'не указано';
+    return days?.map((day) => this.dayOfWeekPipe.transform(day)).join(', ') || 'не указано';
   }
 
   deleteIconClick(event: any): void {

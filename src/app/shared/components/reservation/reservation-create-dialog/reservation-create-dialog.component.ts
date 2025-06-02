@@ -9,7 +9,11 @@ import {
   MatDialogTitle
 } from '@angular/material/dialog';
 import { MatFormField, MatSuffix } from '@angular/material/form-field';
-import { MatDatepicker, MatDatepickerInput, MatDatepickerToggle } from '@angular/material/datepicker';
+import {
+  MatDatepicker,
+  MatDatepickerInput,
+  MatDatepickerToggle
+} from '@angular/material/datepicker';
 import { MatButton } from '@angular/material/button';
 import { MatInput } from '@angular/material/input';
 import { MatLabel, MatOption, MatSelect } from '@angular/material/select';
@@ -89,7 +93,8 @@ export class ReservationCreateDialogComponent {
 
     const formValue = this.form.getRawValue();
     const date = formValue.date as Date;
-    const from = new Date(date), to = new Date(date);
+    const from = new Date(date),
+      to = new Date(date);
 
     const [fromHours, fromMinutes] = formValue.fromTime.split(':').map(Number);
     const [toHours, toMinutes] = formValue.toTime.split(':').map(Number);
@@ -104,7 +109,7 @@ export class ReservationCreateDialogComponent {
 
     switch (this.data.mode) {
       case 'create':
-      case 'repeat':
+      case 'repeat': {
         const createRequest = {
           resourceId: this.data.resource?.id,
           locationId: this.data.location?.id,
@@ -112,26 +117,27 @@ export class ReservationCreateDialogComponent {
           to: to.toISOString()
         } as CreateReservationRequest;
 
-        this.reservationsService.reservationsPost(createRequest)
-          .subscribe({
-            next: (reservation) => {
-              this.snackBar.openFromComponent(SuccessSnackbarComponent, {
-                data: { message: 'Резервация успешно создана!' }
-              });
+        this.reservationsService.reservationsPost(createRequest).subscribe({
+          next: (reservation) => {
+            this.snackBar.openFromComponent(SuccessSnackbarComponent, {
+              data: { message: 'Резервация успешно создана!' }
+            });
 
-              this.dialogRef.close({ isSuccess: true, reservation: reservation });
-            },
-            error: () => this.dialogRef.close({ isSuccess: false })
-          });
+            this.dialogRef.close({ isSuccess: true, reservation: reservation });
+          },
+          error: () => this.dialogRef.close({ isSuccess: false })
+        });
 
         break;
-      case 'edit':
+      }
+      case 'edit': {
         const updateRequest = {
           from: from.toISOString(),
           to: to.toISOString()
         } as UpdateReservationRequest;
 
-        this.reservationsService.reservationsReservationIdPut(this.data.reservation?.id!, updateRequest)
+        this.reservationsService
+          .reservationsReservationIdPut(this.data.reservation?.id!, updateRequest)
           .subscribe({
             next: (reservation) => {
               this.snackBar.openFromComponent(SuccessSnackbarComponent, {
@@ -143,6 +149,7 @@ export class ReservationCreateDialogComponent {
           });
 
         break;
+      }
     }
   }
 
@@ -161,8 +168,12 @@ export class ReservationCreateDialogComponent {
     const date = new Date(); // сегодняшняя дата
 
     // Время начала и конца в UTC
-    const startUtc = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), fromHours, fromMinutes));
-    const endUtc = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), toHours, toMinutes));
+    const startUtc = new Date(
+      Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), fromHours, fromMinutes)
+    );
+    const endUtc = new Date(
+      Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), toHours, toMinutes)
+    );
 
     const step = this.minReservationTime;
     const slots: Date[] = [];
@@ -173,6 +184,6 @@ export class ReservationCreateDialogComponent {
       current = new Date(current.getTime() + step * 60 * 1000); // шаг в минутах
     }
 
-    this.timeSlots = slots.map(date => formatTime(date));
+    this.timeSlots = slots.map((date) => formatTime(date));
   }
 }

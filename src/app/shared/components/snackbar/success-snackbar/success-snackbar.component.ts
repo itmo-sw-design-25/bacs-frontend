@@ -6,12 +6,9 @@ import { MatIcon } from '@angular/material/icon';
   selector: 'bacs-success-snackbar',
   templateUrl: './success-snackbar.component.html',
   styleUrls: ['./success-snackbar.component.scss'],
-  imports: [
-    MatIcon
-  ],
+  imports: [MatIcon],
   standalone: true
 })
 export class SuccessSnackbarComponent {
-  constructor(@Inject(MAT_SNACK_BAR_DATA) public data: { message: string }) {
-  }
+  constructor(@Inject(MAT_SNACK_BAR_DATA) public data: { message: string }) {}
 }

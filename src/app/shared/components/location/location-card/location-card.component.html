@@ -36,7 +36,12 @@
 
     <p class="location-address">
       <mat-icon class="icon">location_on</mat-icon>
-      <a (click)="$event.stopPropagation()" [href]="location.address | address" rel="noopener" target="_blank">
+      <a
+        (click)="$event.stopPropagation()"
+        [href]="location.address | address"
+        rel="noopener"
+        target="_blank"
+      >
         {{ location.address }}
       </a>
     </p>

@@ -11,11 +11,7 @@ import { ResourceListComponent } from '@features/admin/components/resource-list/
   templateUrl: './location-edit-page.component.html',
   styleUrls: ['./location-edit-page.component.scss'],
   standalone: true,
-  imports: [
-    NgIf,
-    LocationEditFormComponent,
-    ResourceListComponent
-  ]
+  imports: [NgIf, LocationEditFormComponent, ResourceListComponent]
 })
 export class LocationEditPageComponent implements OnInit {
   location: LocationDto | null = null;

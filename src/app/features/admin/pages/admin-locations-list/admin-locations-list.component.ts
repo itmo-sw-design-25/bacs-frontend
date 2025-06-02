@@ -4,11 +4,7 @@ import { LocationsListComponent } from '@features/locations/locations-list/locat
 @Component({
   selector: 'bacs-admin-locations-list',
   standalone: true,
-  imports: [
-    LocationsListComponent
-  ],
+  imports: [LocationsListComponent],
   templateUrl: './admin-locations-list.component.html'
 })
-export class AdminLocationsListComponent {
-
-}
+export class AdminLocationsListComponent {}

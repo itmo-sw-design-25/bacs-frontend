@@ -37,12 +37,17 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
   <button mat-button (click)="close()">Отмена</button>
-  <button mat-flat-button class="submit-button" color="primary" (click)="confirm()" [disabled]="form.invalid">
+  <button
+    mat-flat-button
+    class="submit-button"
+    color="primary"
+    (click)="confirm()"
+    [disabled]="form.invalid"
+  >
     {{ isEditMode ? 'Сохранить' : 'Забронировать' }}
   </button>
 </mat-dialog-actions>

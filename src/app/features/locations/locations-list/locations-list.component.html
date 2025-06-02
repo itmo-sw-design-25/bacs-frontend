@@ -19,7 +19,7 @@
     <ng-container *ngFor="let location of locations">
       <bacs-location-card
         [location]="location"
-        [editEnabled]="mode == 'admin'"
+        [editEnabled]="mode === 'admin'"
         (click)="openSearchPage(location.id!)"
         (deleteClick)="deleteLocation(location)"
         class="location-card-clickable"
@@ -39,5 +39,4 @@
       {{ isLoading ? 'Загрузка...' : 'Загрузить ещё' }}
     </button>
   </div>
-
 </div>

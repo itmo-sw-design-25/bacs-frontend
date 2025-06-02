@@ -42,11 +42,15 @@ export class UserProfileComponent implements OnInit {
   enableEmailNotificationsChanged$ = new Subject<boolean>();
   enableEmailNotificationsSub: Subscription | undefined;
 
-  constructor(private authService: AuthService, private userService: UsersService, private snackBar: MatSnackBar) {
-  }
+  constructor(
+    private authService: AuthService,
+    private userService: UsersService,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
-    this.userService.usersUserIdGet(this.user.user_id)
+    this.userService
+      .usersUserIdGet(this.user.user_id)
       .pipe(
         tap((user) => {
           this.enableEmailNotifications = user.enableEmailNotifications;
@@ -56,18 +60,12 @@ export class UserProfileComponent implements OnInit {
       .subscribe();
 
     this.emailChangedSub = this.emailChanged$
-      .pipe(
-        debounceTime(500),
-        distinctUntilChanged()
-      )
-      .subscribe(newEmail => this.updateUser(newEmail, this.enableEmailNotifications!));
+      .pipe(debounceTime(500), distinctUntilChanged())
+      .subscribe((newEmail) => this.updateUser(newEmail, this.enableEmailNotifications!));
 
     this.enableEmailNotificationsSub = this.enableEmailNotificationsChanged$
-      .pipe(
-        debounceTime(250),
-        distinctUntilChanged()
-      )
-      .subscribe(newValue => this.updateUser(this.email!, newValue));
+      .pipe(debounceTime(250), distinctUntilChanged())
+      .subscribe((newValue) => this.updateUser(this.email!, newValue));
   }
 
   onEmailChange(newValue: string) {

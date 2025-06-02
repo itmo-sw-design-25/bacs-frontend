@@ -9,9 +9,7 @@ import { Router } from '@angular/router';
 import { LocationCardComponent } from '@shared/components/location/location-card/location-card.component';
 import { CurrentUserService } from '@shared/services/current-user.service';
 import { MatDialog } from '@angular/material/dialog';
-import {
-  LocationDeleteDialogComponent
-} from '@features/admin/components/location-delete-dialog/location-delete-dialog.component';
+import { LocationDeleteDialogComponent } from '@features/admin/components/location-delete-dialog/location-delete-dialog.component';
 
 type Mode = 'view' | 'admin';
 
@@ -50,12 +48,11 @@ export class LocationsListComponent implements OnInit {
     private currentUser: CurrentUserService,
     private router: Router,
     private dialog: MatDialog
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     if (this.mode == 'admin' && !this.currentUser.isSuperAdmin) {
-      this.currentUser.user$.subscribe(user => this.loadLocations(user.adminIn!));
+      this.currentUser.user$.subscribe((user) => this.loadLocations(user.adminIn!));
     } else {
       this.loadLocations();
     }
@@ -69,18 +66,17 @@ export class LocationsListComponent implements OnInit {
     if (this.isLoading) return;
     this.isLoading = true;
 
-    this.locationsService.locationsGet(locationIds, this.offset, this.limit)
-      .subscribe({
-        next: (locations) => {
-          const newItems = locations.collection ?? [];
-          this.locations = [...this.locations, ...newItems];
-          this.offset += this.limit;
-          this.hasMore = newItems.length === this.limit;
-          this.totalCount = locations.totalCount!;
-          this.isLoading = false;
-        },
-        error: () => this.isLoading = false
-      });
+    this.locationsService.locationsGet(locationIds, this.offset, this.limit).subscribe({
+      next: (locations) => {
+        const newItems = locations.collection ?? [];
+        this.locations = [...this.locations, ...newItems];
+        this.offset += this.limit;
+        this.hasMore = newItems.length === this.limit;
+        this.totalCount = locations.totalCount!;
+        this.isLoading = false;
+      },
+      error: () => (this.isLoading = false)
+    });
   }
 
   deleteLocation(location: LocationDto): void {
@@ -89,9 +85,9 @@ export class LocationsListComponent implements OnInit {
       data: { location }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (!result?.isSuccess) return;
-      this.locations = this.locations.filter(r => r.id !== result.locationId);
+      this.locations = this.locations.filter((r) => r.id !== result.locationId);
       this.totalCount -= 1;
     });
   }
@@ -104,4 +100,3 @@ export class LocationsListComponent implements OnInit {
     this.loadLocations();
   }
 }
-

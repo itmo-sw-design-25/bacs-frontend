@@ -18,10 +18,10 @@
   padding: 4px 10px;
   border-radius: 6px;
   background: $green-light;
-  font-size: .85rem;
+  font-size: 0.85rem;
   color: $green-main;
   cursor: pointer;
-  transition: background-color .2s;
+  transition: background-color 0.2s;
   white-space: nowrap;
 
   &:hover {
@@ -38,7 +38,7 @@
 .no-slots {
   margin: 8px 0 0 8px;
   color: $text-disabled;
-  font-size: .95rem;
+  font-size: 0.95rem;
 }
 
 @media (max-width: 600px) {
@@ -55,12 +55,12 @@
   .slot {
     flex: 0 0 calc(33.333% - 6px);
     text-align: center;
-    font-size: .8rem;
+    font-size: 0.8rem;
     box-sizing: border-box;
   }
 
   .no-slots {
     margin-left: 0;
-    font-size: .9rem;
+    font-size: 0.9rem;
   }
 }

@@ -33,8 +33,7 @@ export class ResourceCardComponent {
     return this.currentUser.isAdmin(locationId);
   }
 
-  constructor(private currentUser: CurrentUserService) {
-  }
+  constructor(private currentUser: CurrentUserService) {}
 
   editIconClick(event: any): void {
     event.stopPropagation();

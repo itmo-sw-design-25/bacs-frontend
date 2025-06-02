@@ -32,16 +32,16 @@ import { CurrentUserService } from '@shared/services/current-user.service';
 })
 @UntilDestroy({ checkProperties: true })
 export class HeaderComponent {
-
   get isAuthenticated() {
     return !!this.authService.token;
   }
 
   get isAdmin() {
-    return this.currentUser.isAdmin()
+    return this.currentUser.isAdmin();
   }
 
-  constructor(private authService: AuthService, private currentUser: CurrentUserService) {
-  }
+  constructor(
+    private authService: AuthService,
+    private currentUser: CurrentUserService
+  ) {}
 }
-

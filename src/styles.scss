@@ -11,12 +11,12 @@ $bacs-accent: mat.define-palette(mat.$pink-palette, 400);
 
 // ── Тема ──
 $bacs-theme: mat.define-light-theme(
-    (
-      color: (
-        primary: $bacs-primary,
-        accent: $bacs-accent,
-      ),
+  (
+    color: (
+      primary: $bacs-primary,
+      accent: $bacs-accent
     )
+  )
 );
 
 @include mat.all-component-themes($bacs-theme);
@@ -65,7 +65,7 @@ bacs-root main {
 .count-badge {
   background: theme.$green-light;
   color: theme.$green-main;
-  font-size: .9rem;
+  font-size: 0.9rem;
   font-weight: 600;
   padding: 4px 14px;
   border-radius: 20px;
@@ -96,4 +96,3 @@ bacs-root main {
   color: theme.$text-disabled;
   cursor: not-allowed;
 }
-
