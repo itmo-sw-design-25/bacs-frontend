@@ -1,6 +1,5 @@
 variables:
   DOCKERFILE_PATH: "Dockerfile"
-  DOCKER_IMAGE: "$CI_REGISTRY_IMAGE"
   ANGULAR_APP_DIR: "."
   ANGULAR_BUILD_DIR: "dist"
 
@@ -38,7 +37,7 @@ image push:
   script:
     - echo $CI_REGISTRY_PASSWORD | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
     - docker build --platform $BACS_PLATFORM -t $CI_REGISTRY_IMAGE -f $DOCKERFILE_PATH .
-    - docker push $DOCKER_IMAGE
+    - docker push $CI_REGISTRY_IMAGE
 
 image deploy:
   image: alpine:latest
