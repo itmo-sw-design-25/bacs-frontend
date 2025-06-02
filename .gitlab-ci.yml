@@ -1,0 +1,56 @@
+variables:
+  DOCKERFILE_PATH: "Dockerfile"
+  DOCKER_IMAGE: "$CI_REGISTRY_IMAGE"
+  ANGULAR_APP_DIR: "."
+  ANGULAR_BUILD_DIR: "dist"
+
+stages:
+  - build
+  - push
+  - deploy
+
+workflow:
+  auto_cancel:
+    on_new_commit: interruptible
+
+build:
+  image: node:20-alpine3.20
+  stage: build
+  script:
+    - npm install
+    - npm run build -- --configuration=production
+  artifacts:
+    paths:
+      - $ANGULAR_APP_DIR/$ANGULAR_BUILD_DIR
+    expire_in: 1 hour
+  rules:
+    - changes:
+        - "$ANGULAR_APP_DIR/**/*"
+      when: always
+
+image push:
+  image: docker:latest
+  services:
+    - docker:dind
+  stage: push
+  needs: [ build ]
+  when: on_success
+  script:
+    - echo $CI_REGISTRY_PASSWORD | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
+    - docker build --platform $BACS_PLATFORM -t $CI_REGISTRY_IMAGE -f $DOCKERFILE_PATH .
+    - docker push $DOCKER_IMAGE
+
+image deploy:
+  image: alpine:latest
+  stage: deploy
+  needs: [ image push ]
+  when: manual
+  before_script:
+    - apk add --no-cache openssh-client
+  script:
+    - eval $(ssh-agent -s)
+    - echo "$SSH_SERVER_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - ssh -o StrictHostKeyChecking=no "$SSH_SERVER_USER@$SSH_SERVER_IP" "
+      docker pull ${CI_REGISTRY_IMAGE} &&
+      docker compose down ${BACS_COMPOSE_SERVICE} &&
+      docker compose up ${BACS_COMPOSE_SERVICE} -d"
