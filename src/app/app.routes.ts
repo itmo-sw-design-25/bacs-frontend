@@ -19,7 +19,7 @@ export const appRoutes: Routes = [
   },
   {
     path: 'admin',
-    loadComponent: () => import('@features/admin/admin-dashboard.component').then((m) => m.AdminDashboardComponent),
+    loadComponent: () => import('@features/admin/pages/admin-locations-list/admin-locations-list.component').then((m) => m.AdminLocationsListComponent),
     canActivate: [roleGuard],
     data: { roles: ['admin', 'bacs-super-admin'] }
   },

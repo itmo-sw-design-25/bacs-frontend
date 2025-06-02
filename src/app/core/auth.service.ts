@@ -2,10 +2,17 @@ import { Injectable } from '@angular/core';
 import Keycloak, { KeycloakError, KeycloakInstance, KeycloakPromise } from 'keycloak-js';
 import { environment } from '../../environments/environment';
 import { UserInfo } from './models/user-info';
+import { Observable, ReplaySubject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private keycloak!: KeycloakInstance;
+
+  private readonly _authSuccess$ = new ReplaySubject<void>(1);
+
+  get authSuccess$(): Observable<void> {
+    return this._authSuccess$.asObservable();
+  }
 
   constructor() {
     this.keycloak = new (Keycloak as unknown as { new(cfg: any): KeycloakInstance })({
@@ -13,6 +20,8 @@ export class AuthService {
       realm: environment.keycloakRealm,
       clientId: environment.keycloakClientId
     });
+
+    this.keycloak.onAuthSuccess = () => this._authSuccess$.next();
   }
 
   /**
@@ -36,19 +45,7 @@ export class AuthService {
   get user() {
     const userInfo = this.keycloak.tokenParsed as UserInfo;
 
-    if (!userInfo) return undefined;
-
-    return {
-      user_id: userInfo['sub'],
-      username: userInfo['preferred_username'],
-      name: userInfo['name'],
-      picture: userInfo['picture']
-    };
-  }
-
-  /** Роли */
-  get isAdmin() {
-    return this.keycloak.hasRealmRole('admin');
+    return !userInfo ? undefined : this.parseUserInfo(userInfo);
   }
 
   get isSuperAdmin() {
@@ -58,5 +55,14 @@ export class AuthService {
   /** Логаут */
   logout() {
     this.keycloak.logout({ redirectUri: window.location.origin });
+  }
+
+  private parseUserInfo(userInfo: UserInfo) {
+    return {
+      user_id: userInfo['sub'] as string,
+      username: userInfo['preferred_username'] as string,
+      name: userInfo['name'] as string,
+      picture: userInfo['picture'] as string
+    };
   }
 }

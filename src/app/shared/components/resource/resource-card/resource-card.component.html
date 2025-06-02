@@ -1,6 +1,7 @@
 <div class="resource-card" *ngIf="resource">
   <img
-    [ngSrc]="resource.imageUrl ?? noImage"
+    [ngSrc]="resource.imageUrl ?? NoImage"
+    priority
     width="240"
     height="160"
     alt="{{ resource.name }}"
@@ -33,7 +34,7 @@
 
   <div class="resource-actions">
     <button
-      *ngIf="editEnabled && isAdmin"
+      *ngIf="editEnabled && (isAdmin(resource.locationId) | async)"
       (click)="deleteIconClick($event)"
       mat-icon-button
       matTooltip="Удалить ресурс"

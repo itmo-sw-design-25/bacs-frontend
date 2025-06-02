@@ -1,0 +1,45 @@
+@use '../../../../assets/styles/theme' as *;
+
+.photo-uploader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+
+  .preview {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border: 2px dashed $green-light;
+    border-radius: 12px;
+    background: $green-light;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color .25s ease;
+
+    &:hover {
+      border-color: $green-secondary;
+
+      .change-btn {
+        opacity: 1;
+      }
+    }
+
+    .preview-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background: $bg-disabled;
+    }
+
+    .change-btn {
+      position: absolute;
+      right: 8px;
+      bottom: 8px;
+      opacity: 0;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
+      transition: opacity .2s ease;
+      background: $green-secondary;
+    }
+  }
+}

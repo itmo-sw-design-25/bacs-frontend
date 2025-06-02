@@ -11,10 +11,15 @@
   }
 }
 
-.locations-list {
+.locations-list-content {
   display: flex;
   flex-direction: column;
   gap: 16px;
+
+  .location-card-clickable {
+    cursor: pointer;
+    position: relative;
+  }
 }
 
 .filters-bar {

@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ResourceDto } from '@api/models/resourceDto';
-import { NgIf, NgOptimizedImage } from '@angular/common';
+import { AsyncPipe, NgIf, NgOptimizedImage } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { ResourceTypePipe } from '@shared/pipes/resource-type.pipe';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
-import { AuthService } from '@core/auth.service';
+import { CurrentUserService } from '@shared/services/current-user.service';
+import { NoImage } from '@shared/utils/image.utils';
 
 @Component({
   selector: 'bacs-resource-card',
@@ -16,24 +17,23 @@ import { AuthService } from '@core/auth.service';
     NgIf,
     ResourceTypePipe,
     MatIconButton,
-    MatTooltip
+    MatTooltip,
+    AsyncPipe
   ],
   templateUrl: './resource-card.component.html',
   styleUrls: ['./resource-card.component.scss']
 })
 export class ResourceCardComponent {
-  readonly noImage = 'https://bacs.space/s3/static/front/no-image-placeholder.svg';
-
   @Input() resource!: ResourceDto;
   @Input() editEnabled: boolean = false;
   @Output() editClick = new EventEmitter<void>();
   @Output() deleteClick = new EventEmitter<void>();
 
-  get isAdmin(): boolean {
-    return this.authService.isAdmin || this.authService.isSuperAdmin;
+  isAdmin(locationId?: string) {
+    return this.currentUser.isAdmin(locationId);
   }
 
-  constructor(private authService: AuthService) {
+  constructor(private currentUser: CurrentUserService) {
   }
 
   editIconClick(event: any): void {
@@ -45,4 +45,6 @@ export class ResourceCardComponent {
     event.stopPropagation();
     this.deleteClick.emit();
   }
+
+  protected readonly NoImage = NoImage;
 }

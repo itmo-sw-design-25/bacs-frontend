@@ -1,17 +1,7 @@
 <div class="location-card" *ngIf="location">
-  <button
-    (click)="$event.stopPropagation()"
-    *ngIf="isAdmin"
-    [routerLink]="['/admin/locations', location.id]"
-    class="edit-button"
-    mat-icon-button
-    matTooltip="Редактировать локацию"
-  >
-    <mat-icon>edit</mat-icon>
-  </button>
-
   <img
-    [ngSrc]="location.imageUrl ?? noImage"
+    [ngSrc]="location.imageUrl ?? NoImage"
+    priority
     alt="{{ location.name }}"
     class="location-image"
     height="160"
@@ -43,5 +33,17 @@
       <mat-icon class="icon">calendar_today</mat-icon>
       Дни работы: {{ displayDays }}
     </p>
+  </div>
+
+  <div class="location-actions">
+    <button
+      *ngIf="editEnabled && (isAdmin(location.id) | async)"
+      (click)="$event.stopPropagation()"
+      [routerLink]="['/admin/locations', location.id]"
+      mat-icon-button
+      matTooltip="Редактировать локацию"
+    >
+      <mat-icon>edit</mat-icon>
+    </button>
   </div>
 </div>

@@ -70,7 +70,7 @@ export class MyReservationsPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userId = this.authService.user?.user_id;
+    this.userId = this.authService.user?.user_id!;
     this.loadReservations(this.limitControl.value!);
   }
 

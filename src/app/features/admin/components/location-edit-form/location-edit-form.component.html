@@ -1,17 +1,8 @@
-<form [formGroup]="form" class="location-form" (ngSubmit)="save()">
-  <div class="image-preview-wrapper">
-    <img
-      [ngSrc]="location.imageUrl ?? noImage"
-      width="800"
-      height="600"
-      alt="Фото локации"
-      class="location-image"
-    />
-
-    <div class="upload-row">
-      <input type="file" (change)="onFileSelected($event)" />
-    </div>
-  </div>
+<form [formGroup]="form" class="location-form">
+  <bacs-image-uploader
+    [src]="location.imageUrl ?? NoImage"
+    (fileSelected)="onFileSelected($event)">
+  </bacs-image-uploader>
 
   <mat-form-field>
     <mat-label>Название</mat-label>
@@ -57,5 +48,66 @@
     </mat-select>
   </mat-form-field>
 
-  <button mat-flat-button class="submit-button" color="primary" type="submit" [disabled]="form.invalid">Сохранить</button>
+  <button
+    (click)="save()"
+    [disabled]="form.invalid"
+    class="submit-button"
+    color="primary"
+    mat-flat-button
+    type="submit"
+  >
+    Сохранить
+  </button>
+
+  <section class="admins-section">
+    <h3>Администраторы локации</h3>
+
+    <mat-chip-listbox *ngIf="admins.length; else noAdmins">
+      <mat-chip *ngFor="let admin of admins">
+        {{ admin.name }} ({{ admin.email }})
+      </mat-chip>
+    </mat-chip-listbox>
+    <ng-template #noAdmins>
+      <p class="hint">Администраторы пока не назначены на данной локации</p>
+    </ng-template>
+
+    <div class="admin-actions">
+      <button
+        (click)="addMode = !addMode"
+        color="primary"
+        mat-stroked-button
+      >
+        <mat-icon>person_add</mat-icon>
+        Добавить
+      </button>
+
+      <button
+        (click)="removeMode = !removeMode"
+        [disabled]="!admins.length"
+        color="warn"
+        mat-stroked-button
+      >
+        <mat-icon>person_remove</mat-icon>
+        Удалить
+      </button>
+    </div>
+
+    <mat-form-field *ngIf="addMode" appearance="fill">
+      <mat-label>Выберите пользователя</mat-label>
+      <mat-select (selectionChange)="addAdmin($event.value)">
+        <mat-option *ngFor="let user of usersNotAdmin" [value]="user.id">
+          {{ user.name }} ({{ user.email }})
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="removeMode" appearance="fill">
+      <mat-label>Кого убрать из админов</mat-label>
+      <mat-select (selectionChange)="removeAdmin($event.value)">
+        <mat-option *ngFor="let admin of admins" [value]="admin.id">
+          {{ admin.name }} ({{ admin.email }})
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </section>
 </form>

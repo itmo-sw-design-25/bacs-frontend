@@ -19,6 +19,8 @@ import { UpdateResourceRequest } from '@api/models/updateResourceRequest';
 import { ResourceTypePipe } from '@shared/pipes/resource-type.pipe';
 import { SuccessSnackbarComponent } from '@shared/components/snackbar/success-snackbar/success-snackbar.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ImageUploaderComponent } from '@shared/components/image-uploader/image-uploader.component';
+import { NoImage } from '@shared/utils/image.utils';
 
 type Mode = 'create' | 'edit';
 
@@ -38,7 +40,8 @@ type Mode = 'create' | 'edit';
     MatDialogActions,
     MatButton,
     MatLabel,
-    MatDialogClose
+    MatDialogClose,
+    ImageUploaderComponent
   ],
   templateUrl: './resource-edit-dialog.component.html',
   styleUrls: ['./resource-edit-dialog.component.scss']
@@ -79,10 +82,10 @@ export class ResourceEditDialogComponent {
     }
   }
 
-  onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (!input.files?.length) return;
-    this.imageFile = input.files[0];
+  onFileSelected(file: File): void {
+    if (!file) return;
+
+    this.imageFile = file;
   }
 
   onEquipmentInput(event: Event): void {
@@ -117,7 +120,7 @@ export class ResourceEditDialogComponent {
             data: { message: 'Ресурс успешно создан' }
           });
 
-          this.dialogRef.close({ resourceId: resource.id, isSuccess: true })
+          this.dialogRef.close({ resourceId: resource.id, isSuccess: true });
         },
         error: () => this.dialogRef.close({ isSuccess: false })
       });
@@ -139,7 +142,7 @@ export class ResourceEditDialogComponent {
             data: { message: 'Ресурс успешно обновлён' }
           });
 
-          this.dialogRef.close({ resourceId: resource.id, isSuccess: true })
+          this.dialogRef.close({ resourceId: resource.id, isSuccess: true });
         },
         error: () => this.dialogRef.close({ isSuccess: false })
       });
@@ -150,4 +153,6 @@ export class ResourceEditDialogComponent {
     if (!this.imageFile) return;
     this.resourcesService.resourcesResourceIdImagePut(resourceId, this.imageFile).subscribe();
   }
+
+  protected readonly NoImage = NoImage;
 }

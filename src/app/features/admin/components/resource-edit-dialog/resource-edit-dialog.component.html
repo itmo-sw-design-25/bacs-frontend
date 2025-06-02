@@ -3,6 +3,11 @@
 </h2>
 
 <mat-dialog-content [formGroup]="form" class="form-content">
+  <bacs-image-uploader
+    [src]="data.resource?.imageUrl ?? NoImage"
+    (fileSelected)="onFileSelected($event)">
+  </bacs-image-uploader>
+
   <mat-form-field>
     <mat-label>Название</mat-label>
     <input matInput formControlName="name" />
@@ -36,9 +41,6 @@
       rows="4"
     ></textarea>
   </mat-form-field>
-
-
-  <input type="file" (change)="onFileSelected($event)" />
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">

@@ -1,7 +1,6 @@
 <div class="page">
-  <h1 class="page-title">Доступные локации</h1>
+  <h1 class="page-title">{{ title }}</h1>
 
-  <!-- Фильтр -->
   <div class="filters-bar">
     <mat-form-field appearance="fill">
       <mat-label>Показывать по</mat-label>
@@ -13,11 +12,16 @@
     </mat-form-field>
   </div>
 
-  <div class="locations-list">
-    <bacs-location-card *ngFor="let location of locations"
-                       [location]="location"
-                       (click)="openSearchPage(location.id!)">
-    </bacs-location-card>
+  <div class="locations-list-content">
+    <ng-container *ngFor="let location of locations">
+      <bacs-location-card
+        [location]="location"
+        [editEnabled]="mode == 'admin'"
+        (click)="openSearchPage(location.id!)"
+        class="location-card-clickable"
+      >
+      </bacs-location-card>
+    </ng-container>
   </div>
 
   <div class="pagination-footer" *ngIf="hasMore">

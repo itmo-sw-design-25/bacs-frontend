@@ -13,7 +13,7 @@
     <nav class="nav">
       <a [routerLinkActiveOptions]="{ exact: true }" routerLink="/locations" routerLinkActive="active">Локации</a>
       <a routerLink="/reservations" routerLinkActive="active">Резервации</a>
-      <a *ngIf="isAdmin" routerLink="/admin" routerLinkActive="active">Админка</a>
+      <a *ngIf="isAdmin | async" routerLink="/admin" routerLinkActive="active">Админка</a>
     </nav>
 
     <bacs-user-profile *ngIf="isAuthenticated"></bacs-user-profile>

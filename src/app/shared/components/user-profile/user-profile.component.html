@@ -1,12 +1,12 @@
-<div class="profile" *ngIf="user">
+<div class="profile" *ngIf="user as user">
   <button mat-button [matMenuTriggerFor]="menu" class="profile-button">
-    <img class="avatar" [ngSrc]="user.picture ?? ''" width="32" height="32" alt="avatar" />
+    <img class="avatar" [ngSrc]="user.picture ?? ''" priority width="32" height="32" alt="avatar" />
   </button>
 
   <mat-menu #menu="matMenu" class="custom-profile-menu">
     <div class="menu-container">
       <div class="user-block">
-        <img class="avatar-large" [ngSrc]="user.picture ?? ''" width="64" height="64" alt="avatar" />
+        <img class="avatar-large" [ngSrc]="user.picture ?? ''" priority width="64" height="64" alt="avatar" />
         <div class="info">
           <div class="name">{{ user.name }}</div>
           <div class="username">&#64;{{ user.username }}</div>

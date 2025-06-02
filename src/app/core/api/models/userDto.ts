@@ -30,5 +30,9 @@ export interface UserDto {
      * Уведомлять о бронированиях по электронной почте.
      */
     enableEmailNotifications?: boolean;
+    /**
+     * Список ID локаций, в которых пользователь является администратором.
+     */
+    adminIn?: Array<string> | null;
 }
 

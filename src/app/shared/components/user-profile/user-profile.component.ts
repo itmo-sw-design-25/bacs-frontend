@@ -33,7 +33,7 @@ import { SuccessSnackbarComponent } from '@shared/components/snackbar/success-sn
   styleUrl: './user-profile.component.scss'
 })
 export class UserProfileComponent implements OnInit {
-  readonly user = this.authService.user;
+  readonly user = this.authService.user!;
   enableEmailNotifications: boolean | undefined;
   email: string | undefined;
 
@@ -46,8 +46,6 @@ export class UserProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (!this.user) return;
-
     this.userService.usersUserIdGet(this.user.user_id)
       .pipe(
         tap((user) => {
@@ -83,7 +81,7 @@ export class UserProfileComponent implements OnInit {
   updateUser(email: string, enableEmailNotifications: boolean) {
     const request = { email, enableEmailNotifications } as UpdateUserRequest;
 
-    this.userService.usersUserIdPut(this.user!.user_id, request).subscribe({
+    this.userService.usersUserIdPut(this.user.user_id, request).subscribe({
       next: () => {
         this.snackBar.openFromComponent(SuccessSnackbarComponent, {
           data: { message: 'Настройки профиля успешно изменены!' }

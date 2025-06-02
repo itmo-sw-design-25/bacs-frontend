@@ -1,7 +1,8 @@
 <div class="reservation-card">
   <div class="image-wrapper">
     <img
-      [ngSrc]="resource.imageUrl || noImage"
+      [ngSrc]="resource.imageUrl ?? NoImage"
+      priority
       width="160"
       height="120"
       alt="{{ resource.name }}"

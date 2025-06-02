@@ -17,6 +17,7 @@ import { ResourceTypePipe } from '@shared/pipes/resource-type.pipe';
 import { MatTooltip } from '@angular/material/tooltip';
 import { startOfDay } from '@shared/utils/date.utils';
 import { ReservationStatusPipe } from '@shared/pipes/reservation-status.pipe';
+import { NoImage } from '@shared/utils/image.utils';
 
 @Component({
   selector: 'bacs-reservation-card',
@@ -37,8 +38,6 @@ import { ReservationStatusPipe } from '@shared/pipes/reservation-status.pipe';
   ]
 })
 export class ReservationCardComponent {
-  readonly noImage = 'https://bacs.space/s3/static/front/no-image-placeholder.svg';
-
   @Input() reservation!: ReservationDto;
   @Input() resource!: ResourceDto;
   @Input() location!: LocationDto;
@@ -107,4 +106,5 @@ export class ReservationCardComponent {
     });
   }
 
+  protected readonly NoImage = NoImage;
 }
