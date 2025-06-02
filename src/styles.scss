@@ -32,6 +32,16 @@ body {
   font-family: 'Nunito', 'Roboto', Helvetica, Arial, sans-serif;
 }
 
+bacs-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+bacs-root main {
+  flex: 1 0 auto;
+}
+
 // ── Лейаут страницы ──
 .page {
   max-width: 960px;
