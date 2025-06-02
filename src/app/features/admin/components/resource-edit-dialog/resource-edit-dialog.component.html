@@ -32,18 +32,42 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field appearance="fill" class="equipment-field">
     <mat-label>Оборудование</mat-label>
-    <textarea
-      matInput
-      [value]="equipment.join('\n')"
-      (input)="onEquipmentInput($event)"
-      rows="4"
-    ></textarea>
+
+    <mat-chip-grid #chipGrid aria-label="Оборудование">
+      <mat-chip-row
+        *ngFor="let item of equipment; let i = index"
+        removable
+        (removed)="removeEquipment(i)"
+        color="primary"
+      >
+        {{ item }}
+        <button matChipRemove aria-label="Удалить">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip-row>
+
+      <input
+        matInput
+        placeholder="Добавить оборудование..."
+        [matChipInputFor]="chipGrid"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        [matChipInputAddOnBlur]="true"
+        (matChipInputTokenEnd)="addEquipment($event)" />
+    </mat-chip-grid>
   </mat-form-field>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Отмена</button>
-  <button mat-flat-button class="submit-button" color="primary" (click)="save()" [disabled]="form.invalid">Сохранить</button>
+  <button
+    mat-flat-button
+    class="submit-button"
+    color="primary"
+    (click)="save()"
+    [disabled]="form.invalid"
+  >
+    Сохранить
+  </button>
 </mat-dialog-actions>

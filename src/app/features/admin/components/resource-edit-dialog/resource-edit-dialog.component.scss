@@ -3,19 +3,37 @@
 .form-content {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 
   mat-form-field {
     width: 100%;
   }
 
-  .equipment-input {
-    mat-chip {
-      margin: 4px 4px 0 0;
+  .equipment-field {
+    .mat-mdc-text-field-wrapper {
+      padding: 10px 12px 8px;
     }
-  }
 
-  input[type="file"] {
-    margin-top: 8px;
+    mat-chip-row {
+      background: $green-light;
+      color: $text-main;
+      border-radius: 18px;
+      padding: 0 8px;
+      margin: 6px 6px 0 0;
+      font-size: 0.95rem;
+      min-height: 32px;
+
+      mat-icon {
+        font-size: 18px;
+        color: $pink-main;
+      }
+    }
+
+    input {
+      width: 130px;
+      min-width: 100px;
+      font-size: 0.9rem;
+      margin-top: 6px;
+    }
   }
 }
