@@ -1,6 +1,9 @@
 <div class="resource-list">
   <div class="resource-list-header">
-    <h2>Ресурсы локации</h2>
+    <div class="page-head">
+      <h2>Ресурсы локации</h2>
+      <span class="count-badge" *ngIf="totalCount as n">{{ n }}</span>
+    </div>
     <button mat-flat-button class="submit-button" color="primary" (click)="createResource()">
       <mat-icon>add</mat-icon>
       Добавить ресурс

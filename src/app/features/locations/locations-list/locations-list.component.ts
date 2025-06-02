@@ -39,6 +39,7 @@ export class LocationsListComponent implements OnInit {
   limit = 5;
   isLoading = false;
   hasMore = true;
+  totalCount = 0;
 
   constructor(
     private locationsService: LocationsService,
@@ -70,6 +71,7 @@ export class LocationsListComponent implements OnInit {
           this.locations = [...this.locations, ...newItems];
           this.offset += this.limit;
           this.hasMore = newItems.length === this.limit;
+          this.totalCount = locations.totalCount!;
           this.isLoading = false;
         },
         error: () => this.isLoading = false

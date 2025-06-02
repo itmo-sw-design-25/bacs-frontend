@@ -1,5 +1,8 @@
 <div class="reservations-page">
-  <h1 class="page-title">Мои резервации</h1>
+  <div class="page-head">
+    <h1 class="page-title">Мои резервации</h1>
+    <span class="count-badge" *ngIf="totalCount as n">{{ n }}</span>
+  </div>
 
   <mat-tab-group
     [selectedIndex]="currentTab === 'upcoming' ? 0 : 1"

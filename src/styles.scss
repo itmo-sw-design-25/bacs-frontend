@@ -55,6 +55,23 @@ bacs-root main {
   color: theme.$text-main;
 }
 
+.page-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.count-badge {
+  background: theme.$green-light;
+  color: theme.$green-main;
+  font-size: .9rem;
+  font-weight: 600;
+  padding: 4px 14px;
+  border-radius: 20px;
+  line-height: 1;
+}
+
 // ── Meterial табы ──
 .mat-tab-label {
   color: theme.$text-extra;
@@ -79,3 +96,4 @@ bacs-root main {
   color: theme.$text-disabled;
   cursor: not-allowed;
 }
+

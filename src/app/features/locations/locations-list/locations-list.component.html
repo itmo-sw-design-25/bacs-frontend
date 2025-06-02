@@ -1,5 +1,8 @@
 <div class="page">
-  <h1 class="page-title">{{ title }}</h1>
+  <div class="page-head">
+    <h1 class="page-title">{{ title }}</h1>
+    <span class="count-badge" *ngIf="totalCount as n">{{ n }}</span>
+  </div>
 
   <div class="filters-bar">
     <mat-form-field appearance="fill">

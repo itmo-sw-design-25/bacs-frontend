@@ -12,6 +12,7 @@ import {
 import {
   ResourceDeleteDialogComponent
 } from '@features/admin/components/resource-delete-dialog/resource-delete-dialog.component';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'bacs-resource-list',
@@ -29,6 +30,7 @@ export class ResourceListComponent implements OnInit {
   @Input() locationId!: string;
 
   resources: ResourceDto[] = [];
+  totalCount = 0;
 
   constructor(
     private resourcesService: ResourcesService,
@@ -47,9 +49,12 @@ export class ResourceListComponent implements OnInit {
       [],
       0,
       100
-    ).subscribe({
-      next: (resources) => this.resources = resources.collection!
-    });
+    ).pipe(
+      tap(resources => {
+        this.resources = resources.collection!;
+        this.totalCount = resources.totalCount!;
+      })
+    ).subscribe();
   }
 
   createResource(): void {
