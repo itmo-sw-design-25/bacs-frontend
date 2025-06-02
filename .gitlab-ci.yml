@@ -22,10 +22,7 @@ build:
     paths:
       - $ANGULAR_APP_DIR/$ANGULAR_BUILD_DIR
     expire_in: 1 hour
-  rules:
-    - changes:
-        - "$ANGULAR_APP_DIR/**/*"
-      when: always
+  when: always
 
 image push:
   image: docker:latest
