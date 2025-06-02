@@ -9,7 +9,29 @@
   />
 
   <div class="resource-info">
-    <h2 class="resource-title">{{ resource.name }}</h2>
+    <div class="resource-header">
+      <h2 class="resource-title">{{ resource.name }}</h2>
+
+      <div class="resource-actions">
+        <button
+          *ngIf="editEnabled && (isAdmin(resource.locationId) | async)"
+          (click)="deleteIconClick($event)"
+          mat-icon-button
+          matTooltip="Удалить ресурс"
+        >
+          <mat-icon color="warn">cancel</mat-icon>
+        </button>
+
+        <button
+          *ngIf="editEnabled && isAdmin"
+          (click)="editIconClick($event)"
+          mat-icon-button
+          matTooltip="Редактировать ресурс"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+      </div>
+    </div>
 
     <div class="resource-detail">
       <mat-icon class="icon">info</mat-icon>
@@ -30,25 +52,5 @@
       <mat-icon class="icon">build</mat-icon>
       Оборудование: {{ resource.equipment?.join(', ') }}
     </div>
-  </div>
-
-  <div class="resource-actions">
-    <button
-      *ngIf="editEnabled && (isAdmin(resource.locationId) | async)"
-      (click)="deleteIconClick($event)"
-      mat-icon-button
-      matTooltip="Удалить ресурс"
-    >
-      <mat-icon color="warn">cancel</mat-icon>
-    </button>
-
-    <button
-      *ngIf="editEnabled && isAdmin"
-      (click)="editIconClick($event)"
-      mat-icon-button
-      matTooltip="Редактировать ресурс"
-    >
-      <mat-icon>edit</mat-icon>
-    </button>
   </div>
 </div>

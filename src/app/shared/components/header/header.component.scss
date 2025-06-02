@@ -33,7 +33,7 @@
     a {
       color: $white;
       text-decoration: none;
-      font-size: 0.95rem;
+      font-size: 1rem;
       position: relative;
 
       &.active::after {
@@ -49,6 +49,39 @@
       &:hover {
         opacity: 0.9;
       }
+    }
+  }
+
+  @media (max-width: 600px) {
+    padding: 8px 16px;
+
+    .container {
+      flex-wrap: wrap;
+      row-gap: 8px;
+    }
+
+    .logo {
+      order: 1;
+    }
+
+    bacs-user-profile {
+      order: 2;
+      margin-left: auto;
+    }
+
+    .nav {
+      order: 3;
+      flex: 1 1 100%;
+      justify-content: center;
+      gap: 16px;
+
+      a {
+        font-size: 0.85rem;
+      }
+    }
+
+    .logo-img {
+      max-width: 120px;
     }
   }
 }

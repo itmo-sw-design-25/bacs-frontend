@@ -1,6 +1,7 @@
 @use '../../../../../assets/styles/theme' as *;
 
 .resource-card {
+  position: relative;
   display: flex;
   gap: 16px;
   border: 1px solid $green-light;
@@ -16,7 +17,16 @@
   }
 }
 
+.resource-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
 .resource-image {
+  width: 240px;
+  height: 160px;
   border-radius: 8px;
   object-fit: cover;
   background-color: $bg-disabled;
@@ -30,8 +40,8 @@
 }
 
 .resource-title {
-  font-size: 1.25rem;
-  margin: 0 0 8px;
+  font-size: 1.5rem;
+  margin: 0 0;
   color: $green-main;
 }
 
@@ -55,11 +65,32 @@
 }
 
 .resource-actions {
-  position: absolute;
-  top: 6px;
-  right: 6px;
   display: flex;
-  align-items: center;
-  gap: 8px;
-  color: $text-extra;
+}
+
+@media (max-width: 600px) {
+  .resource-card {
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .resource-image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2;
+  }
+
+  .resource-title {
+    font-size: 1.25rem;
+    margin: 0;
+  }
+
+  .resource-info {
+    gap: 6px;
+  }
+  .resource-detail {
+    font-size: 0.9rem;
+    padding: 4px 8px;
+  }
 }

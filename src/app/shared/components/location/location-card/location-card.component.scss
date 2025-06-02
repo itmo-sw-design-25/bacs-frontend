@@ -17,7 +17,16 @@
   }
 }
 
+.location-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
 .location-image {
+  width: 240px;
+  height: 160px;
   border-radius: 8px;
   object-fit: cover;
   background-color: $bg-disabled;
@@ -26,12 +35,11 @@
 .location-info {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   flex: 1;
 }
 
 .location-title {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   margin: 0;
   color: $green-main;
 }
@@ -47,15 +55,13 @@
   margin: 4px 0;
 }
 
-.location-address {
-  a {
-    color: $text-main;
-    text-decoration: none;
+.location-address a {
+  color: $text-main;
+  text-decoration: none;
+}
 
-    &:hover {
-      text-decoration: underline;
-    }
-  }
+.location-address a:hover {
+  text-decoration: underline;
 }
 
 .location-description-section {
@@ -78,11 +84,33 @@
 }
 
 .location-actions {
-  position: absolute;
-  top: 6px;
-  right: 6px;
   display: flex;
-  align-items: center;
-  gap: 8px;
-  color: $text-extra;
+}
+
+@media (max-width: 600px) {
+  .location-card {
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .location-image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2;
+  }
+
+  .location-title {
+    font-size: 1.25rem;
+  }
+
+  .location-info {
+    gap: 6px;
+  }
+
+  .location-address,
+  .location-schedule,
+  .location-days {
+    font-size: 0.9rem;
+  }
 }

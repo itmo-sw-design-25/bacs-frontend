@@ -1,8 +1,9 @@
 <div class="reservations-page">
   <h1 class="page-title">Мои резервации</h1>
 
-  <mat-tab-group [selectedIndex]="currentTab === 'upcoming' ? 0 : 1"
-                 (selectedIndexChange)="switchTab($event === 0 ? 'upcoming' : 'past')">
+  <mat-tab-group
+    [selectedIndex]="currentTab === 'upcoming' ? 0 : 1"
+    (selectedIndexChange)="switchTab($event === 0 ? 'upcoming' : 'past')"
   >
     <mat-tab label="Предстоящие"></mat-tab>
     <mat-tab label="Прошедшие"></mat-tab>
@@ -20,7 +21,11 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Статус</mat-label>
-      <mat-select [formControl]="statusControl" (valueChange)="changeStatuses($event)" multiple>
+      <mat-select
+        [formControl]="statusControl"
+        (valueChange)="changeStatuses($event)"
+        multiple
+      >
         <mat-option *ngFor="let opt of reservationStatuses" [value]="opt">
           {{ opt | reservationStatus }}
         </mat-option>
@@ -29,7 +34,11 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Локация</mat-label>
-      <mat-select [formControl]="locationsControl" (valueChange)="changeLocations($event)" multiple>
+      <mat-select
+        [formControl]="locationsControl"
+        (valueChange)="changeLocations($event)"
+        multiple
+      >
         <mat-option *ngFor="let opt of locations" [value]="opt">
           {{ opt.name }}
         </mat-option>
@@ -38,7 +47,11 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Ресурс</mat-label>
-      <mat-select [formControl]="resourcesControl" (valueChange)="changeResources($event)" multiple>
+      <mat-select
+        [formControl]="resourcesControl"
+        (valueChange)="changeResources($event)"
+        multiple
+      >
         <mat-option *ngFor="let opt of resources" [value]="opt">
           {{ opt.name }}
         </mat-option>
@@ -55,8 +68,7 @@
       (onCreated)="onReservationCreated($event)"
       (onUpdated)="onReservationUpdated($event)"
       (onCancelled)="onReservationCancelled($event)"
-    >
-    </bacs-reservation-card>
+    ></bacs-reservation-card>
   </div>
 
   <div class="pagination-footer" *ngIf="hasMore">

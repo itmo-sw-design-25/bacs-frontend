@@ -2,21 +2,18 @@
 
 .reservation-card {
   display: flex;
-  position: relative;
+  gap: 16px;
   padding: 16px;
   border: 1px solid $green-light;
   border-radius: 12px;
   background-color: $white;
-  gap: 16px;
-  align-items: flex-start;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
 .image-wrapper {
   flex-shrink: 0;
 
   .reservation-image {
-    width: 160px;
-    height: 120px;
     border-radius: 8px;
     object-fit: cover;
     background-color: $bg-disabled;
@@ -30,35 +27,69 @@
   gap: 12px;
 }
 
-.location-block {
+.reservation-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+
   .location-name {
-    font-size: 1.1rem;
+    font-size: 1.25rem;
     font-weight: 600;
     color: $green-main;
   }
 
-  .location-address {
+  .reservation-status {
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 12px;
+    white-space: nowrap;
+    line-height: 1.4;
+    border: 1px solid transparent;
+
+    &.cancelled {
+      color: $pink-main;
+      background-color: rgba($pink-main, 0.1);
+      border-color: rgba($pink-main, 0.2);
+    }
+
+    &.created {
+      color: $green-secondary;
+      background-color: rgba($green-secondary, 0.1);
+      border-color: rgba($green-secondary, 0.2);
+    }
+  }
+
+  .reservation-actions {
     display: flex;
     align-items: center;
-    gap: 6px;
-    font-size: 0.95rem;
-    color: $text-extra;
 
-    a {
-      color: $text-main;
-      text-decoration: none;
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-
-    .icon {
+    .button {
       display: flex;
-      align-items: center;
-      font-size: 18px;
-      color: $green-secondary;
     }
+  }
+}
+
+.location-address {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1rem;
+  color: $text-extra;
+
+  a {
+    color: $text-main;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .icon {
+    font-size: 18px;
+    color: $green-secondary;
   }
 }
 
@@ -80,8 +111,6 @@
       color: $text-main;
 
       .icon {
-        display: flex;
-        align-items: center;
         font-size: 18px;
         color: $green-secondary;
       }
@@ -89,33 +118,38 @@
   }
 }
 
-.reservation-actions {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+@media (max-width: 600px) {
+  .reservation-card {
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .image-wrapper .reservation-image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+  }
+
+  .reservation-header .location-name {
+    font-size: 1rem;
+  }
 
   .reservation-status {
-    font-size: 0.75rem;
-    font-weight: 500;
-    padding: 2px 8px;
-    border-radius: 12px;
-    white-space: nowrap;
-    line-height: 1.4;
-    border: 1px solid transparent;
+    font-size: 0.7rem;
+  }
 
-    &.cancelled {
-      color: $pink-main;
-      background-color: rgba($pink-main, 0.1);
-      border-color: rgba($pink-main, 0.2);
-    }
+  .reservation-actions {
+    gap: 4px;
+  }
 
-    &.created {
-      color: $green-secondary;
-      background-color: rgba($green-secondary, 0.1);
-      border-color: rgba($green-secondary, 0.2);
-    }
+  .location-address,
+  .details-two-column .detail {
+    font-size: 0.9rem;
+  }
+
+  .details-two-column {
+    grid-template-columns: 1fr;
+    gap: 8px;
   }
 }
