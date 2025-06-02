@@ -1,12 +1,12 @@
-<div class="reservation-card" *ngIf="resource && location && reservation">
+<div *ngIf="resource && location && reservation" class="reservation-card">
   <div class="image-wrapper">
     <img
       [ngSrc]="resource.imageUrl ?? NoImage"
-      priority
-      width="240"
-      height="160"
       alt="{{ resource.name }}"
       class="reservation-image"
+      height="160"
+      priority
+      width="240"
     />
   </div>
 
@@ -18,35 +18,35 @@
 
       <div style="display: flex; align-items: center">
         <span
-          class="reservation-status"
           [ngClass]="reservation.status === 'Cancelled' ? 'cancelled' : 'created'"
+          class="reservation-status"
         >
           {{ reservation.status! | reservationStatus }}
         </span>
 
         <div class="reservation-actions">
           <button
-            mat-icon-button
-            *ngIf="isUpcoming"
             (click)="openCancelDialog()"
+            *ngIf="isUpcoming"
+            mat-icon-button
             matTooltip="Отменить"
           >
             <mat-icon color="warn">cancel</mat-icon>
           </button>
 
           <button
-            mat-icon-button
-            *ngIf="isUpcoming"
             (click)="openEditDialog()"
+            *ngIf="isUpcoming"
+            mat-icon-button
             matTooltip="Редактировать"
           >
             <mat-icon>edit</mat-icon>
           </button>
 
           <button
-            mat-icon-button
-            *ngIf="canRepeat"
             (click)="openRepeatDialog()"
+            *ngIf="canRepeat"
+            mat-icon-button
             matTooltip="Повторить"
           >
             <mat-icon>repeat</mat-icon>
@@ -58,10 +58,10 @@
     <div class="location-address">
       <mat-icon class="icon">location_on</mat-icon>
       <a
-        [href]="location.address | address"
-        target="_blank"
-        rel="noopener"
         (click)="$event.stopPropagation()"
+        [href]="location.address | address"
+        rel="noopener"
+        target="_blank"
       >
         {{ location.address }}
       </a>

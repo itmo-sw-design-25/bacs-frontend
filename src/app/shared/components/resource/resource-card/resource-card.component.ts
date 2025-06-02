@@ -28,12 +28,13 @@ export class ResourceCardComponent {
   @Input() editEnabled: boolean = false;
   @Output() editClick = new EventEmitter<void>();
   @Output() deleteClick = new EventEmitter<void>();
+  protected readonly NoImage = NoImage;
+
+  constructor(private currentUser: CurrentUserService) {}
 
   isAdmin(locationId?: string) {
     return this.currentUser.isAdmin(locationId);
   }
-
-  constructor(private currentUser: CurrentUserService) {}
 
   editIconClick(event: any): void {
     event.stopPropagation();
@@ -44,6 +45,4 @@ export class ResourceCardComponent {
     event.stopPropagation();
     this.deleteClick.emit();
   }
-
-  protected readonly NoImage = NoImage;
 }

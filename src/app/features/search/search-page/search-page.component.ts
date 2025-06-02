@@ -59,9 +59,23 @@ const WEEK_DAYS_MAP: Record<RussianDayOfWeek, number> = {
   styleUrls: ['./search-page.component.scss']
 })
 export class SearchPageComponent implements OnInit {
+  readonly minReservationTime = 30;
+  dateControl = new FormControl(new Date());
+  resourceTypeControl = new FormControl();
+  resourceTypes = Object.values(ResourceType);
+  locationId!: string;
+  resources: ResourceDto[] | undefined = undefined;
+  location!: LocationDto;
+  availableSlotsByResource: ResourceSlots[] = [];
   private allowedDays = new Set<number>();
 
-  readonly minReservationTime = 30;
+  constructor(
+    private route: ActivatedRoute,
+    private reservationsService: ReservationsService,
+    private resourcesService: ResourcesService,
+    private locationsService: LocationsService
+  ) {}
+
   readonly dateFilter = (day: Date | null): boolean => {
     if (!day) return false;
 
@@ -72,23 +86,6 @@ export class SearchPageComponent implements OnInit {
 
     return this.allowedDays.has(day.getDay());
   };
-
-  dateControl = new FormControl(new Date());
-  resourceTypeControl = new FormControl();
-
-  resourceTypes = Object.values(ResourceType);
-  locationId!: string;
-  resources: ResourceDto[] | undefined = undefined;
-  location!: LocationDto;
-
-  availableSlotsByResource: ResourceSlots[] = [];
-
-  constructor(
-    private route: ActivatedRoute,
-    private reservationsService: ReservationsService,
-    private resourcesService: ResourcesService,
-    private locationsService: LocationsService
-  ) {}
 
   ngOnInit(): void {
     this.locationId = this.route.snapshot.paramMap.get('locationId')!;

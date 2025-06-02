@@ -2,17 +2,17 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import {
   MAT_DIALOG_DATA,
-  MatDialogRef,
-  MatDialogTitle,
-  MatDialogContent,
   MatDialogActions,
-  MatDialogClose
+  MatDialogClose,
+  MatDialogContent,
+  MatDialogRef,
+  MatDialogTitle
 } from '@angular/material/dialog';
 import { MatFormField } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatLabel, MatOption, MatSelect } from '@angular/material/select';
 import { MatButton } from '@angular/material/button';
-import { MatChipsModule, MatChipInputEvent } from '@angular/material/chips';
+import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 import { NgForOf } from '@angular/common';
 import { ENTER } from '@angular/cdk/keycodes';
 import { ResourceDto } from '@api/models/resourceDto';
@@ -59,10 +59,7 @@ export class ResourceEditDialogComponent {
   imageFile: File | null = null;
   readonly resourceTypes = Object.values(ResourceType);
   readonly separatorKeysCodes = [ENTER] as const;
-
-  get equipment(): string[] {
-    return this.form.get('equipment')?.value ?? [];
-  }
+  protected readonly NoImage = NoImage;
 
   constructor(
     private snackBar: MatSnackBar,
@@ -90,6 +87,10 @@ export class ResourceEditDialogComponent {
         equipment: r.equipment ?? []
       });
     }
+  }
+
+  get equipment(): string[] {
+    return this.form.get('equipment')?.value ?? [];
   }
 
   addEquipment(e: MatChipInputEvent): void {
@@ -154,6 +155,4 @@ export class ResourceEditDialogComponent {
     if (!this.imageFile) return;
     this.resourcesService.resourcesResourceIdImagePut(resourceId, this.imageFile).subscribe();
   }
-
-  protected readonly NoImage = NoImage;
 }

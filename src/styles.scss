@@ -11,12 +11,12 @@ $bacs-accent: mat.define-palette(mat.$pink-palette, 400);
 
 // ── Тема ──
 $bacs-theme: mat.define-light-theme(
-  (
-    color: (
-      primary: $bacs-primary,
-      accent: $bacs-accent
+    (
+      color: (
+        primary: $bacs-primary,
+        accent: $bacs-accent
+      )
     )
-  )
 );
 
 @include mat.all-component-themes($bacs-theme);

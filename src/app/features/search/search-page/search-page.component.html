@@ -1,24 +1,24 @@
-<div class="page" *ngIf="location">
-  <div class="search-page" *ngIf="location">
+<div *ngIf="location" class="page">
+  <div *ngIf="location" class="search-page">
     <h1 class="title">Поиск</h1>
 
     <div class="fields">
       <mat-form-field appearance="outline" class="field wide">
         <mat-label>Офис</mat-label>
         <mat-icon matPrefix>location_on</mat-icon>
-        <input matInput [value]="location.name" disabled />
+        <input [value]="location.name" disabled matInput />
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="field">
         <mat-label>Дата</mat-label>
         <mat-icon matPrefix>calendar_today</mat-icon>
         <input
-          matInput
-          [matDatepicker]="picker"
           [formControl]="dateControl"
           [matDatepickerFilter]="dateFilter"
+          [matDatepicker]="picker"
+          matInput
         />
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
@@ -33,11 +33,11 @@
         </mat-select>
 
         <button
+          (click)="resourceTypeControl.setValue(null)"
           *ngIf="resourceTypeControl.value"
+          aria-label="Очистить"
           mat-icon-button
           matSuffix
-          aria-label="Очистить"
-          (click)="resourceTypeControl.setValue(null)"
         >
           <mat-icon>close</mat-icon>
         </button>
@@ -45,11 +45,11 @@
     </div>
 
     <button
-      mat-flat-button
-      color="primary"
-      class="search-btn"
       (click)="search()"
       [disabled]="dateControl.invalid"
+      class="search-btn"
+      color="primary"
+      mat-flat-button
     >
       <mat-icon>search</mat-icon>
       Найти

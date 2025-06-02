@@ -4,24 +4,24 @@
 
 <mat-dialog-content [formGroup]="form" class="form-content">
   <bacs-image-uploader
-    [src]="data.resource?.imageUrl ?? NoImage"
     (fileSelected)="onFileSelected($event)"
+    [src]="data.resource?.imageUrl ?? NoImage"
   >
   </bacs-image-uploader>
 
   <mat-form-field>
     <mat-label>Название</mat-label>
-    <input matInput formControlName="name" />
+    <input formControlName="name" matInput />
   </mat-form-field>
 
   <mat-form-field>
     <mat-label>Описание</mat-label>
-    <textarea matInput formControlName="description"></textarea>
+    <textarea formControlName="description" matInput></textarea>
   </mat-form-field>
 
   <mat-form-field>
     <mat-label>Этаж</mat-label>
-    <input matInput type="number" formControlName="floor" />
+    <input formControlName="floor" matInput type="number" />
   </mat-form-field>
 
   <mat-form-field>
@@ -38,24 +38,24 @@
 
     <mat-chip-grid #chipGrid aria-label="Оборудование">
       <mat-chip-row
-        *ngFor="let item of equipment; let i = index"
-        removable
         (removed)="removeEquipment(i)"
+        *ngFor="let item of equipment; let i = index"
         color="primary"
+        removable
       >
         {{ item }}
-        <button matChipRemove aria-label="Удалить">
+        <button aria-label="Удалить" matChipRemove>
           <mat-icon>cancel</mat-icon>
         </button>
       </mat-chip-row>
 
       <input
-        matInput
-        placeholder="Добавить оборудование..."
+        (matChipInputTokenEnd)="addEquipment($event)"
+        [matChipInputAddOnBlur]="true"
         [matChipInputFor]="chipGrid"
         [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-        [matChipInputAddOnBlur]="true"
-        (matChipInputTokenEnd)="addEquipment($event)"
+        matInput
+        placeholder="Добавить оборудование..."
       />
     </mat-chip-grid>
   </mat-form-field>
@@ -64,11 +64,11 @@
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Отмена</button>
   <button
-    mat-flat-button
-    class="submit-button"
-    color="primary"
     (click)="save()"
     [disabled]="form.invalid"
+    class="submit-button"
+    color="primary"
+    mat-flat-button
   >
     Сохранить
   </button>

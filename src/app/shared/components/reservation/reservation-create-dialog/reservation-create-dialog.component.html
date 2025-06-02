@@ -5,18 +5,18 @@
 <mat-dialog-content [formGroup]="form" class="dialog-content">
   <mat-form-field appearance="fill">
     <mat-label>Локация</mat-label>
-    <input matInput formControlName="location" />
+    <input formControlName="location" matInput />
   </mat-form-field>
 
   <mat-form-field appearance="fill">
     <mat-label>Ресурс</mat-label>
-    <input matInput formControlName="resource" />
+    <input formControlName="resource" matInput />
   </mat-form-field>
 
   <mat-form-field appearance="fill" class="field">
     <mat-label>Дата</mat-label>
-    <input matInput [matDatepicker]="picker" formControlName="date" />
-    <mat-datepicker-toggle matSuffix [for]="picker" />
+    <input [matDatepicker]="picker" formControlName="date" matInput />
+    <mat-datepicker-toggle [for]="picker" matSuffix />
     <mat-datepicker #picker />
   </mat-form-field>
 
@@ -40,13 +40,13 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button mat-button (click)="close()">Отмена</button>
+  <button (click)="close()" mat-button>Отмена</button>
   <button
-    mat-flat-button
-    class="submit-button"
-    color="primary"
     (click)="confirm()"
     [disabled]="form.invalid"
+    class="submit-button"
+    color="primary"
+    mat-flat-button
   >
     {{ isEditMode ? 'Сохранить' : 'Забронировать' }}
   </button>

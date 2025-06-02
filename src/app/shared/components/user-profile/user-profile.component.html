@@ -1,18 +1,18 @@
-<div class="profile" *ngIf="user as user">
-  <button mat-button [matMenuTriggerFor]="menu" class="profile-button">
-    <img class="avatar" [ngSrc]="user.picture ?? ''" priority width="32" height="32" alt="avatar" />
+<div *ngIf="user as user" class="profile">
+  <button [matMenuTriggerFor]="menu" class="profile-button" mat-button>
+    <img [ngSrc]="user.picture ?? ''" alt="avatar" class="avatar" height="32" priority width="32" />
   </button>
 
   <mat-menu #menu="matMenu" class="custom-profile-menu">
     <div class="menu-container">
       <div class="user-block">
         <img
-          class="avatar-large"
           [ngSrc]="user.picture ?? ''"
+          alt="avatar"
+          class="avatar-large"
+          height="64"
           priority
           width="64"
-          height="64"
-          alt="avatar"
         />
         <div class="info">
           <div class="name">{{ user.name }}</div>
@@ -23,12 +23,12 @@
       <mat-divider></mat-divider>
 
       <div class="email-section">
-        <div class="email" (click)="$event.stopPropagation()">
+        <div (click)="$event.stopPropagation()" class="email">
           <label class="email-label" for="emailInput">Email-адрес</label>
           <input
+            (ngModelChange)="onEmailChange($event)"
             [(ngModel)]="email"
             class="email-input"
-            (ngModelChange)="onEmailChange($event)"
             id="emailInput"
             placeholder="Email"
             type="email"
@@ -36,9 +36,9 @@
         </div>
 
         <mat-checkbox
-          [(ngModel)]="enableEmailNotifications"
-          (ngModelChange)="onEmailNotificationsChange($event)"
           (click)="$event.stopPropagation()"
+          (ngModelChange)="onEmailNotificationsChange($event)"
+          [(ngModel)]="enableEmailNotifications"
           class="email-checkbox"
         >
           Присылать уведомления
@@ -47,7 +47,7 @@
 
       <mat-divider></mat-divider>
 
-      <button mat-menu-item (click)="logout()">
+      <button (click)="logout()" mat-menu-item>
         <mat-icon>logout</mat-icon>
         <span>Выйти</span>
       </button>

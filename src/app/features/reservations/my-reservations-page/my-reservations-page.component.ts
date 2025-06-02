@@ -68,6 +68,10 @@ export class MyReservationsPageComponent implements OnInit {
     private authService: AuthService
   ) {}
 
+  get hasMore(): boolean {
+    return this.displayedReservations.length < this.totalCount;
+  }
+
   ngOnInit(): void {
     this.userId = this.authService.user?.user_id!;
     this.loadReservations(this.limitControl.value!);
@@ -206,10 +210,6 @@ export class MyReservationsPageComponent implements OnInit {
 
     this.offset += limit;
     this.loadReservations(limit);
-  }
-
-  get hasMore(): boolean {
-    return this.displayedReservations.length < this.totalCount;
   }
 
   onReservationCancelled(reservationId: string): void {

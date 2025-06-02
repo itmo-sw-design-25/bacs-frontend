@@ -1,20 +1,20 @@
 <div class="page">
   <h1 class="page-title">Результаты поиска</h1>
 
-  <div class="results-list" *ngIf="resourceSlots.length; else noResources">
+  <div *ngIf="resourceSlots.length; else noResources" class="results-list">
     <div *ngFor="let resourceSlot of resourceSlots">
       <bacs-resource-card
-        [resource]="resourceSlot.resource"
         [editEnabled]="false"
+        [resource]="resourceSlot.resource"
       ></bacs-resource-card>
 
-      <div class="slots" *ngIf="resourceSlot.slots.length; else noSlots">
+      <div *ngIf="resourceSlot.slots.length; else noSlots" class="slots">
         <span
-          class="slot"
-          *ngFor="let slot of resourceSlot.slots"
-          [class.selected]="isSlotSelected(slot, resourceSlot.resource.id!)"
           (click)="onSlotClick(slot, resourceSlot)"
           (mouseenter)="onSlotHover(slot, resourceSlot.resource.id!)"
+          *ngFor="let slot of resourceSlot.slots"
+          [class.selected]="isSlotSelected(slot, resourceSlot.resource.id!)"
+          class="slot"
         >
           {{ slot.from | date: 'HH:mm' }} - {{ slot.to | date: 'HH:mm' }}
         </span>

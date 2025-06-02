@@ -32,10 +32,7 @@ export class LocationCardComponent {
   @Input() location!: LocationDto;
   @Input() editEnabled: boolean = false;
   @Output() deleteClick = new EventEmitter<void>();
-
-  isAdmin(locationId?: string) {
-    return this.currentUser.isAdmin(locationId);
-  }
+  protected readonly NoImage = NoImage;
 
   constructor(
     private dayOfWeekPipe: DayOfWeekPipe,
@@ -47,10 +44,12 @@ export class LocationCardComponent {
     return days?.map((day) => this.dayOfWeekPipe.transform(day)).join(', ') || 'не указано';
   }
 
+  isAdmin(locationId?: string) {
+    return this.currentUser.isAdmin(locationId);
+  }
+
   deleteIconClick(event: any): void {
     event.stopPropagation();
     this.deleteClick.emit();
   }
-
-  protected readonly NoImage = NoImage;
 }

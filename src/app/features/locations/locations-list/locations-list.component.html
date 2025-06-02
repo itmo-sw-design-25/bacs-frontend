@@ -1,13 +1,13 @@
 <div class="page">
   <div class="page-head">
     <h1 class="page-title">{{ title }}</h1>
-    <span class="count-badge" *ngIf="totalCount as n">{{ n }}</span>
+    <span *ngIf="totalCount as n" class="count-badge">{{ n }}</span>
   </div>
 
   <div class="filters-bar">
     <mat-form-field appearance="fill">
       <mat-label>Показывать по</mat-label>
-      <mat-select [(value)]="limit" (valueChange)="changeLimit($event)">
+      <mat-select (valueChange)="changeLimit($event)" [(value)]="limit">
         <mat-option *ngFor="let opt of limitOptions" [value]="opt">
           {{ opt }}
         </mat-option>
@@ -18,23 +18,23 @@
   <div class="locations-list-content">
     <ng-container *ngFor="let location of locations">
       <bacs-location-card
-        [location]="location"
-        [editEnabled]="mode === 'admin'"
         (click)="openSearchPage(location.id!)"
         (deleteClick)="deleteLocation(location)"
+        [editEnabled]="mode === 'admin'"
+        [location]="location"
         class="location-card-clickable"
       >
       </bacs-location-card>
     </ng-container>
   </div>
 
-  <div class="pagination-footer" *ngIf="hasMore">
+  <div *ngIf="hasMore" class="pagination-footer">
     <button
-      mat-flat-button
-      color="primary"
-      class="load-button"
       (click)="loadLocations()"
       [disabled]="isLoading"
+      class="load-button"
+      color="primary"
+      mat-flat-button
     >
       {{ isLoading ? 'Загрузка...' : 'Загрузить ещё' }}
     </button>

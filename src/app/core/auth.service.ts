@@ -10,10 +10,6 @@ export class AuthService {
 
   private readonly _authSuccess$ = new ReplaySubject<void>(1);
 
-  get authSuccess$(): Observable<void> {
-    return this._authSuccess$.asObservable();
-  }
-
   constructor() {
     this.keycloak = new (Keycloak as unknown as { new (cfg: any): KeycloakInstance })({
       url: environment.keycloakUrl,
@@ -24,16 +20,8 @@ export class AuthService {
     this.keycloak.onAuthSuccess = () => this._authSuccess$.next();
   }
 
-  /**
-   * Инициализация (должна быть вызвана до bootstrapApplication)
-   */
-  init(): KeycloakPromise<boolean, KeycloakError> {
-    return this.keycloak.init({
-      onLoad: 'login-required',
-      flow: 'standard',
-      checkLoginIframe: false,
-      scope: environment.keycloakClientId
-    } as Keycloak.KeycloakInitOptions);
+  get authSuccess$(): Observable<void> {
+    return this._authSuccess$.asObservable();
   }
 
   /** Текущий JWT */
@@ -50,6 +38,18 @@ export class AuthService {
 
   get isSuperAdmin() {
     return this.keycloak.hasRealmRole('bacs-super-admin');
+  }
+
+  /**
+   * Инициализация (должна быть вызвана до bootstrapApplication)
+   */
+  init(): KeycloakPromise<boolean, KeycloakError> {
+    return this.keycloak.init({
+      onLoad: 'login-required',
+      flow: 'standard',
+      checkLoginIframe: false,
+      scope: environment.keycloakClientId
+    } as Keycloak.KeycloakInitOptions);
   }
 
   /** Логаут */

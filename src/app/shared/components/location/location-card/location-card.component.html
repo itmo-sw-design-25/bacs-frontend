@@ -1,11 +1,11 @@
-<div class="location-card" *ngIf="location">
+<div *ngIf="location" class="location-card">
   <img
     [ngSrc]="location.imageUrl ?? NoImage"
-    priority
-    width="240"
-    height="160"
     alt="{{ location.name }}"
     class="location-image"
+    height="160"
+    priority
+    width="240"
   />
 
   <div class="location-info">
@@ -14,8 +14,8 @@
 
       <div class="location-actions">
         <button
-          *ngIf="editEnabled && (isAdmin(location.id) | async)"
           (click)="deleteIconClick($event)"
+          *ngIf="editEnabled && (isAdmin(location.id) | async)"
           mat-icon-button
           matTooltip="Удалить локацию"
         >
@@ -23,8 +23,8 @@
         </button>
 
         <button
-          *ngIf="editEnabled && (isAdmin(location.id) | async)"
           (click)="$event.stopPropagation()"
+          *ngIf="editEnabled && (isAdmin(location.id) | async)"
           [routerLink]="['/admin/locations', location.id]"
           mat-icon-button
           matTooltip="Редактировать локацию"

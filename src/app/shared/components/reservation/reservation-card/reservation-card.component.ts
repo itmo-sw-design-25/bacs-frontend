@@ -41,6 +41,7 @@ export class ReservationCardComponent {
   @Output() cancelled = new EventEmitter<string>();
   @Output() created = new EventEmitter<ReservationDto>();
   @Output() updated = new EventEmitter<ReservationDto>();
+  protected readonly NoImage = NoImage;
 
   constructor(private dialog: MatDialog) {}
 
@@ -103,6 +104,4 @@ export class ReservationCardComponent {
       this.updated.emit(result.reservation);
     });
   }
-
-  protected readonly NoImage = NoImage;
 }

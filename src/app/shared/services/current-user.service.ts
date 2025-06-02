@@ -11,6 +11,15 @@ export class CurrentUserService {
     shareReplay(1)
   );
 
+  constructor(
+    private authService: AuthService,
+    private usersService: UsersService
+  ) {}
+
+  get isSuperAdmin() {
+    return this.authService.isSuperAdmin;
+  }
+
   isAdmin(locationId?: string) {
     return !locationId
       ? this.user$.pipe(map((user) => this.isSuperAdmin || this.isLocationAdmin(user)))
@@ -18,15 +27,6 @@ export class CurrentUserService {
           map((user) => this.isSuperAdmin || this.isCurrentLocationAdmin(locationId, user))
         );
   }
-
-  get isSuperAdmin() {
-    return this.authService.isSuperAdmin;
-  }
-
-  constructor(
-    private authService: AuthService,
-    private usersService: UsersService
-  ) {}
 
   private isLocationAdmin(user: UserDto) {
     return user.adminIn && user.adminIn.length > 0;

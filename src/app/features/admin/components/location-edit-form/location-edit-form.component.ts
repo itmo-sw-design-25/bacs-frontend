@@ -79,11 +79,7 @@ export class LocationEditFormComponent implements OnInit, OnChanges {
 
   addMode = false;
   removeMode = false;
-
-  get usersNotAdmin(): UserDto[] {
-    const adminIds = new Set(this.admins.map((a) => a.id));
-    return this.users.filter((u) => !adminIds.has(u.id));
-  }
+  protected readonly NoImage = NoImage;
 
   constructor(
     private snackBar: MatSnackBar,
@@ -100,6 +96,11 @@ export class LocationEditFormComponent implements OnInit, OnChanges {
       daysOfWeek: [''],
       adminIds: ['']
     });
+  }
+
+  get usersNotAdmin(): UserDto[] {
+    const adminIds = new Set(this.admins.map((a) => a.id));
+    return this.users.filter((u) => !adminIds.has(u.id));
   }
 
   ngOnInit(): void {
@@ -200,11 +201,6 @@ export class LocationEditFormComponent implements OnInit, OnChanges {
       });
   }
 
-  private updateAdmins(): void {
-    const adminIds = this.form.value.adminIds;
-    this.admins = this.users.filter((u) => adminIds.includes(u.id));
-  }
-
   save(): void {
     if (this.form.invalid) return;
 
@@ -230,5 +226,8 @@ export class LocationEditFormComponent implements OnInit, OnChanges {
     this.uploadImage();
   }
 
-  protected readonly NoImage = NoImage;
+  private updateAdmins(): void {
+    const adminIds = this.form.value.adminIds;
+    this.admins = this.users.filter((u) => adminIds.includes(u.id));
+  }
 }

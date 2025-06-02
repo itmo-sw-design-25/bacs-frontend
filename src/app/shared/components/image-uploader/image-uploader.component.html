@@ -1,17 +1,17 @@
 <div class="photo-uploader">
-  <div class="preview" (click)="fileInput.click()">
-    <img [ngSrc]="src" priority width="800" height="600" alt="Фото" class="preview-img" />
+  <div (click)="fileInput.click()" class="preview">
+    <img [ngSrc]="src" alt="Фото" class="preview-img" height="600" priority width="800" />
 
     <button
-      mat-fab
-      color="primary"
-      class="change-btn"
       (click)="$event.stopPropagation(); fileInput.click()"
+      class="change-btn"
+      color="primary"
+      mat-fab
       matTooltip="Заменить фото"
     >
       <mat-icon>photo_camera</mat-icon>
     </button>
   </div>
 
-  <input #fileInput type="file" accept="image/*" hidden (change)="onChangeFile($event)" />
+  <input #fileInput (change)="onChangeFile($event)" accept="image/*" hidden type="file" />
 </div>

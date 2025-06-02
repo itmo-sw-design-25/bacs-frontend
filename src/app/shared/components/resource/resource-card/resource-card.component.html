@@ -1,11 +1,11 @@
-<div class="resource-card" *ngIf="resource">
+<div *ngIf="resource" class="resource-card">
   <img
     [ngSrc]="resource.imageUrl ?? NoImage"
-    priority
-    width="240"
-    height="160"
     alt="{{ resource.name }}"
     class="resource-image"
+    height="160"
+    priority
+    width="240"
   />
 
   <div class="resource-info">
@@ -14,8 +14,8 @@
 
       <div class="resource-actions">
         <button
-          *ngIf="editEnabled && (isAdmin(resource.locationId) | async)"
           (click)="deleteIconClick($event)"
+          *ngIf="editEnabled && (isAdmin(resource.locationId) | async)"
           mat-icon-button
           matTooltip="Удалить ресурс"
         >
@@ -23,8 +23,8 @@
         </button>
 
         <button
-          *ngIf="editEnabled && isAdmin"
           (click)="editIconClick($event)"
+          *ngIf="editEnabled && isAdmin"
           mat-icon-button
           matTooltip="Редактировать ресурс"
         >
@@ -48,7 +48,7 @@
       Этаж: {{ resource.floor }}
     </div>
 
-    <div class="resource-detail" *ngIf="resource.equipment?.length">
+    <div *ngIf="resource.equipment?.length" class="resource-detail">
       <mat-icon class="icon">build</mat-icon>
       Оборудование: {{ resource.equipment?.join(', ') }}
     </div>

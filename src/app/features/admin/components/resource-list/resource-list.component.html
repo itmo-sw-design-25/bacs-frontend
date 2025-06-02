@@ -2,9 +2,9 @@
   <div class="resource-list-header">
     <div class="page-head">
       <h2>Ресурсы локации</h2>
-      <span class="count-badge" *ngIf="totalCount as n">{{ n }}</span>
+      <span *ngIf="totalCount as n" class="count-badge">{{ n }}</span>
     </div>
-    <button mat-flat-button class="submit-button" color="primary" (click)="createResource()">
+    <button (click)="createResource()" class="submit-button" color="primary" mat-flat-button>
       <mat-icon>add</mat-icon>
       Добавить ресурс
     </button>
@@ -13,10 +13,10 @@
   <div class="resource-list-content">
     <ng-container *ngFor="let resource of resources">
       <bacs-resource-card
-        [resource]="resource"
-        [editEnabled]="true"
-        (editClick)="editResource(resource)"
         (deleteClick)="deleteResource(resource)"
+        (editClick)="editResource(resource)"
+        [editEnabled]="true"
+        [resource]="resource"
         class="resource-card-clickable"
       ></bacs-resource-card>
     </ng-container>
