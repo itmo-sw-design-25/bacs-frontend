@@ -21,6 +21,7 @@
         [location]="location"
         [editEnabled]="mode == 'admin'"
         (click)="openSearchPage(location.id!)"
+        (deleteClick)="deleteLocation(location)"
         class="location-card-clickable"
       >
       </bacs-location-card>

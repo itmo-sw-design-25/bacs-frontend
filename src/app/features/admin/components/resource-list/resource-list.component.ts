@@ -107,6 +107,7 @@ export class ResourceListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (!result?.isSuccess) return;
       this.resources = this.resources.filter(r => r.id !== result.resourceId);
+      this.totalCount -= 1;
     });
   }
 }

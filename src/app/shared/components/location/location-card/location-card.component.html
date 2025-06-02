@@ -15,6 +15,15 @@
       <div class="location-actions">
         <button
           *ngIf="editEnabled && (isAdmin(location.id) | async)"
+          (click)="deleteIconClick($event)"
+          mat-icon-button
+          matTooltip="Удалить локацию"
+        >
+          <mat-icon color="warn">cancel</mat-icon>
+        </button>
+
+        <button
+          *ngIf="editEnabled && (isAdmin(location.id) | async)"
           (click)="$event.stopPropagation()"
           [routerLink]="['/admin/locations', location.id]"
           mat-icon-button

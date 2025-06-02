@@ -8,6 +8,10 @@ import { LocationsService } from '@api/services/locations.service';
 import { Router } from '@angular/router';
 import { LocationCardComponent } from '@shared/components/location/location-card/location-card.component';
 import { CurrentUserService } from '@shared/services/current-user.service';
+import { MatDialog } from '@angular/material/dialog';
+import {
+  LocationDeleteDialogComponent
+} from '@features/admin/components/location-delete-dialog/location-delete-dialog.component';
 
 type Mode = 'view' | 'admin';
 
@@ -44,7 +48,8 @@ export class LocationsListComponent implements OnInit {
   constructor(
     private locationsService: LocationsService,
     private currentUser: CurrentUserService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {
   }
 
@@ -76,6 +81,19 @@ export class LocationsListComponent implements OnInit {
         },
         error: () => this.isLoading = false
       });
+  }
+
+  deleteLocation(location: LocationDto): void {
+    const dialogRef = this.dialog.open(LocationDeleteDialogComponent, {
+      width: '500px',
+      data: { location }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result?.isSuccess) return;
+      this.locations = this.locations.filter(r => r.id !== result.locationId);
+      this.totalCount -= 1;
+    });
   }
 
   changeLimit(newLimit: number): void {

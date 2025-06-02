@@ -1,0 +1,45 @@
+@use '../../../../../assets/styles/theme' as *;
+
+.cancel-dialog {
+  padding: 32px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  background-color: $white;
+  color: $text-main;
+}
+
+.dialog-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.dialog-message {
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 12px;
+
+  button {
+    min-width: 100px;
+  }
+
+  .cancel-button {
+    color: $text-main;
+  }
+
+  .confirm-button {
+    background-color: $pink-main;
+    color: $white;
+
+    &:hover {
+      background-color: darken($pink-main, 5%);
+    }
+  }
+}
