@@ -21,6 +21,18 @@ import { LocationsService } from '@api/services/locations.service';
 import { ResourceType } from '@api/models/resourceType';
 import { ResourceTypePipe } from '@shared/pipes/resource-type.pipe';
 import { ReservationDto } from '@api/models/reservationDto';
+import { CalendarSettingsDto } from '@api/models/calendarSettingsDto';
+import { RussianDayOfWeek } from '@api/models/russianDayOfWeek';
+
+const WEEK_DAYS_MAP: Record<RussianDayOfWeek, number> = {
+  Monday: 1,
+  Tuesday: 2,
+  Wednesday: 3,
+  Thursday: 4,
+  Friday: 5,
+  Saturday: 6,
+  Sunday: 0
+};
 
 @Component({
   selector: 'bacs-search-page',
@@ -43,7 +55,19 @@ import { ReservationDto } from '@api/models/reservationDto';
   styleUrls: ['./search-page.component.scss']
 })
 export class SearchPageComponent implements OnInit {
+  private allowedDays = new Set<number>();
+
   readonly minReservationTime = 30;
+  readonly dateFilter = (day: Date | null): boolean => {
+    if (!day) return false;
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (day < today) return false;
+
+    return this.allowedDays.has(day.getDay());
+  };
 
   dateControl = new FormControl(new Date());
   resourceTypeControl = new FormControl();
@@ -68,7 +92,8 @@ export class SearchPageComponent implements OnInit {
 
     this.locationsService.locationsLocationIdGet(this.locationId)
       .pipe(
-        tap(location => this.location = location)
+        tap(location => this.location = location),
+        tap(location => this.setAvailableDates(location.calendarSettings))
       )
       .subscribe();
   }
@@ -167,5 +192,10 @@ export class SearchPageComponent implements OnInit {
     });
 
     return slotsPerResource;
+  }
+
+  private setAvailableDates(calendarSettings: CalendarSettingsDto | undefined) {
+    const days = calendarSettings?.availableDaysOfWeek ?? [];
+    this.allowedDays = new Set(days.map(day => WEEK_DAYS_MAP[day]));
   }
 }

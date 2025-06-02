@@ -7,37 +7,60 @@
 }
 
 .slots {
-  justify-content: space-between;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 12px;
-  margin-left: 8px;
+  margin: 12px 0 0 8px;
+  justify-content: space-between;
 }
 
 .slot {
   padding: 4px 10px;
   border-radius: 6px;
-  background-color: $green-light;
-  font-size: 0.85rem;
+  background: $green-light;
+  font-size: .85rem;
   color: $green-main;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color .2s;
+  white-space: nowrap;
 
   &:hover {
-    background-color: $green-secondary;
+    background: $green-secondary;
     color: $white;
   }
 
   &.selected {
-    background-color: $green-main;
+    background: $green-main;
     color: $white;
   }
 }
 
 .no-slots {
-  margin-top: 8px;
-  margin-left: 8px;
+  margin: 8px 0 0 8px;
   color: $text-disabled;
-  font-size: 0.95rem;
+  font-size: .95rem;
+}
+
+@media (max-width: 600px) {
+  .results-list {
+    gap: 16px;
+  }
+
+  .slots {
+    margin-left: 0;
+    gap: 6px;
+    justify-content: flex-start;
+  }
+
+  .slot {
+    flex: 0 0 calc(33.333% - 6px);
+    text-align: center;
+    font-size: .8rem;
+    box-sizing: border-box;
+  }
+
+  .no-slots {
+    margin-left: 0;
+    font-size: .9rem;
+  }
 }
