@@ -59,7 +59,6 @@ bacs-root main {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 24px;
 }
 
 .count-badge {
@@ -86,7 +85,7 @@ bacs-root main {
 .submit-button.submit-button:not(:disabled),
 .submit-button.mat-flat-button:not(:disabled),
 .submit-button.mat-mdc-button:not(:disabled) {
-  background: theme.$green-secondary;
+  background: theme.$green-main;
 }
 
 .submit-button:disabled,

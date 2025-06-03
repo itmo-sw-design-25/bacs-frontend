@@ -1,5 +1,11 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogActions,
+  MatDialogContent,
+  MatDialogRef,
+  MatDialogTitle
+} from '@angular/material/dialog';
 import { MatButton } from '@angular/material/button';
 import { SuccessSnackbarComponent } from '@shared/components/snackbar/success-snackbar/success-snackbar.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -11,7 +17,7 @@ import { ResourcesService } from '@api/services/resources.service';
   templateUrl: './resource-delete-dialog.component.html',
   styleUrls: ['./resource-delete-dialog.component.scss'],
   standalone: true,
-  imports: [MatButton]
+  imports: [MatButton, MatDialogTitle, MatDialogContent, MatDialogActions]
 })
 export class ResourceDeleteDialogComponent {
   constructor(

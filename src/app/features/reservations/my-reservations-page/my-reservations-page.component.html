@@ -13,16 +13,14 @@
   </mat-tab-group>
 
   <div class="filters-bar">
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label>Показывать по</mat-label>
       <mat-select (valueChange)="changeLimit($event)" [formControl]="limitControl">
-        <mat-option *ngFor="let opt of limitOptions" [value]="opt">
-          {{ opt }}
-        </mat-option>
+        <mat-option *ngFor="let opt of limitOptions" [value]="opt">{{ opt }}</mat-option>
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label>Статус</mat-label>
       <mat-select (valueChange)="changeStatuses($event)" [formControl]="statusControl" multiple>
         <mat-option *ngFor="let opt of reservationStatuses" [value]="opt">
@@ -31,35 +29,32 @@
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label>Локация</mat-label>
       <mat-select (valueChange)="changeLocations($event)" [formControl]="locationsControl" multiple>
-        <mat-option *ngFor="let opt of locations" [value]="opt">
-          {{ opt.name }}
-        </mat-option>
+        <mat-option *ngFor="let opt of locations" [value]="opt">{{ opt.name }}</mat-option>
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label>Ресурс</mat-label>
       <mat-select (valueChange)="changeResources($event)" [formControl]="resourcesControl" multiple>
-        <mat-option *ngFor="let opt of resources" [value]="opt">
-          {{ opt.name }}
-        </mat-option>
+        <mat-option *ngFor="let opt of resources" [value]="opt">{{ opt.name }}</mat-option>
       </mat-select>
     </mat-form-field>
   </div>
 
   <div class="reservations-list">
-    <bacs-reservation-card
-      (cancelled)="onReservationCancelled($event)"
-      (created)="onReservationCreated($event)"
-      (updated)="onReservationUpdated($event)"
-      *ngFor="let reservationFull of displayedReservations"
-      [location]="reservationFull.location"
-      [reservation]="reservationFull.reservation"
-      [resource]="reservationFull.resource"
-    ></bacs-reservation-card>
+    <ng-container *ngFor="let reservationFull of displayedReservations">
+      <bacs-reservation-card
+        (cancelled)="onReservationCancelled($event)"
+        (created)="onReservationCreated($event)"
+        (updated)="onReservationUpdated($event)"
+        [location]="reservationFull.location"
+        [reservation]="reservationFull.reservation"
+        [resource]="reservationFull.resource"
+      ></bacs-reservation-card>
+    </ng-container>
   </div>
 
   <div *ngIf="hasMore" class="pagination-footer">

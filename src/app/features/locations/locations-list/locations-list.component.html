@@ -5,7 +5,7 @@
   </div>
 
   <div class="filters-bar">
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label>Показывать по</mat-label>
       <mat-select (valueChange)="changeLimit($event)" [(value)]="limit">
         <mat-option *ngFor="let opt of limitOptions" [value]="opt">
@@ -23,8 +23,7 @@
         [editEnabled]="mode === 'admin'"
         [location]="location"
         class="location-card-clickable"
-      >
-      </bacs-location-card>
+      ></bacs-location-card>
     </ng-container>
   </div>
 

@@ -1,5 +1,11 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogActions,
+  MatDialogContent,
+  MatDialogRef,
+  MatDialogTitle
+} from '@angular/material/dialog';
 import { ReservationDto } from '@api/models/reservationDto';
 import { DatePipe } from '@angular/common';
 import { MatButton } from '@angular/material/button';
@@ -13,7 +19,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './reservation-cancel-dialog.component.html',
   styleUrls: ['./reservation-cancel-dialog.component.scss'],
   standalone: true,
-  imports: [DatePipe, MatButton]
+  imports: [DatePipe, MatButton, MatDialogContent, MatDialogActions, MatDialogTitle]
 })
 export class ReservationCancelDialogComponent {
   constructor(

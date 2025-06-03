@@ -3,50 +3,37 @@
 .location-form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 24px;
   margin-bottom: 2rem;
+  color: $text-main;
 
-  mat-form-field {
-    width: 100%;
+  ::ng-deep .mat-mdc-form-field-subscript-wrapper {
+    display: none !important;
   }
 
-  .time-row {
+  .form-fields {
     display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 20px;
 
-    mat-form-field {
-      flex: 1;
+    .field {
+      width: 100%;
+
+      .mat-icon.mat-prefix {
+        color: $green-secondary;
+        margin-right: 4px;
+      }
     }
-  }
 
-  .upload-row {
-    display: flex;
-    align-items: center;
+    .time-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
 
-    input[type='file'] {
-      font-size: 0.95rem;
+      @media (max-width: 600px) {
+        grid-template-columns: 1fr;
+      }
     }
-  }
-}
-
-.image-preview-wrapper {
-  margin: 16px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-
-  .location-image {
-    object-fit: cover;
-    border-radius: 8px;
-    border: 1px solid $green-light;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  }
-
-  .upload-row input[type='file'] {
-    padding: 6px 0;
-    font-size: 0.9rem;
   }
 }
 
@@ -54,7 +41,7 @@
   padding: 16px 20px;
   background: $green-light;
   border: 1px solid $bg-disabled;
-  border-radius: 8px;
+  border-radius: 12px;
 
   h3 {
     margin: 0 0 12px;

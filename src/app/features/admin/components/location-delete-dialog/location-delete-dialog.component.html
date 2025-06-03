@@ -1,11 +1,22 @@
-<div class="cancel-dialog">
-  <h2 class="dialog-title">Удаление локации</h2>
-  <p class="dialog-message">
-    Вы уверены, что хотите удалить локацию <b>{{ data.location.name }}</b> ?
-  </p>
+<h2 mat-dialog-title class="dialog-title">
+  Удаление локации
+</h2>
 
-  <div class="dialog-actions">
-    <button (click)="close()" class="cancel-button" mat-button>Нет</button>
-    <button (click)="confirm()" class="confirm-button" mat-flat-button>Удалить</button>
-  </div>
-</div>
+<mat-dialog-content class="dialog-content">
+  <p class="dialog-message">
+    Вы уверены, что хотите удалить локацию <b>{{ data.location.name }}</b>?
+  </p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="dialog-actions">
+  <button (click)="close()" class="cancel-button" mat-button>Нет</button>
+  <button
+    (click)="confirm()"
+    class="confirm-button"
+    color="warn"
+    mat-flat-button
+    style="margin-left: 0 !important"
+  >
+    Удалить
+  </button>
+</mat-dialog-actions>

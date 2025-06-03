@@ -57,7 +57,10 @@ export class ResourceListComponent implements OnInit {
       if (!result?.isSuccess) return;
 
       this.resourcesService.resourcesGet([result.resourceId]).subscribe({
-        next: (resources) => (this.resources = [...this.resources, ...resources.collection!])
+        next: (resources) => {
+          this.resources = [...this.resources, ...resources.collection!];
+          this.totalCount += 1;
+        }
       });
     });
   }

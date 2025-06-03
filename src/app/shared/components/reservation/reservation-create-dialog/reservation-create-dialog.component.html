@@ -1,50 +1,64 @@
-<h2 mat-dialog-title>
+<h2 mat-dialog-title class="dialog-title">
   {{ isEditMode ? 'Редактирование резервации' : 'Создание резервации' }}
 </h2>
 
 <mat-dialog-content [formGroup]="form" class="dialog-content">
-  <mat-form-field appearance="fill">
-    <mat-label>Локация</mat-label>
-    <input formControlName="location" matInput />
-  </mat-form-field>
+  <div class="fields">
+    <mat-form-field appearance="outline" class="field wide">
+      <mat-label>Локация</mat-label>
+      <mat-icon matPrefix>location_on</mat-icon>
+      <input matInput formControlName="location" [disabled]="true" />
+    </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Ресурс</mat-label>
-    <input formControlName="resource" matInput />
-  </mat-form-field>
+    <mat-form-field appearance="outline" class="field wide">
+      <mat-label>Ресурс</mat-label>
+      <mat-icon matPrefix>event_seat</mat-icon>
+      <input matInput formControlName="resource" [disabled]="true" />
+    </mat-form-field>
 
-  <mat-form-field appearance="fill" class="field">
-    <mat-label>Дата</mat-label>
-    <input [matDatepicker]="picker" formControlName="date" matInput />
-    <mat-datepicker-toggle [for]="picker" matSuffix />
-    <mat-datepicker #picker />
-  </mat-form-field>
+    <mat-form-field appearance="outline" class="field wide">
+      <mat-label>Дата</mat-label>
+      <mat-icon matPrefix>calendar_today</mat-icon>
+      <input
+        matInput
+        formControlName="date"
+        [matDatepicker]="picker"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker" />
+      <mat-datepicker #picker />
+    </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Начало</mat-label>
-    <mat-select formControlName="fromTime">
-      <mat-option *ngFor="let time of timeSlots" [value]="time">
-        {{ time }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+    <div class="time-row">
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Начало</mat-label>
+        <mat-icon matPrefix>schedule</mat-icon>
+        <mat-select formControlName="fromTime">
+          <mat-option *ngFor="let time of timeSlots" [value]="time">
+            {{ time }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Окончание</mat-label>
-    <mat-select formControlName="toTime">
-      <mat-option *ngFor="let time of timeSlots" [value]="time">
-        {{ time }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Окончание</mat-label>
+        <mat-icon matPrefix>schedule</mat-icon>
+        <mat-select formControlName="toTime">
+          <mat-option *ngFor="let time of timeSlots" [value]="time">
+            {{ time }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
 </mat-dialog-content>
 
-<mat-dialog-actions align="end">
-  <button (click)="close()" mat-button>Отмена</button>
+<mat-dialog-actions align="end" class="dialog-actions">
+  <button mat-button (click)="close()">Отмена</button>
   <button
     (click)="confirm()"
     [disabled]="form.invalid"
     class="submit-button"
+    style="margin-left: 0;!important;"
     color="primary"
     mat-flat-button
   >

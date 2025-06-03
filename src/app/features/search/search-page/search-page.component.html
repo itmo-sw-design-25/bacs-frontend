@@ -26,7 +26,6 @@
         <mat-label>Тип места</mat-label>
         <mat-icon matPrefix>category</mat-icon>
         <mat-select [formControl]="resourceTypeControl">
-          <mat-option value="">Любой</mat-option>
           <mat-option *ngFor="let type of resourceTypes" [value]="type">
             {{ type | resourceType }}
           </mat-option>

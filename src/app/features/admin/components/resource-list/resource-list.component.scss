@@ -7,13 +7,50 @@
 
   .resource-list-header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
 
-    h2 {
-      margin: 0;
-      font-size: 1.25rem;
-      color: $green-main;
+    @media (max-width: 600px) {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+    }
+
+    .page-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin: 0;
+        color: $text-main;
+      }
+
+      .count-badge {
+        border-radius: 12px;
+        padding: 4px 10px;
+      }
+
+      @media (max-width: 600px) {
+        width: 100%;
+      }
+    }
+
+    .add-resource-button {
+      white-space: nowrap;
+      height: 40px;
+
+      @media (max-width: 600px) {
+        width: 100%;
+      }
+
+      mat-icon {
+        margin-right: 6px;
+      }
     }
   }
 
@@ -21,16 +58,5 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
-
-    .resource-card-clickable {
-      cursor: pointer;
-      position: relative;
-    }
-
-    .delete-button {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-    }
   }
 }

@@ -26,6 +26,7 @@ import { UpdateReservationRequest } from '@api/models/updateReservationRequest';
 import { formatTime } from '@shared/utils/date.utils';
 import { SuccessSnackbarComponent } from '@shared/components/snackbar/success-snackbar/success-snackbar.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'bacs-reservation-create-dialog',
@@ -47,7 +48,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     MatSelect,
     MatOption,
     NgForOf,
-    MatSuffix
+    MatSuffix,
+    MatIcon
   ]
 })
 export class ReservationCreateDialogComponent {

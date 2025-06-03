@@ -1,15 +1,19 @@
-<div class="cancel-dialog">
-  <h2 class="dialog-title">Отмена резервации</h2>
+<h2 mat-dialog-title class="dialog-title">
+  Отмена резервации
+</h2>
+
+<mat-dialog-content class="dialog-content">
   <p class="dialog-message">
     Вы уверены, что хотите отменить резервацию на
-    <b>{{ data.reservation.from | date: 'd MMMM y, HH:mm' }}</b>
-    –
-    <b>{{ data.reservation.to | date: 'HH:mm' }}</b
-    >?
+    <b>{{ data.reservation.from | date: 'd MMMM y' }}</b>,
+    <b>{{ data.reservation.from | date: 'HH:mm' }}</b> –
+    <b>{{ data.reservation.to | date: 'HH:mm' }}</b>?
   </p>
+</mat-dialog-content>
 
-  <div class="dialog-actions">
-    <button (click)="close()" class="cancel-button" mat-button>Нет</button>
-    <button (click)="confirm()" class="confirm-button" mat-flat-button>Отменить</button>
-  </div>
-</div>
+<mat-dialog-actions align="end" class="dialog-actions">
+  <button (click)="close()" class="cancel-button" mat-button>Нет</button>
+  <button (click)="confirm()" class="confirm-button" color="warn" mat-flat-button style="margin-left: 0;!important;">
+    Отменить
+  </button>
+</mat-dialog-actions>

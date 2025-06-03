@@ -1,50 +1,60 @@
 <form [formGroup]="form" class="location-form">
-  <bacs-image-uploader (fileSelected)="onFileSelected($event)" [src]="location.imageUrl ?? NoImage">
-  </bacs-image-uploader>
+  <bacs-image-uploader
+    (fileSelected)="onFileSelected($event)"
+    [src]="location.imageUrl ?? NoImage"
+  ></bacs-image-uploader>
 
-  <mat-form-field>
-    <mat-label>Название</mat-label>
-    <input formControlName="name" matInput />
-  </mat-form-field>
-
-  <mat-form-field>
-    <mat-label>Описание</mat-label>
-    <textarea formControlName="description" matInput rows="3"></textarea>
-  </mat-form-field>
-
-  <mat-form-field>
-    <mat-label>Адрес</mat-label>
-    <input formControlName="address" matInput />
-  </mat-form-field>
-
-  <div class="time-row">
-    <mat-form-field appearance="fill">
-      <mat-label>Начало работы (UTC)</mat-label>
-      <mat-select formControlName="availableFrom">
-        <mat-option *ngFor="let time of utcTimeSlots" [value]="time">
-          {{ time }}
-        </mat-option>
-      </mat-select>
+  <div class="form-fields">
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Название</mat-label>
+      <mat-icon matPrefix>edit_location</mat-icon>
+      <input formControlName="name" matInput />
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Конец работы (UTC)</mat-label>
-      <mat-select formControlName="availableTo">
-        <mat-option *ngFor="let time of utcTimeSlots" [value]="time">
-          {{ time }}
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Описание</mat-label>
+      <mat-icon matPrefix>notes</mat-icon>
+      <textarea formControlName="description" matInput rows="3"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Адрес</mat-label>
+      <mat-icon matPrefix>place</mat-icon>
+      <input formControlName="address" matInput />
+    </mat-form-field>
+
+    <div class="time-row">
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Начало работы (UTC)</mat-label>
+        <mat-icon matPrefix>schedule</mat-icon>
+        <mat-select formControlName="availableFrom">
+          <mat-option *ngFor="let time of utcTimeSlots" [value]="time">
+            {{ time }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Конец работы (UTC)</mat-label>
+        <mat-icon matPrefix>schedule</mat-icon>
+        <mat-select formControlName="availableTo">
+          <mat-option *ngFor="let time of utcTimeSlots" [value]="time">
+            {{ time }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Рабочие дни недели</mat-label>
+      <mat-icon matPrefix>calendar_view_week</mat-icon>
+      <mat-select formControlName="daysOfWeek" multiple>
+        <mat-option *ngFor="let day of daysOfWeek" [value]="day">
+          {{ day | dayOfWeek }}
         </mat-option>
       </mat-select>
     </mat-form-field>
   </div>
-
-  <mat-form-field appearance="fill">
-    <mat-label>Рабочие дни недели</mat-label>
-    <mat-select formControlName="daysOfWeek" multiple>
-      <mat-option *ngFor="let day of daysOfWeek" [value]="day">
-        {{ day | dayOfWeek }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
 
   <button
     (click)="save()"
@@ -61,8 +71,11 @@
     <h3>Администраторы локации</h3>
 
     <mat-chip-listbox *ngIf="admins.length; else noAdmins">
-      <mat-chip *ngFor="let admin of admins"> {{ admin.name }} ({{ admin.email }})</mat-chip>
+      <mat-chip *ngFor="let admin of admins">
+        {{ admin.email }}
+      </mat-chip>
     </mat-chip-listbox>
+
     <ng-template #noAdmins>
       <p class="hint">Администраторы пока не назначены на данной локации</p>
     </ng-template>
@@ -84,20 +97,20 @@
       </button>
     </div>
 
-    <mat-form-field *ngIf="addMode" appearance="fill">
+    <mat-form-field *ngIf="addMode" appearance="outline">
       <mat-label>Выберите пользователя</mat-label>
       <mat-select (selectionChange)="addAdmin($event.value)">
         <mat-option *ngFor="let user of usersNotAdmin" [value]="user.id">
-          {{ user.name }} ({{ user.email }})
+          {{ user.email }}
         </mat-option>
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field *ngIf="removeMode" appearance="fill">
+    <mat-form-field *ngIf="removeMode" appearance="outline">
       <mat-label>Кого убрать из админов</mat-label>
       <mat-select (selectionChange)="removeAdmin($event.value)">
         <mat-option *ngFor="let admin of admins" [value]="admin.id">
-          {{ admin.name }} ({{ admin.email }})
+          {{ admin.email }}
         </mat-option>
       </mat-select>
     </mat-form-field>

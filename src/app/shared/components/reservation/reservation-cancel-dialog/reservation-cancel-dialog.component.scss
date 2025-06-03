@@ -1,30 +1,34 @@
-@use '../../../../../assets/styles/_theme.scss' as *;
-
-.cancel-dialog {
-  padding: 32px 36px;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  background-color: $white;
-  color: $text-main;
-}
+@use '../../../../../assets/styles/theme' as *;
 
 .dialog-title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: $text-main;
+  margin-bottom: 8px;
+
+  @media (max-width: 600px) {
+    font-size: 1rem;
+  }
 }
 
-.dialog-message {
-  font-size: 1rem;
-  line-height: 1.4;
+.dialog-content {
+  padding: 0 30px;
+  display: flex;
+  flex-direction: column;
+  color: $text-main;
+
+  .dialog-message {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin: 0;
+  }
 }
 
 .dialog-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 16px;
-  margin-top: 12px;
+  gap: 12px;
+  padding: 10px 20px 20px;
 
   button {
     min-width: 100px;
@@ -41,5 +45,30 @@
     &:hover {
       background-color: darken($pink-main, 5%);
     }
+  }
+
+  @media (max-width: 600px) {
+    flex-direction: column-reverse;
+    gap: 8px;
+    padding: 20px;
+
+    button {
+      width: 100%;
+    }
+  }
+}
+
+::ng-deep .mat-dialog-container {
+  border-radius: 20px;
+  padding: 24px;
+  max-width: 500px;
+  width: calc(100vw - 32px);
+  box-sizing: border-box;
+  background: linear-gradient(135deg, #f9f9f9, #ffffff);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+
+  @media (max-width: 600px) {
+    padding: 20px 16px;
+    border-radius: 16px;
   }
 }
