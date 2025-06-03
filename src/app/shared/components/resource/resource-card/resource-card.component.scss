@@ -62,7 +62,8 @@
 .icon {
   display: flex;
   align-items: center;
-  font-size: 18px;
+  font-size: 20px;
+  min-width: 20px;
   color: $green-secondary;
 }
 
@@ -91,6 +92,7 @@
   .resource-info {
     gap: 6px;
   }
+
   .resource-detail {
     font-size: 0.9rem;
     padding: 4px 8px;
