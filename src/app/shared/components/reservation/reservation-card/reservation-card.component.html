@@ -16,7 +16,7 @@
         {{ location.name + ', ' + resource.floor + ' этаж' }}
       </div>
 
-      <div style="display: flex; align-items: center">
+      <div class="reservation-header-right">
         <span
           [ngClass]="reservation.status === 'Cancelled' ? 'cancelled' : 'created'"
           class="reservation-status"
@@ -26,8 +26,8 @@
 
         <div class="reservation-actions">
           <button
-            (click)="openCancelDialog()"
             *ngIf="isUpcoming"
+            (click)="openCancelDialog()"
             mat-icon-button
             matTooltip="Отменить"
           >
@@ -35,8 +35,8 @@
           </button>
 
           <button
-            (click)="openEditDialog()"
             *ngIf="isUpcoming"
+            (click)="openEditDialog()"
             mat-icon-button
             matTooltip="Редактировать"
           >
@@ -44,8 +44,8 @@
           </button>
 
           <button
-            (click)="openRepeatDialog()"
             *ngIf="canRepeat"
+            (click)="openRepeatDialog()"
             mat-icon-button
             matTooltip="Повторить"
           >

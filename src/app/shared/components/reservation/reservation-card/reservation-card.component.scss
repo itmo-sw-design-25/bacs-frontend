@@ -29,14 +29,21 @@
 
 .reservation-header {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
   gap: 8px;
 
   .location-name {
     font-size: 1.25rem;
     font-weight: 600;
     color: $green-main;
+  }
+
+  .reservation-header-right {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
   }
 
   .reservation-status {
@@ -64,10 +71,7 @@
   .reservation-actions {
     display: flex;
     align-items: center;
-
-    .button {
-      display: flex;
-    }
+    gap: 4px;
   }
 }
 
@@ -132,7 +136,7 @@
   }
 
   .reservation-header .location-name {
-    font-size: 1rem;
+    font-size: 1.25rem;
   }
 
   .reservation-status {
@@ -151,5 +155,21 @@
   .details-two-column {
     grid-template-columns: 1fr;
     gap: 8px;
+  }
+}
+
+@media (min-width: 601px) {
+  .reservation-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .reservation-header {
+    .reservation-status {
+      font-size: 0.9rem;
+    }
   }
 }
