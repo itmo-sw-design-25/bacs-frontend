@@ -1,4 +1,4 @@
-<h2 mat-dialog-title class="dialog-title">
+<h2 class="dialog-title" mat-dialog-title>
   {{ data.mode === 'edit' ? 'Редактировать ресурс' : 'Создать ресурс' }}
 </h2>
 
@@ -41,21 +41,21 @@
       <mat-label>Оборудование</mat-label>
       <mat-chip-grid #chipGrid aria-label="Оборудование">
         <mat-chip-row
-          *ngFor="let item of equipment; let i = index"
           (removed)="removeEquipment(i)"
+          *ngFor="let item of equipment; let i = index"
           color="primary"
           removable
         >
           {{ item }}
-          <button matChipRemove aria-label="Удалить">
+          <button aria-label="Удалить" matChipRemove>
             <mat-icon>cancel</mat-icon>
           </button>
         </mat-chip-row>
         <input
           (matChipInputTokenEnd)="addEquipment($event)"
           [matChipInputAddOnBlur]="true"
-          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
           [matChipInputFor]="chipGrid"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
           matInput
           placeholder="Добавить оборудование..."
         />
