@@ -1,7 +1,20 @@
 <div class="page">
-  <div class="page-head">
-    <h1 class="page-title">{{ title }}</h1>
-    <span *ngIf="totalCount as n" class="count-badge">{{ n }}</span>
+  <div class="location-list-header">
+    <div class="page-head">
+      <h1 class="page-title">{{ title }}</h1>
+      <span *ngIf="totalCount as n" class="count-badge">{{ n }}</span>
+    </div>
+
+    <button
+      *ngIf="mode === 'admin' && isSuperAdmin"
+      [routerLink]="['/admin/locations', 'new']"
+      class="submit-button add-location-button"
+      color="primary"
+      mat-flat-button
+    >
+      <mat-icon>add</mat-icon>
+      Добавить локацию
+    </button>
   </div>
 
   <div class="filters-bar">

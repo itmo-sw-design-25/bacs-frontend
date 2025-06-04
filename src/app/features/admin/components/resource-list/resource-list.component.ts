@@ -33,6 +33,8 @@ export class ResourceListComponent implements OnInit {
   }
 
   loadResources(): void {
+    if (!this.locationId) return;
+
     this.resourcesService
       .resourcesGet([], [this.locationId], [], 0, 100)
       .pipe(

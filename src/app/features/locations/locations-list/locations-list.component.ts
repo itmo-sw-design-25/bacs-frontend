@@ -5,7 +5,7 @@ import { MatFormField, MatLabel, MatOption, MatSelect } from '@angular/material/
 import { MatButton } from '@angular/material/button';
 import { LocationDto } from '@api/models/locationDto';
 import { LocationsService } from '@api/services/locations.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { LocationCardComponent } from '@shared/components/location/location-card/location-card.component';
 import { CurrentUserService } from '@shared/services/current-user.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -25,7 +25,8 @@ type Mode = 'view' | 'admin';
     MatFormField,
     MatLabel,
     MatButton,
-    LocationCardComponent
+    LocationCardComponent,
+    RouterLink
   ],
   templateUrl: './locations-list.component.html',
   styleUrl: './locations-list.component.scss'
@@ -43,6 +44,10 @@ export class LocationsListComponent implements OnInit {
   hasMore = true;
   totalCount = 0;
 
+  get isSuperAdmin() {
+    return this.currentUser.isSuperAdmin;
+  }
+
   constructor(
     private locationsService: LocationsService,
     private currentUser: CurrentUserService,
@@ -51,7 +56,7 @@ export class LocationsListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.mode == 'admin' && !this.currentUser.isSuperAdmin) {
+    if (this.mode == 'admin' && !this.isSuperAdmin) {
       this.currentUser.user$.subscribe((user) => this.loadLocations(user.adminIn!));
     } else {
       this.loadLocations();

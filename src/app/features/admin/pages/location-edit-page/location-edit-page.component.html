@@ -1,6 +1,6 @@
 <div *ngIf="location" class="location-edit-page">
-  <h1 class="title">Редактирование локации</h1>
+  <h1 class="title"> {{ mode === 'edit' ? 'Редактирование локации' : 'Создание локации' }}</h1>
 
   <bacs-location-edit-form [location]="location" />
-  <bacs-resource-list [locationId]="location.id!" />
+  <bacs-resource-list *ngIf="location.id" [locationId]="location.id" />
 </div>

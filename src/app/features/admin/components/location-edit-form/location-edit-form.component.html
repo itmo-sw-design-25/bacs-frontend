@@ -57,7 +57,7 @@
   </div>
 
   <button
-    (click)="save()"
+    (click)="location.id ? save() : create()"
     [disabled]="form.invalid"
     class="submit-button"
     color="primary"

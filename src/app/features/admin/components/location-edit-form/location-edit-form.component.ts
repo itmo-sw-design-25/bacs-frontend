@@ -18,6 +18,8 @@ import { MatChip, MatChipListbox } from '@angular/material/chips';
 import { MatIcon } from '@angular/material/icon';
 import { ImageUploaderComponent } from '@shared/components/image-uploader/image-uploader.component';
 import { NoImage } from '@shared/utils/image.utils';
+import { CreateLocationRequest } from '@api/models/createLocationRequest';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'bacs-location-edit-form',
@@ -82,6 +84,7 @@ export class LocationEditFormComponent implements OnInit, OnChanges {
   protected readonly NoImage = NoImage;
 
   constructor(
+    private router: Router,
     private snackBar: MatSnackBar,
     private fb: FormBuilder,
     private locationsService: LocationsService,
@@ -93,7 +96,7 @@ export class LocationEditFormComponent implements OnInit, OnChanges {
       description: [''],
       availableFrom: ['', Validators.required],
       availableTo: ['', Validators.required],
-      daysOfWeek: [''],
+      daysOfWeek: ['', Validators.required],
       adminIds: ['']
     });
   }
@@ -220,6 +223,33 @@ export class LocationEditFormComponent implements OnInit, OnChanges {
         this.snackBar.openFromComponent(SuccessSnackbarComponent, {
           data: { message: 'Настройки локации успешно обновлены!' }
         });
+      }
+    });
+
+    this.uploadImage();
+  }
+
+  create(): void {
+    if (this.form.invalid) return;
+
+    const request = {
+      name: this.form.value.name,
+      description: this.form.value.description,
+      address: this.form.value.address,
+      calendarSettings: {
+        availableFrom: this.form.value.availableFrom,
+        availableTo: this.form.value.availableTo,
+        availableDaysOfWeek: this.form.value.daysOfWeek
+      }
+    } as CreateLocationRequest;
+
+    this.locationsService.locationsPost(request).subscribe({
+      next: () => {
+        this.snackBar.openFromComponent(SuccessSnackbarComponent, {
+          data: { message: 'Локация успешно создана!' }
+        });
+
+        this.router.navigate(['/admin/']);
       }
     });
 

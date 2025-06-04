@@ -6,17 +6,44 @@
   gap: 24px;
 }
 
-.page-head {
+.location-list-header {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
   gap: 16px;
 
-  .page-title {
-    font-size: 1.75rem;
-    font-weight: 700;
-    color: $text-main;
-    margin: 0;
+  @media (max-width: 600px) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .page-head {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 16px;
+
+    .page-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: $text-main;
+      margin: 0;
+    }
+
+    .add-location-button {
+      white-space: nowrap;
+      height: 40px;
+
+      @media (max-width: 600px) {
+        width: 100%;
+      }
+
+      mat-icon {
+        margin-right: 6px;
+      }
+    }
   }
 }
 
