@@ -17,11 +17,7 @@
       <textarea formControlName="description" matInput rows="3"></textarea>
     </mat-form-field>
 
-    <mat-form-field appearance="outline" class="field">
-      <mat-label>Адрес</mat-label>
-      <mat-icon matPrefix>place</mat-icon>
-      <input formControlName="address" matInput />
-    </mat-form-field>
+    <bacs-address-autocomplete formControlName="address"></bacs-address-autocomplete>
 
     <div class="time-row">
       <mat-form-field appearance="outline" class="field">

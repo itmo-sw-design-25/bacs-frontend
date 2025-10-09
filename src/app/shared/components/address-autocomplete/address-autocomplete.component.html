@@ -1,0 +1,33 @@
+<mat-form-field appearance="outline" class="field">
+  <mat-label>Адрес</mat-label>
+  <mat-icon matPrefix>place</mat-icon>
+
+  <input
+    matInput
+    type="text"
+    [formControl]="ctrl"
+    [matAutocomplete]="auto"
+    autocomplete="off"
+    (blur)="onInputBlur()"
+    [disabled]="isDisabled"
+  />
+
+  <mat-progress-spinner
+    *ngIf="loading"
+    matSuffix
+    diameter="18"
+    mode="indeterminate">
+  </mat-progress-spinner>
+
+  <mat-autocomplete #auto (optionSelected)="onOptionSelected($event)">
+    <ng-container *ngIf="(suggestions$ | async) as items">
+      <mat-option *ngFor="let item of items; trackBy: trackByValue" [value]="item">
+        {{ item }}
+      </mat-option>
+
+      <mat-option *ngIf="!loading && items.length === 0 && ctrl.value && ctrl.value.length >= 3">
+        Ничего не найдено
+      </mat-option>
+    </ng-container>
+  </mat-autocomplete>
+</mat-form-field>

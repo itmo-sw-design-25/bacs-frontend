@@ -20,6 +20,7 @@ import { ImageUploaderComponent } from '@shared/components/image-uploader/image-
 import { NoImage } from '@shared/utils/image.utils';
 import { CreateLocationRequest } from '@api/models/createLocationRequest';
 import { Router } from '@angular/router';
+import { AddressAutocompleteComponent } from '@shared/components/address-autocomplete/address-autocomplete.component';
 
 @Component({
   selector: 'bacs-location-edit-form',
@@ -39,7 +40,8 @@ import { Router } from '@angular/router';
     MatChip,
     NgIf,
     MatChipListbox,
-    ImageUploaderComponent
+    ImageUploaderComponent,
+    AddressAutocompleteComponent
   ],
   styleUrls: ['./location-edit-form.component.scss']
 })

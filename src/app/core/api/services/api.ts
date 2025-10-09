@@ -1,3 +1,5 @@
+export * from './addresses.service';
+import { AddressesService } from './addresses.service';
 export * from './locations.service';
 import { LocationsService } from './locations.service';
 export * from './reservations.service';
@@ -6,4 +8,4 @@ export * from './resources.service';
 import { ResourcesService } from './resources.service';
 export * from './users.service';
 import { UsersService } from './users.service';
-export const APIS = [LocationsService, ReservationsService, ResourcesService, UsersService];
+export const APIS = [AddressesService, LocationsService, ReservationsService, ResourcesService, UsersService];

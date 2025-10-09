@@ -1,0 +1,10 @@
+@use '../../../../assets/styles/_theme.scss' as *;
+
+.field {
+  width: 100%;
+
+  .mat-icon.mat-prefix {
+    color: $green-secondary;
+    margin-right: 4px;
+  }
+}

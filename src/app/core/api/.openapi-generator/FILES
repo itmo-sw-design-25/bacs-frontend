@@ -32,6 +32,7 @@ models/updateUserRequest.ts
 models/userDto.ts
 models/userDtoPaginatedResponse.ts
 param.ts
+services/addresses.service.ts
 services/api.ts
 services/locations.service.ts
 services/reservations.service.ts
