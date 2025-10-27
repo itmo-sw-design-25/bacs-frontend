@@ -20,6 +20,7 @@
       </a>
       <a routerLink="/reservations" routerLinkActive="active">Резервации</a>
       <a *ngIf="isAdmin | async" routerLink="/admin" routerLinkActive="active">Админка</a>
+      <a *ngIf="isAdmin | async" routerLink="/reports" routerLinkActive="active">Отчёты</a>
     </nav>
 
     <bacs-user-profile *ngIf="isAuthenticated"></bacs-user-profile>

@@ -3,6 +3,7 @@ export * from './createLocationRequest';
 export * from './createReservationRequest';
 export * from './createResourceRequest';
 export * from './getLocationsRequest';
+export * from './getReservationsReportRequest';
 export * from './getReservationsRequest';
 export * from './getResourcesRequest';
 export * from './getUsersRequest';

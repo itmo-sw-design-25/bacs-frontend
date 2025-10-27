@@ -1,0 +1,132 @@
+<div class="page">
+  <div class="page-head">
+    <h1 class="page-title">Отчёты</h1>
+  </div>
+
+  <form class="reports-form" [formGroup]="form">
+    <!-- Тип отчёта -->
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Тип отчёта</mat-label>
+      <mat-icon matPrefix>assignment</mat-icon>
+      <mat-select formControlName="report">
+        <mat-option *ngFor="let r of reports" [value]="r.id">
+          {{ r.title }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Локация -->
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Локация</mat-label>
+      <mat-icon matPrefix>place</mat-icon>
+      <mat-select
+        formControlName="locationId"
+        (openedChange)="loadLocationsOnOpen($event)"
+        (scroll)="onLocationsScroll()"
+        [panelClass]="'mat-select-panel'"
+      >
+        <mat-option *ngFor="let l of locations" [value]="l.id">
+          {{ l.name }}
+        </mat-option>
+        <mat-progress-bar *ngIf="locationsLoading" mode="indeterminate"></mat-progress-bar>
+      </mat-select>
+      <button
+        *ngIf="form.get('locationId')?.value"
+        mat-icon-button
+        matSuffix
+        aria-label="Очистить локацию"
+        (click)="clearLocation($event)">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <!-- Ресурс -->
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Ресурс</mat-label>
+      <mat-icon matPrefix>widgets</mat-icon>
+      <mat-select
+        formControlName="resourceId"
+        (openedChange)="loadResourcesOnOpen($event)"
+        (scroll)="onResourcesScroll()"
+        [panelClass]="'mat-select-panel'"
+      >
+        <mat-option *ngFor="let r of resources" [value]="r.id">
+          {{ r.name }}
+        </mat-option>
+        <mat-progress-bar *ngIf="resourcesLoading" mode="indeterminate"></mat-progress-bar>
+      </mat-select>
+      <button
+        *ngIf="form.get('resourceId')?.value"
+        mat-icon-button
+        matSuffix
+        aria-label="Очистить ресурс"
+        (click)="clearResource($event)">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <!-- Пользователь -->
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Пользователь</mat-label>
+      <mat-icon matPrefix>person</mat-icon>
+      <mat-select
+        formControlName="userId"
+        (openedChange)="loadUsersOnOpen($event)"
+        (scroll)="onUsersScroll()"
+        [panelClass]="'mat-select-panel'"
+      >
+        <mat-option *ngFor="let u of users" [value]="u.id">
+          {{ u.name }}
+        </mat-option>
+        <mat-progress-bar *ngIf="usersLoading" mode="indeterminate"></mat-progress-bar>
+      </mat-select>
+      <button
+        *ngIf="form.get('userId')?.value"
+        mat-icon-button
+        matSuffix
+        aria-label="Очистить пользователя"
+        (click)="clearUser($event)">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <!-- Период: С -->
+    <div style="display: flex; gap: 16px;">
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Дата начала периода</mat-label>
+        <mat-icon matPrefix>calendar_today</mat-icon>
+        <input matInput [matDatepicker]="fromPicker" formControlName="from" placeholder="Дата начала" />
+        <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+        <mat-datepicker #fromPicker></mat-datepicker>
+      </mat-form-field>
+
+      <!-- Период: По -->
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Дата окончания периода</mat-label>
+        <mat-icon matPrefix>calendar_today</mat-icon>
+        <input matInput [matDatepicker]="toPicker" formControlName="to" placeholder="Дата конца" />
+        <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+        <mat-datepicker #toPicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <!-- Краткое описание выбранного отчёта -->
+    <div class="report-hint" *ngFor="let r of reports">
+      <ng-container *ngIf="form.value.report === r.id">
+        <mat-icon>info</mat-icon>
+        <span>{{ r.description }}</span>
+      </ng-container>
+    </div>
+
+    <!-- Кнопка -->
+    <button mat-flat-button color="primary"
+            class="submit-button"
+            [disabled]="form.invalid || loading"
+            (click)="onGenerate()">
+      <mat-icon>download</mat-icon>
+      Сформировать отчёт
+    </button>
+
+    <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+  </form>
+</div>

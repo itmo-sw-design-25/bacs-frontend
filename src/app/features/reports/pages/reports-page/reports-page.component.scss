@@ -1,0 +1,45 @@
+@use '../../../../../assets/styles/theme' as *;
+
+.reports-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .field {
+    width: 100%;
+
+    .mat-icon.mat-prefix {
+      color: $green-secondary;
+      margin-right: 4px;
+    }
+  }
+
+  .time-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .report-hint {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    color: $text-extra;
+
+    .mat-icon {
+      color: $green-secondary;
+    }
+  }
+
+  .submit-button {
+    align-self: flex-start;
+    text-transform: none;
+    min-width: 220px;
+  }
+}
+
+
+/* Скрыть служебные подписи mat, как у предыдущего компонента */
+::ng-deep .mat-mdc-form-field-subscript-wrapper {
+  display: none !important;
+}

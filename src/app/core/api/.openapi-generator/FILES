@@ -11,6 +11,7 @@ models/createLocationRequest.ts
 models/createReservationRequest.ts
 models/createResourceRequest.ts
 models/getLocationsRequest.ts
+models/getReservationsReportRequest.ts
 models/getReservationsRequest.ts
 models/getResourcesRequest.ts
 models/getUsersRequest.ts
@@ -35,6 +36,7 @@ param.ts
 services/addresses.service.ts
 services/api.ts
 services/locations.service.ts
+services/reports.service.ts
 services/reservations.service.ts
 services/resources.service.ts
 services/users.service.ts

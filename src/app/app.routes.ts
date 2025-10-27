@@ -41,6 +41,15 @@ export const appRoutes: Routes = [
         (m) => m.LocationEditPageComponent
       )
   },
+  {
+    path: 'reports',
+    loadComponent: () =>
+      import('@features/reports/pages/reports-page/reports-page.component').then(
+        (m) => m.ReportsPageComponent
+      ),
+    canActivate: [roleGuard],
+    data: { roles: ['admin', 'bacs-super-admin'] }
+  },
   { path: '', redirectTo: 'locations', pathMatch: 'full' },
   { path: '**', redirectTo: 'locations' }
 ];
