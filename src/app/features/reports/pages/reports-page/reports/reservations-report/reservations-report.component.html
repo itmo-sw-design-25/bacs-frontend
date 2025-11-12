@@ -47,16 +47,18 @@
       <mat-option *ngFor="let r of resources; trackBy: trackById" [value]="r.id">
         {{ r.name }}
       </mat-option>
-      <mat-option *ngIf="resourcesHasMore" class="load-more-option">
-        <button
-          (click)="loadMoreResources(); $event.stopPropagation()"
-          class="load-more-button"
-          color="primary"
-          mat-button
-        >
-          {{ resourcesLoading ? 'Загрузка...' : 'Загрузить ещё' }}
-        </button>
-      </mat-option>
+      <div class="load-more-button-wrapper">
+        <mat-option *ngIf="resourcesHasMore" class="load-more-option">
+          <button
+            (click)="loadMoreResources(); $event.stopPropagation()"
+            class="load-more-button"
+            color="primary"
+            mat-button
+          >
+            {{ resourcesLoading ? 'Загрузка...' : 'Загрузить ещё' }}
+          </button>
+        </mat-option>
+      </div>
     </mat-select>
     <button
       (click)="clearResource($event)"
@@ -80,16 +82,18 @@
       <mat-option *ngFor="let u of users; trackBy: trackById" [value]="u.id">
         {{ u.name }}
       </mat-option>
-      <mat-option *ngIf="usersHasMore" class="load-more-option">
-        <button
-          (click)="loadMoreUsers(); $event.stopPropagation()"
-          class="load-more-button"
-          color="primary"
-          mat-button
-        >
-          {{ usersLoading ? 'Загрузка...' : 'Загрузить ещё' }}
-        </button>
-      </mat-option>
+      <div class="load-more-button-wrapper">
+        <mat-option *ngIf="usersHasMore" class="load-more-option">
+          <button
+            (click)="loadMoreUsers(); $event.stopPropagation()"
+            class="load-more-button"
+            color="primary"
+            mat-button
+          >
+            {{ usersLoading ? 'Загрузка...' : 'Загрузить ещё' }}
+          </button>
+        </mat-option>
+      </div>
     </mat-select>
     <button
       (click)="clearUser($event)"
