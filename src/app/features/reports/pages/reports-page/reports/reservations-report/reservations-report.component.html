@@ -1,0 +1,132 @@
+<div [formGroup]="form" class="reservations-report-form">
+  <!-- Локация -->
+  <mat-form-field
+    (click)="loadLocationsOnOpen()"
+    appearance="outline"
+    class="field"
+  >
+    <mat-label>Локация</mat-label>
+    <mat-icon matPrefix>place</mat-icon>
+    <mat-select formControlName="locationId">
+      <mat-option *ngFor="let l of locations; trackBy: trackById" [value]="l.id">
+        {{ l.name }}
+      </mat-option>
+      <div class="load-more-button-wrapper">
+        <mat-option *ngIf="locationsHasMore" class="load-more-option">
+          <button
+            (click)="loadMoreLocations(); $event.stopPropagation()"
+            class="load-more-button"
+            color="primary"
+            mat-button
+          >
+            {{ locationsLoading ? 'Загрузка...' : 'Загрузить ещё' }}
+          </button>
+        </mat-option>
+      </div>
+    </mat-select>
+    <button
+      (click)="clearLocation($event)"
+      *ngIf="form.get('locationId')?.value"
+      aria-label="Очистить локацию"
+      mat-icon-button
+      matSuffix
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <!-- Ресурс -->
+  <mat-form-field
+    (click)="loadResourcesOnOpen()"
+    appearance="outline"
+    class="field"
+  >
+    <mat-label>Ресурс</mat-label>
+    <mat-icon matPrefix>widgets</mat-icon>
+    <mat-select formControlName="resourceId">
+      <mat-option *ngFor="let r of resources; trackBy: trackById" [value]="r.id">
+        {{ r.name }}
+      </mat-option>
+      <mat-option *ngIf="resourcesHasMore" class="load-more-option">
+        <button
+          (click)="loadMoreResources(); $event.stopPropagation()"
+          class="load-more-button"
+          color="primary"
+          mat-button
+        >
+          {{ resourcesLoading ? 'Загрузка...' : 'Загрузить ещё' }}
+        </button>
+      </mat-option>
+    </mat-select>
+    <button
+      (click)="clearResource($event)"
+      *ngIf="form.get('resourceId')?.value"
+      aria-label="Очистить ресурс"
+      mat-icon-button
+      matSuffix>
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <!-- Пользователь -->
+  <mat-form-field
+    (click)="loadUsersOnOpen()"
+    appearance="outline"
+    class="field"
+  >
+    <mat-label>Пользователь</mat-label>
+    <mat-icon matPrefix>person</mat-icon>
+    <mat-select formControlName="userId">
+      <mat-option *ngFor="let u of users; trackBy: trackById" [value]="u.id">
+        {{ u.name }}
+      </mat-option>
+      <mat-option *ngIf="usersHasMore" class="load-more-option">
+        <button
+          (click)="loadMoreUsers(); $event.stopPropagation()"
+          class="load-more-button"
+          color="primary"
+          mat-button
+        >
+          {{ usersLoading ? 'Загрузка...' : 'Загрузить ещё' }}
+        </button>
+      </mat-option>
+    </mat-select>
+    <button
+      (click)="clearUser($event)"
+      *ngIf="form.get('userId')?.value"
+      aria-label="Очистить пользователя"
+      mat-icon-button
+      matSuffix>
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <!-- Период -->
+  <div class="date-row">
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Дата начала периода</mat-label>
+      <mat-icon matPrefix>calendar_today</mat-icon>
+      <input
+        [matDatepicker]="fromPicker"
+        formControlName="from"
+        matInput
+        placeholder="Дата начала"
+      />
+      <mat-datepicker-toggle [for]="fromPicker" matSuffix></mat-datepicker-toggle>
+      <mat-datepicker #fromPicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Дата окончания периода</mat-label>
+      <mat-icon matPrefix>calendar_today</mat-icon>
+      <input
+        [matDatepicker]="toPicker"
+        formControlName="to"
+        matInput
+        placeholder="Дата конца"
+      />
+      <mat-datepicker-toggle [for]="toPicker" matSuffix></mat-datepicker-toggle>
+      <mat-datepicker #toPicker></mat-datepicker>
+    </mat-form-field>
+  </div>
+</div>

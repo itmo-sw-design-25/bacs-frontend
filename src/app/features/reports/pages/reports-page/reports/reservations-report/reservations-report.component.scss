@@ -1,0 +1,47 @@
+.reservations-report-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .field {
+    width: 100%;
+  }
+
+  .date-row {
+    display: flex;
+    gap: 16px;
+
+    .field {
+      flex: 1 1 0;
+      min-width: 0;
+    }
+  }
+}
+
+::ng-deep {
+  .mat-mdc-select-panel {
+    max-height: 320px !important;
+  }
+
+  .load-more-option {
+    text-align: center;
+    padding: 0 !important;
+
+    .mat-mdc-option-pseudo-checkbox {
+      display: none;
+    }
+  }
+}
+
+.load-more-button {
+  width: 100%;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.load-more-button-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
