@@ -44,4 +44,8 @@ export class HeaderComponent {
   get isAdmin() {
     return this.currentUser.isAdmin();
   }
+
+  get isSuperAdmin() {
+    return this.currentUser.isSuperAdmin;
+  }
 }
