@@ -21,6 +21,8 @@ import { CreateReservationRequest } from '../models/createReservationRequest';
 // @ts-ignore
 import { ProblemDetails } from '../models/problemDetails';
 // @ts-ignore
+import { RejectReservationRequest } from '../models/rejectReservationRequest';
+// @ts-ignore
 import { ReservationDto } from '../models/reservationDto';
 // @ts-ignore
 import { ReservationDtoPaginatedResponse } from '../models/reservationDtoPaginatedResponse';
@@ -215,6 +217,64 @@ export class ReservationsService extends BaseService {
     }
 
     /**
+     * Подтвердить резервацию.
+     * @param reservationId ID резервации.
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public reservationsReservationIdApprovePut(reservationId: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json' | 'application/problem+json', context?: HttpContext, transferCache?: boolean}): Observable<ReservationDto>;
+    public reservationsReservationIdApprovePut(reservationId: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json' | 'application/problem+json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<ReservationDto>>;
+    public reservationsReservationIdApprovePut(reservationId: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json' | 'application/problem+json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<ReservationDto>>;
+    public reservationsReservationIdApprovePut(reservationId: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json' | 'application/problem+json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (reservationId === null || reservationId === undefined) {
+            throw new Error('Required parameter reservationId was null or undefined when calling reservationsReservationIdApprovePut.');
+        }
+
+        let localVarHeaders = this.defaultHeaders;
+
+        // authentication (Keycloak) required
+        localVarHeaders = this.configuration.addCredentialToHeaders('Keycloak', 'Authorization', localVarHeaders, 'Bearer ');
+
+        const localVarHttpHeaderAcceptSelected: string | undefined = options?.httpHeaderAccept ?? this.configuration.selectHeaderAccept([
+            'application/json',
+            'application/problem+json'
+        ]);
+        if (localVarHttpHeaderAcceptSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        }
+
+        const localVarHttpContext: HttpContext = options?.context ?? new HttpContext();
+
+        const localVarTransferCache: boolean = options?.transferCache ?? true;
+
+
+        let responseType_: 'text' | 'json' | 'blob' = 'json';
+        if (localVarHttpHeaderAcceptSelected) {
+            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+                responseType_ = 'text';
+            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+                responseType_ = 'json';
+            } else {
+                responseType_ = 'blob';
+            }
+        }
+
+        let localVarPath = `/reservations/${this.configuration.encodeParam({name: "reservationId", value: reservationId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: "uuid"})}/Approve`;
+        const { basePath, withCredentials } = this.configuration;
+        return this.httpClient.request<ReservationDto>('put', `${basePath}${localVarPath}`,
+            {
+                context: localVarHttpContext,
+                responseType: <any>responseType_,
+                ...(withCredentials ? { withCredentials } : {}),
+                headers: localVarHeaders,
+                observe: observe,
+                transferCache: localVarTransferCache,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Отменить резервацию.
      * @param reservationId ID резервации.
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -388,6 +448,75 @@ export class ReservationsService extends BaseService {
             {
                 context: localVarHttpContext,
                 body: updateReservationRequest,
+                responseType: <any>responseType_,
+                ...(withCredentials ? { withCredentials } : {}),
+                headers: localVarHeaders,
+                observe: observe,
+                transferCache: localVarTransferCache,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Отклонить резервацию.
+     * @param reservationId ID резервации.
+     * @param rejectReservationRequest 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public reservationsReservationIdRejectPut(reservationId: string, rejectReservationRequest?: RejectReservationRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json' | 'application/problem+json', context?: HttpContext, transferCache?: boolean}): Observable<ReservationDto>;
+    public reservationsReservationIdRejectPut(reservationId: string, rejectReservationRequest?: RejectReservationRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json' | 'application/problem+json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<ReservationDto>>;
+    public reservationsReservationIdRejectPut(reservationId: string, rejectReservationRequest?: RejectReservationRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json' | 'application/problem+json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<ReservationDto>>;
+    public reservationsReservationIdRejectPut(reservationId: string, rejectReservationRequest?: RejectReservationRequest, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json' | 'application/problem+json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (reservationId === null || reservationId === undefined) {
+            throw new Error('Required parameter reservationId was null or undefined when calling reservationsReservationIdRejectPut.');
+        }
+
+        let localVarHeaders = this.defaultHeaders;
+
+        // authentication (Keycloak) required
+        localVarHeaders = this.configuration.addCredentialToHeaders('Keycloak', 'Authorization', localVarHeaders, 'Bearer ');
+
+        const localVarHttpHeaderAcceptSelected: string | undefined = options?.httpHeaderAccept ?? this.configuration.selectHeaderAccept([
+            'application/json',
+            'application/problem+json'
+        ]);
+        if (localVarHttpHeaderAcceptSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        }
+
+        const localVarHttpContext: HttpContext = options?.context ?? new HttpContext();
+
+        const localVarTransferCache: boolean = options?.transferCache ?? true;
+
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+        }
+
+        let responseType_: 'text' | 'json' | 'blob' = 'json';
+        if (localVarHttpHeaderAcceptSelected) {
+            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+                responseType_ = 'text';
+            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+                responseType_ = 'json';
+            } else {
+                responseType_ = 'blob';
+            }
+        }
+
+        let localVarPath = `/reservations/${this.configuration.encodeParam({name: "reservationId", value: reservationId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: "uuid"})}/Reject`;
+        const { basePath, withCredentials } = this.configuration;
+        return this.httpClient.request<ReservationDto>('put', `${basePath}${localVarPath}`,
+            {
+                context: localVarHttpContext,
+                body: rejectReservationRequest,
                 responseType: <any>responseType_,
                 ...(withCredentials ? { withCredentials } : {}),
                 headers: localVarHeaders,

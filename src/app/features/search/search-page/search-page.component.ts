@@ -137,7 +137,7 @@ export class SearchPageComponent implements OnInit {
         [],
         [this.locationId],
         resourceIds ?? [],
-        [ReservationStatus.Created],
+        [ReservationStatus.Created, ReservationStatus.Accepted, ReservationStatus.PendingApproval],
         from.toISOString(),
         to.toISOString(),
         0,

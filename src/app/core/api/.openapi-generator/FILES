@@ -19,6 +19,7 @@ models/locationDto.ts
 models/locationDtoPaginatedResponse.ts
 models/models.ts
 models/problemDetails.ts
+models/rejectReservationRequest.ts
 models/reservationDto.ts
 models/reservationDtoPaginatedResponse.ts
 models/reservationStatus.ts

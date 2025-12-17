@@ -11,6 +11,8 @@
 
 export const ReservationStatus = {
     Created: 'Created',
+    PendingApproval: 'PendingApproval',
+    Accepted: 'Accepted',
     Cancelled: 'Cancelled'
 } as const;
 export type ReservationStatus = typeof ReservationStatus[keyof typeof ReservationStatus];

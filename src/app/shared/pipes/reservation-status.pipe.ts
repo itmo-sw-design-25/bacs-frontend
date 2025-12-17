@@ -9,7 +9,11 @@ export class ReservationStatusPipe implements PipeTransform {
   transform(value: ReservationStatus): string {
     switch (value) {
       case 'Created':
-        return 'Активна';
+        return 'Создана';
+      case 'Accepted':
+        return 'Принята';
+      case 'PendingApproval':
+        return 'Ожидает подтверждения';
       case 'Cancelled':
         return 'Отменена';
     }

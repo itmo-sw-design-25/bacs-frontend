@@ -10,6 +10,7 @@ export * from './getUsersRequest';
 export * from './locationDto';
 export * from './locationDtoPaginatedResponse';
 export * from './problemDetails';
+export * from './rejectReservationRequest';
 export * from './reservationDto';
 export * from './reservationDtoPaginatedResponse';
 export * from './reservationStatus';
